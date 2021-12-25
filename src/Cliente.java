@@ -35,4 +35,23 @@ public class Cliente {
     public void setEquip_list(List<Equipamento> equip_list) {
         this.equip_list = equip_list;
     }
+
+    public boolean pedeOrcamento(Equipamento e, Funcionario f){
+        boolean b=false;
+        f.recebePedidoOrcamento(this,e);
+        return b;
+    }
+
+    public boolean dadosValidos(){
+        return contacto.getEmail() != null && contacto.getTelemovel() != null;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente(" +
+                 + NIF +
+                ", " + contacto +
+                "," + equip_list.toString() +
+                '}';
+    }
 }

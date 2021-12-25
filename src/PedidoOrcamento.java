@@ -9,6 +9,15 @@ public class PedidoOrcamento {
         funcionario = f;
     }
 
+    @Override
+    public String toString() {
+        return "PedidoOrcamento{" +
+                cliente.getContacto().getEmail() +
+                ", " + equipamento.getCod_registo() +
+                ", " + funcionario.getId() +
+                '}';
+    }
+
     public PedidoOrcamento clone(){
         return new PedidoOrcamento(cliente,equipamento, funcionario);
     }
