@@ -16,16 +16,18 @@ public class Main {
         Equipamento e4 = new Equipamento("equipamento4");
 
         Estatisticas estatisticas = new Estatisticas();
-        Funcionario f = new Funcionario(1,estatisticas);
+        Funcionario f = new Funcionario(1);
 
-        cliente1.pedeOrcamento(e1,f);
-        cliente2.pedeOrcamento(e2,f);
-        cliente3.pedeOrcamento(e3,f);
-        cliente4.pedeOrcamento(e4,f);
+        cliente1.pedeOrcamento(e1,f,false);
+        cliente2.pedeOrcamento(e2,f,false);
+        cliente3.pedeOrcamento(e3,f,true);
+        cliente4.pedeOrcamento(e4,f,true);
 
         for(PedidoOrcamento po:f.estat.getListPedOrc()){
             System.out.println(po.toString());
         }
+
+        f.printArmazem();
 
 
     }

@@ -36,9 +36,9 @@ public class Cliente {
         this.equip_list = equip_list;
     }
 
-    public boolean pedeOrcamento(Equipamento e, Funcionario f){
+    public boolean pedeOrcamento(Equipamento e, Funcionario f, boolean expresso){
         boolean b=false;
-        f.recebePedidoOrcamento(this,e);
+        f.recebePedidoOrcamento(this,e, expresso);
         return b;
     }
 

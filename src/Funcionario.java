@@ -1,12 +1,13 @@
+import java.util.Arrays;
 import java.util.List;
 
 public class Funcionario {
+    static Armazem armazem = new Armazem();
+    static Estatisticas estat = new Estatisticas();
     private int id;
-    Estatisticas estat;
 
-    public Funcionario(int id, Estatisticas estatisticas){
+    public Funcionario(int id){
         this.id = id;
-        this.estat = estatisticas;
     }
 
     public int getId() {
@@ -17,16 +18,27 @@ public class Funcionario {
         this.id = id;
     }
 
-    void recebePedidoOrcamento(Cliente c, Equipamento e){
-        regPedidoOrcamento(c,e);
+    void recebePedidoOrcamento(Cliente c, Equipamento e, boolean expresso){
+        PedidoOrcamento po = new PedidoOrcamento(c,e,this,expresso );
+        regPedidoOrcamento(po);
     }
 
-    void regPedidoOrcamento(Cliente c,Equipamento e){
-        if(c.dadosValidos()) {
-            PedidoOrcamento po = new PedidoOrcamento(c, e, this);
-            estat.addPedOrc(po); //nao sei bem a melhoor forma de adicionar as estatistica
+    void regPedidoOrcamento(PedidoOrcamento po){
+        if(po.getCliente().dadosValidos()) {
+            if(po.isExpresso())
+                armazem.addExpresso(po); //registoExpresso
+            else
+                armazem.addPorFazer(po);//registoNormal
+
+            estat.addPedOrc(po.clone());
         }
     }
-    void regServicoExpresso(){}
+
+    void printArmazem(){
+        System.out.println("Pedidos por Fazer: "+ armazem.porFazer.toString());
+        System.out.println("Expressos: "+ armazem.expressos.toString());
+        System.out.println("Orçamentos: "+ armazem.orcamentos.toString());
+    }
+
 }
 
