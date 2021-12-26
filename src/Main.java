@@ -23,8 +23,18 @@ public class Main {
         cliente3.pedeOrcamento(e3,f,true);
         cliente4.pedeOrcamento(e4,f,true);
 
-        for(PedidoOrcamento po:f.estat.getListPedOrc()){
-            System.out.println(po.toString());
+
+
+        for(Equipamento e: cliente1.getEquip_list()){
+            System.out.println(e);
+        }
+
+        System.out.println("Deu");
+
+
+
+        for(Equipamento e: cliente1.getEquip_list()){
+            System.out.println(e);
         }
 
         f.printArmazem();

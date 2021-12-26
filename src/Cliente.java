@@ -38,12 +38,18 @@ public class Cliente {
 
     public boolean pedeOrcamento(Equipamento e, Funcionario f, boolean expresso){
         boolean b=false;
+        this.equip_list.add(e);
         f.recebePedidoOrcamento(this,e, expresso);
         return b;
     }
 
     public boolean dadosValidos(){
         return contacto.getEmail() != null && contacto.getTelemovel() != null;
+    }
+
+
+    public void recolherEquipamento(String cod_registo){
+        equip_list.removeIf(e -> e.getCod_registo().equals(cod_registo));
     }
 
     @Override
