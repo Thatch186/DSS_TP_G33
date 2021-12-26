@@ -3,10 +3,6 @@ import java.util.List;
 
 public class Tecnico {
     private String id;
-    //Apagar estes dois fields(queue) para simplificar cena de ver quem esta disponivel.
-    private List<String> idPorRealizar;
-    private List<String> idExpressos;
-
     private String aReparar; // Id de Orçamento cujo equipamento está a ser reparado
     private List<String> idRealizados; // Id de Orçamento realizados pelo tecnico
     private List<String> idReparados; // Id de Orçamento cujo equipamento foi reparado
@@ -14,25 +10,24 @@ public class Tecnico {
     /*
      CONSTUCTORS
      */
-
     public Tecnico(String id){
         this.id=id;
-        this.idPorRealizar = new ArrayList<>();
-        this.idExpressos = new ArrayList<>();
+        this.aReparar = null;
         this.idRealizados = new ArrayList<>();
+        this.idReparados = new ArrayList<>();
 
     }
-    public Tecnico(String id, List<String> ipr, List<String> ie, List<String> ir){
+    public Tecnico(String id, String aReparar, List<String> irea, List<String> irep){
         this.id = id;
-        this.idPorRealizar = new ArrayList<>(ipr);
-        this.idExpressos = new ArrayList<>(ie);
-        this.idRealizados = new ArrayList<>(ir);
+        this.aReparar = aReparar;
+        this.idRealizados = new ArrayList<>(irea);
+        this.idReparados = new ArrayList<>(irep);
     }
     public Tecnico(Tecnico outro){
         this.id = outro.getId();
-        this.idPorRealizar = outro.getIdPorRealizar();
-        this.idExpressos = outro.getIdExpressos();
+        this.aReparar = outro.getaReparar();
         this.idRealizados = outro.getIdRealizados();
+        this.idReparados = outro.getIdReparados();
     }
 
     /*
@@ -44,19 +39,13 @@ public class Tecnico {
     public void setId(String id) {
         this.id = id;
     }
-    public List<String> getIdPorRealizar() {
-        return new ArrayList<>(this.idPorRealizar);
-    }
-    public void setIdPorRealizar(List<String> idPorRealizar) {
-        this.idPorRealizar = new ArrayList<>(idPorRealizar);
+
+    public String getaReparar() {
+        return aReparar;
     }
 
-    public List<String> getIdExpressos() {
-        return new ArrayList<>(idExpressos);
-    }
-
-    public void setIdExpressos(List<String> idExpressos) {
-        this.idExpressos = new ArrayList<>(idExpressos);
+    public void setaReparar(String aReparar) {
+        this.aReparar = aReparar;
     }
 
     public List<String> getIdRealizados() {
@@ -65,7 +54,12 @@ public class Tecnico {
     public void setIdRealizados(List<String> idRealizados) {
         this.idRealizados = new ArrayList<>(idRealizados);
     }
-
+    public List<String> getIdReparados() {
+        return new ArrayList<>(this.idReparados);
+    }
+    public void setIdReparados(List<String> idReparados) {
+        this.idReparados = new ArrayList<>(idReparados);
+    }
     /*
     EQUALS
      */
@@ -80,8 +74,8 @@ public class Tecnico {
         Tecnico tec = (Tecnico) o;
         return (this.id.equals(tec.getId()) &&
                 this.idRealizados.equals(tec.getIdRealizados()) &&
-                this.idExpressos.equals(tec.getIdExpressos()) &&
-                this.idPorRealizar.equals(tec.getIdPorRealizar()));
+                this.idReparados.equals(tec.getIdReparados()) &&
+                this.aReparar.equals(tec.getaReparar()));
     }
     /*
     CLONE
