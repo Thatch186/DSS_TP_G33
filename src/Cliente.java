@@ -61,6 +61,12 @@ public class Cliente {
     METHODS
      */
 
+    boolean addEquipamento(String idE){
+        if(codigosEquipamento.contains(idE)) return false;
+        codigosEquipamento.add(idE);
+        return true;
+    }
+
     public boolean dadosValidos(){
         return contacto.getEmail() != null && contacto.getTelemovel() != null;
     }
@@ -81,6 +87,7 @@ public class Cliente {
                 this.codigosEquipamento.equals(c.getCodigosEquipamento()) &&
                 this.contacto.equals(c.getContacto()));
     }
+
     /*
     CLONE
      */

@@ -53,6 +53,21 @@ public class Funcionario {
     public void setIdEntregas(List<String> idEntregas) {
         this.idEntregas = new ArrayList<>(idEntregas);
     }
+    /*
+    METHODS
+     */
+    boolean addAtendimento(String idE){
+        if(idAtendimentos.contains(idE)) return false;
+        idAtendimentos.add(idE);
+        return true;
+    }
+
+    boolean addEntrega(String idE){
+        if(idEntregas.contains(idE)) return false;
+        idEntregas.add(idE);
+        return true;
+    }
+
 
     /*
     EQUALS

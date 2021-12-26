@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -9,7 +10,8 @@ public class Armazem {
     private Map<String,Tecnico> tecnicos;
     private Map<String,PedidoOrcamento> porFazer;
     private Map<String,PedidoOrcamento> expressos;
-    private Map<String, Orcamento> realizados;
+    private Map<String,Orcamento> orcamentosPorEntregar;
+    private Map<String, Orcamento> orcamentosEntregues;
     private Estatisticas estat;
     private Gestor gestor;
 
@@ -20,7 +22,8 @@ public class Armazem {
         tecnicos = new HashMap<>();
         porFazer = new HashMap<>();
         expressos = new HashMap<>();
-        realizados = new HashMap<>();
+        orcamentosPorEntregar = new HashMap<>();
+        orcamentosEntregues = new HashMap<>();
     }
 
     void initArmazem(){
@@ -73,7 +76,8 @@ public class Armazem {
 
     public boolean pedeOrcamento(String cliente, String equipamento, String funcionario, boolean expresso){
         PedidoOrcamento po = new PedidoOrcamento(cliente,equipamento,funcionario,expresso);
-        return regPedidoOrcamento(po);
+        if (!regPedidoOrcamento(po)) return false;
+        return clientes.get(cliente).addEquipamento(equipamento);
     }
 
     boolean regPedidoOrcamento(PedidoOrcamento po){
@@ -84,8 +88,7 @@ public class Armazem {
             else
                 porFazer.put(po.getEquipamento(),po);//registoNormal
 
-            estat.addPedOrc(po);
-            return true;
+            return funcionarios.get(po.getFuncionario()).addAtendimento(po.getEquipamento());
         }
         return false;
     }
@@ -141,6 +144,20 @@ public class Armazem {
         tecnicos.remove(idT);
         return true;
     }
+
+    boolean registarEquipamentoEntregue(String idEquip, String nifC , LocalDate dataEntrega){
+        if(orcamentosEntregues.containsKey(idEquip)) return false;
+        if(orcamentosPorEntregar.containsKey(idEquip)) {
+            orcamentosEntregues.put(idEquip, orcamentosEntregues.get(idEquip));
+            orcamentosPorEntregar.remove(idEquip);
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 
 
 
