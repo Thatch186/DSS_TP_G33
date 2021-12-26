@@ -4,26 +4,26 @@ public class PedidoOrcamento {
     private String idEquipamento;
     private String idFuncionario;
 
-    public PedidoOrcamento(Cliente c, Equipamento e, Funcionario f, boolean expresso){
-        cliente = c;
-        equipamento = e;
-        funcionario = f;
+    public PedidoOrcamento(String c, String e, String f, boolean expresso){
+        nifCliente = c;
+        idEquipamento = e;
+        idFuncionario = f;
         this.expresso = expresso;
     }
 
     public PedidoOrcamento(PedidoOrcamento po){
-        this.cliente = po.cliente;
+        this.nifCliente = po.nifCliente;
         this.expresso = po.expresso;
-        this.equipamento = po.equipamento;
-        this.funcionario = po.funcionario;
+        this.idEquipamento = po.idEquipamento;
+        this.idEquipamento = po.idFuncionario;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getNifCliente() {
+        return nifCliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(String cliente) {
+        this.nifCliente = cliente;
     }
 
     public boolean isExpresso() {
@@ -34,38 +34,25 @@ public class PedidoOrcamento {
         this.expresso = expresso;
     }
 
-    public Equipamento getEquipamento() {
-        return equipamento;
+    public String getEquipamento() {
+        return idEquipamento;
     }
 
-    public void setEquipamento(Equipamento equipamento) {
-        this.equipamento = equipamento;
+    public void setEquipamento(String equipamento) {
+        this.idEquipamento = equipamento;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    public String getFuncionario() {
+        return idFuncionario;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setFuncionario(String funcionario) {
+        this.idFuncionario = funcionario;
     }
 
-    @Override
-    public String toString() {
-        if(expresso) return "Expresso <<" +
-                cliente.getContacto().getEmail() +
-                ", " + equipamento.getCod_registo() +
-                ", " + funcionario.getId() +
-                ">> ";
-        return "Pedido <<" +
-                cliente.getContacto().getEmail() +
-                ", " + equipamento.getCod_registo() +
-                ", " + funcionario.getId() +
-                ">> ";
-    }
 
     public PedidoOrcamento clone(){
-        return new PedidoOrcamento(cliente,equipamento, funcionario, expresso);
+        return new PedidoOrcamento(nifCliente,idEquipamento,idFuncionario, expresso);
 
     }
 }

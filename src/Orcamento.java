@@ -5,18 +5,18 @@ public class Orcamento {
     private Date prazoMax;
     private float custoTotal;
 
-    public Orcamento(PedidoOrcamento po, Date prazoMax, float custoTotal){
-        this.po = po;
+    public Orcamento(String idPedido, Date prazoMax, float custoTotal){
+        this.idPedido = idPedido;
         this.prazoMax=prazoMax;
         this.custoTotal=custoTotal;
     }
 
-    public PedidoOrcamento getPo() {
-        return po.clone();
+    public String getPo() {
+        return idPedido;
     }
 
-    public void setPo(PedidoOrcamento po) {
-        this.po = po;
+    public void setPo(String po) {
+        this.idPedido = po;
     }
 
     public Date getPrazoMax() {
@@ -36,7 +36,7 @@ public class Orcamento {
     }
 
     public Orcamento clone(){
-        return new Orcamento(po,prazoMax, custoTotal);
+        return new Orcamento(idPedido,prazoMax, custoTotal);
     }
 
 

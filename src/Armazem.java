@@ -23,7 +23,7 @@ public class Armazem {
         gestor = new Gestor();
     }
 
-        void initArmazem(){
+    void initArmazem(){
 
         Equipamento e1 = new Equipamento("equipamento1");
         Equipamento e2 = new Equipamento("equipamento2");
@@ -67,12 +67,7 @@ public class Armazem {
         tecnicos.put(t4.getId(),t4);
 
         Estatisticas estatisticas = new Estatisticas();
-
-
-
     }
-
-
     /*
     public boolean pedeOrcamento(Cliente c, Equipamento e, Funcionario f, boolean expresso){
         boolean b=false;
