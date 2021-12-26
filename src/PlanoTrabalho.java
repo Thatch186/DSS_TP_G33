@@ -76,6 +76,14 @@ public class PlanoTrabalho {
         return res;
     }
 
+    //Total de tempo que falta para concluir plano de trabalho
+    public float tempoPorConcluir(){
+        float res = 0;
+        for(Passo p : this.passos.subList(this.passosConcluidos,this.passos.size()))
+            res += p.getTempo();
+        return res;
+    }
+
     /*
     EQUALS
      */

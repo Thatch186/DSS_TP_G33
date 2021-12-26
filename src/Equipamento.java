@@ -17,7 +17,7 @@ public class Equipamento {
         this.codRegisto = outro.getCodRegisto();
         this.reparado = outro.isReparado();
     }
-    
+
     /*
     GETTERS e SETTERS
      */

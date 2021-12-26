@@ -5,7 +5,7 @@ import java.util.Date;
 public class Orcamento {
     private String idPedido; //Identificado pelo Pedido Orçamento
     private Date prazoMax;
-    private PlanoTrabalho planoTrabalho;
+    private PlanoTrabalho planoTrabalho; //Null se é expresso
 
     /*
     CONSTRUCTORS
