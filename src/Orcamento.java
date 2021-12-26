@@ -1,43 +1,71 @@
+import jdk.nashorn.internal.ir.LiteralNode;
+
 import java.util.Date;
 
 public class Orcamento {
     private String idPedido;
     private Date prazoMax;
-    private float custoTotal;
+    private PlanoTrabalho planoTrabalho;
 
-    public Orcamento(String idPedido, Date prazoMax, float custoTotal){
+    /*
+    CONSTRUCTORS
+     */
+    public Orcamento(String idPedido, Date prazoMax, PlanoTrabalho pt){
         this.idPedido = idPedido;
         this.prazoMax=prazoMax;
-        this.custoTotal=custoTotal;
+        this.planoTrabalho = pt;
+    }
+    public Orcamento(Orcamento outro){
+        this.idPedido = outro.getIdPedido();
+        this.prazoMax = outro.getPrazoMax();
+        this.planoTrabalho = outro.getPlanoTrabalho();
     }
 
-    public String getPo() {
+    /*
+    GETTERS e SETTERS
+     */
+    public String getIdPedido() {
         return idPedido;
     }
 
-    public void setPo(String po) {
-        this.idPedido = po;
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
     }
 
     public Date getPrazoMax() {
-        return prazoMax;
+        return (Date) prazoMax.clone();
     }
 
     public void setPrazoMax(Date prazoMax) {
-        this.prazoMax = prazoMax;
+        this.prazoMax = (Date) prazoMax.clone();
     }
-
-    public float getCustoTotal() {
-        return custoTotal;
+    public PlanoTrabalho getPlanoTrabalho(){
+        return this.planoTrabalho.clone();
     }
-
-    public void setCustoTotal(float custoTotal) {
-        this.custoTotal = custoTotal;
+    public void setPlanoTrabalho(PlanoTrabalho pt){
+        this.planoTrabalho = pt.clone();
     }
-
+    /*
+    EQUALS
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        Orcamento orc = (Orcamento) o;
+        return (this.idPedido.equals(orc.getIdPedido()) &&
+                this.prazoMax.equals(orc.getPrazoMax()) &&
+                this.planoTrabalho.equals(orc.getPlanoTrabalho()));
+    }
+    /*
+    CLONE
+     */
+    @Override
     public Orcamento clone(){
-        return new Orcamento(idPedido,prazoMax, custoTotal);
+        return new Orcamento(this);
     }
-
-
 }

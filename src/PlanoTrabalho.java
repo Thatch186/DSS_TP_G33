@@ -3,20 +3,17 @@ import java.util.List;
 
 public class PlanoTrabalho {
     private List<Passo> passos;
-    private Orcamento orcamento;
 
     /*
     CONSTRUCTORS
      */
-    public PlanoTrabalho(List<Passo> passos, Orcamento orcamento){
+    public PlanoTrabalho(List<Passo> passos){
         this.passos = new ArrayList<>();
         for(Passo p : passos)
             this.passos.add(p.clone());
-        this.orcamento = new Orcamento(orcamento);
     }
     public PlanoTrabalho(PlanoTrabalho pt){
         this.passos = pt.getPassos();
-        this.orcamento = pt.getOrcamento();
     }
     /*
     GETTERS e SETTERS
@@ -33,15 +30,6 @@ public class PlanoTrabalho {
         for(Passo p : passos)
             this.passos.add(p.clone());
     }
-
-    public Orcamento getOrcamento() {
-        return orcamento.clone();
-    }
-
-    public void setOrcamento(Orcamento orcamento) {
-        this.orcamento = orcamento.clone();
-    }
-
     /*
     EQUALS
      */
@@ -54,8 +42,7 @@ public class PlanoTrabalho {
         if (getClass() != o.getClass())
             return false;
         PlanoTrabalho pt = (PlanoTrabalho) o;
-        return (this.orcamento.equals(pt.getOrcamento()) &&
-                this.passos.equals(pt.getPassos()));
+        return (this.passos.equals(pt.getPassos()));
     }
     /*
     CLONE
