@@ -4,13 +4,15 @@ public class PedidoOrcamento {
     private String idEquipamento;
     private String idFuncionario;
 
+    /*
+    CONSTRUCTORS
+     */
     public PedidoOrcamento(String c, String e, String f, boolean expresso){
         nifCliente = c;
         idEquipamento = e;
         idFuncionario = f;
         this.expresso = expresso;
     }
-
     public PedidoOrcamento(PedidoOrcamento po){
         this.nifCliente = po.nifCliente;
         this.expresso = po.expresso;
@@ -18,6 +20,9 @@ public class PedidoOrcamento {
         this.idEquipamento = po.idFuncionario;
     }
 
+    /*
+    GETTERS e SETTERS
+     */
     public String getNifCliente() {
         return nifCliente;
     }
@@ -50,9 +55,27 @@ public class PedidoOrcamento {
         this.idFuncionario = funcionario;
     }
 
-
+    /*
+    EQUALS
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        PedidoOrcamento po = (PedidoOrcamento) o;
+        return (this.expresso == po.isExpresso() &&
+                this.nifCliente.equals(po.getNifCliente()) &&
+                this.idEquipamento.equals(po.getEquipamento()) &&
+                this.idFuncionario.equals(po.getFuncionario()));
+    }
+    /*
+    CLONE
+     */
     public PedidoOrcamento clone(){
-        return new PedidoOrcamento(nifCliente,idEquipamento,idFuncionario, expresso);
-
+        return new PedidoOrcamento(this);
     }
 }
