@@ -1,7 +1,7 @@
 public class PedidoOrcamento {
     private boolean expresso;
     private String nifCliente;
-    private String idEquipamento;
+    private String idEquipamento; //Identificado por idEquipamento
     private String idFuncionario;
 
     /*

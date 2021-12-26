@@ -3,7 +3,7 @@ import jdk.nashorn.internal.ir.LiteralNode;
 import java.util.Date;
 
 public class Orcamento {
-    private String idPedido;
+    private String idPedido; //Identificado pelo Pedido Orçamento
     private Date prazoMax;
     private PlanoTrabalho planoTrabalho;
 

@@ -3,9 +3,13 @@ import java.util.List;
 
 public class Tecnico {
     private String id;
+    //Apagar estes dois fields(queue) para simplificar cena de ver quem esta disponivel.
     private List<String> idPorRealizar;
     private List<String> idExpressos;
-    private List<String> idRealizados;
+
+    private String aReparar; // Id de Orçamento cujo equipamento está a ser reparado
+    private List<String> idRealizados; // Id de Orçamento realizados pelo tecnico
+    private List<String> idReparados; // Id de Orçamento cujo equipamento foi reparado
 
     /*
      CONSTUCTORS

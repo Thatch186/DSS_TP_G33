@@ -5,15 +5,31 @@ import java.util.Objects;
 
 public class Funcionario {
     private String id;
-    private List<String> idAtendimentos;
-    private List<String> idEntregas;
+    private List<String> idAtendimentos; //Ids de Equipamentos
+    private List<String> idEntregas; //Ids de Equipamentos
 
+    /*
+    Constructors
+     */
     public Funcionario(String id){
         this.id=id;
         idAtendimentos = new ArrayList<>();
         idEntregas = new ArrayList<>();
     }
+    public Funcionario(String id, List<String> idAtendimentos, List<String> idEntregas){
+        this.id = id;
+        this.idAtendimentos = new ArrayList<>(idAtendimentos);
+        this.idEntregas = new ArrayList<>(idEntregas);
+    }
+    public Funcionario(Funcionario o){
+        this.id = o.getId();
+        this.idAtendimentos = o.getIdAtendimentos();
+        this.idEntregas = o.getIdEntregas();
+    }
 
+    /*
+    GETTERS e SETTERS
+     */
     String getId(){
         return id;
     }
@@ -38,21 +54,28 @@ public class Funcionario {
         this.idEntregas = new ArrayList<>(idEntregas);
     }
 
+    /*
+    EQUALS
+     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Funcionario that = (Funcionario) o;
-        return Objects.equals(id, that.id) && sListsIguais(idAtendimentos ,that.idAtendimentos) && sListsIguais(idEntregas, that.idEntregas);
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        Funcionario f = (Funcionario) o;
+        return (this.id.equals(f.getId()) &&
+                this.idEntregas.equals(f.getIdEntregas()) &&
+                this.idAtendimentos.equals(f.getIdAtendimentos()));
     }
-
-    boolean sListsIguais(List<String> a, List<String>b){
-        if(a==b) return true;
-        for(int i=0; i<a.size(); i++)
-            if(!Objects.equals(a.get(i), b.get(i)))
-                return false;
-        return true;
+    /*
+    CLONE
+     */
+    @Override
+    public Funcionario clone(){
+        return new Funcionario(this);
     }
-
 }
 
