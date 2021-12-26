@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Armazem {
     private Map<String,Equipamento> equipamentos;
@@ -20,7 +21,6 @@ public class Armazem {
         porFazer = new HashMap<>();
         expressos = new HashMap<>();
         realizados = new HashMap<>();
-        gestor = new Gestor();
     }
 
     void initArmazem(){
@@ -66,30 +66,44 @@ public class Armazem {
         tecnicos.put(t3.getId(),t3);
         tecnicos.put(t4.getId(),t4);
 
+        gestor = new Gestor("G1");
+
         Estatisticas estatisticas = new Estatisticas();
     }
-    /*
-    public boolean pedeOrcamento(Cliente c, Equipamento e, Funcionario f, boolean expresso){
-        boolean b=false;
-        recebePedidoOrcamento(c ,e, expresso);
-        return b;
+
+    public boolean pedeOrcamento(String cliente, String equipamento, String funcionario, boolean expresso){
+        PedidoOrcamento po = new PedidoOrcamento(cliente,equipamento,funcionario,expresso);
+        return regPedidoOrcamento(po);
     }
 
-    void recebePedidoOrcamento(Cliente c, Equipamento e, Funcionario f, boolean expresso){
-        PedidoOrcamento po = new PedidoOrcamento(c,e,f,expresso );
-        regPedidoOrcamento(f,po);
-    }
-
-    void regPedidoOrcamento(Funcionario f, PedidoOrcamento po){
-        if(po.getCliente().dadosValidos()) {
+    boolean regPedidoOrcamento(PedidoOrcamento po){
+        boolean autenticado = clientes.get(po.getNifCliente()).dadosValidos();
+        if(autenticado) {
             if(po.isExpresso())
-                addExpresso(po); //registoExpresso
+                expressos.put(po.getEquipamento(),po); //registoExpresso
             else
-                addPorFazer(po);//registoNormal
+                porFazer.put(po.getEquipamento(),po);//registoNormal
 
-            estat.addPedOrc(po.clone());
+            estat.addPedOrc(po);
+            return true;
         }
-    }*/
+        return false;
+    }
 
+    boolean validarFuncionario(String idF){
+        return funcionarios.containsKey(idF);
+    }
+
+    boolean validarCliente(String idC){
+        return clientes.containsKey(idC);
+    }
+
+    boolean validarTecnico(String idT){
+        return tecnicos.containsKey(idT);
+    }
+
+    boolean validarGestor(String idG){
+        return Objects.equals(gestor.getId(), idG);
+    }
 
 }
