@@ -1,25 +1,35 @@
-import java.sql.Time;
-
 public class Passo {
     private float tempo;
     private float custo;
+    private String descricao;
 
     /*
     CONSTRUCTORS
      */
-
+    public Passo(){
+        this.tempo = 0;
+        this.custo = 0;
+        this.descricao = null;
+    }
     public Passo(float tempo, float custo) {
         this.tempo = tempo;
         this.custo = custo;
+        this.descricao = null;
+    }
+    public Passo(float tempo, float custo, String descricao){
+        this.tempo = tempo;
+        this.custo = custo;
+        this.descricao = descricao;
     }
     public Passo(Passo outro){
         this.tempo = outro.getTempo();
         this.custo = outro.getCusto();
+        this.descricao = outro.getDescricao();
     }
 
     /*
-        GETTERS e SETTERS
-         */
+    GETTERS e SETTERS
+     */
     public float getTempo() {
         return this.tempo;
     }
@@ -36,6 +46,14 @@ public class Passo {
         this.custo = custo;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     /*
     EQUALS
      */
@@ -49,7 +67,8 @@ public class Passo {
             return false;
         Passo p = (Passo) o;
         return (this.tempo == p.getTempo() &&
-                this.custo == p.getCusto());
+                this.custo == p.getCusto() &&
+                this.descricao.equals(p.getDescricao()));
     }
     /*
     CLONE
