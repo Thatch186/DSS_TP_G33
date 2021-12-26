@@ -42,7 +42,7 @@ public class Cliente {
     }
 
     public Contacto getContacto() {
-        return Contacto.clone();
+        return this.contacto.clone();
     }
 
     public void setContacto(Contacto contacto) {
