@@ -1,8 +1,8 @@
 public class PedidoOrcamento {
-    private Cliente cliente;
     private boolean expresso;
-    private Equipamento equipamento;
-    private Funcionario funcionario;
+    private String nifCliente;
+    private String idEquipamento;
+    private String idFuncionario;
 
     public PedidoOrcamento(Cliente c, Equipamento e, Funcionario f, boolean expresso){
         cliente = c;

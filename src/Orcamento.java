@@ -1,7 +1,7 @@
 import java.util.Date;
 
 public class Orcamento {
-    private PedidoOrcamento po;
+    private String idPedido;
     private Date prazoMax;
     private float custoTotal;
 

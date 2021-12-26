@@ -1,47 +1,44 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Armazem {
-    List<PedidoOrcamento> porFazer;
-    List<PedidoOrcamento> expressos;
-    List<Orcamento> orcamentos;
+    private Map<String,Equipamento> equipamentos;
+    private Map<String,Funcionario> funcionarios;
+    private Map<String,Cliente> clientes;
+    private Map<String,Tecnico> tecnicos;
+    private Map<String,PedidoOrcamento> porFazer;
+    private Map<String,PedidoOrcamento> expressos;
+    private Map<String, Orcamento> orcamentos;
+    private Estatisticas estat;
+    private Gestor gestor;
 
-    public Armazem(){
-        porFazer = new ArrayList<>();
-        expressos = new ArrayList<>();
-        orcamentos = new ArrayList<>();
+
+
+
+    /*
+    public boolean pedeOrcamento(Cliente c, Equipamento e, Funcionario f, boolean expresso){
+        boolean b=false;
+        recebePedidoOrcamento(c ,e, expresso);
+        return b;
     }
 
-    public List<PedidoOrcamento> getPorFazer() {
-        List<PedidoOrcamento> list = new ArrayList<>();
-        for(PedidoOrcamento p: porFazer)
-            list.add(p.clone());
-        return list;
+    void recebePedidoOrcamento(Cliente c, Equipamento e, Funcionario f, boolean expresso){
+        PedidoOrcamento po = new PedidoOrcamento(c,e,f,expresso );
+        regPedidoOrcamento(f,po);
     }
 
-    public void setPorFazer(List<PedidoOrcamento> porFazer) {
-        this.porFazer = porFazer;
-    }
+    void regPedidoOrcamento(Funcionario f, PedidoOrcamento po){
+        if(po.getCliente().dadosValidos()) {
+            if(po.isExpresso())
+                addExpresso(po); //registoExpresso
+            else
+                addPorFazer(po);//registoNormal
 
-
-    public List<Orcamento> getOrcamento() {
-        List<Orcamento> list = new ArrayList<>();
-        for(Orcamento o: orcamentos)
-            list.add(o.clone());
-        return list;
-    }
-
-    public void setOrcamento(List<Orcamento> orcamentos) {
-        this.orcamentos = orcamentos;
-    }
-
-    void addExpresso(PedidoOrcamento po){
-        expressos.add(po.clone());
-    }
-
-    void addPorFazer(PedidoOrcamento po){
-        this.porFazer.add(po.clone());
-    }
+            estat.addPedOrc(po.clone());
+        }
+    }*/
 
 
 }

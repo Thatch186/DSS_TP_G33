@@ -4,12 +4,12 @@ import java.util.List;
 public class Cliente {
     private int NIF;
     private Contacto contacto;
-    private List<Equipamento> equip_list;
+    private List<String> codigosEquipamento;
 
     public Cliente(int NIF, Contacto contacto){
         this.NIF=NIF;
         this.contacto=contacto;
-        this.equip_list=new ArrayList<>();
+        this.codigosEquipamento =new ArrayList<>();
     }
 
     public int getNIF() {
@@ -28,19 +28,14 @@ public class Cliente {
         this.contacto = contacto;
     }
 
-    public List<Equipamento> getEquip_list() {
-        return equip_list;
+    public List<String> getCodigosEquipamento() {
+        return codigosEquipamento;
     }
 
-    public void setEquip_list(List<Equipamento> equip_list) {
-        this.equip_list = equip_list;
+    public void setCodigosEquipamento(List<String> codigosEquipamento) {
+        this.codigosEquipamento = codigosEquipamento;
     }
 
-    public boolean pedeOrcamento(Equipamento e, Funcionario f, boolean expresso){
-        boolean b=false;
-        f.recebePedidoOrcamento(this,e, expresso);
-        return b;
-    }
 
     public boolean dadosValidos(){
         return contacto.getEmail() != null && contacto.getTelemovel() != null;
@@ -51,7 +46,7 @@ public class Cliente {
         return "Cliente(" +
                  + NIF +
                 ", " + contacto +
-                "," + equip_list.toString() +
+                "," + codigosEquipamento.toString() +
                 '}';
     }
 }
