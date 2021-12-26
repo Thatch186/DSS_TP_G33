@@ -21,7 +21,7 @@ public class Cliente {
     }
 
     public Contacto getContacto() {
-        return contacto;
+        return new Contacto(this.contacto);
     }
 
     public void setContacto(Contacto contacto) {

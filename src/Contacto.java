@@ -7,6 +7,11 @@ public class Contacto {
         this.telemovel = telemovel;
     }
 
+    public Contacto(Contacto c){
+        this.email = c.getEmail();
+        this.telemovel = c.getTelemovel();
+    }
+
     public String getEmail() {
         return email;
     }
