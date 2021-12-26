@@ -10,6 +10,14 @@ public class Tecnico {
     /*
      CONSTUCTORS
      */
+
+    public Tecnico(String id){
+        this.id=id;
+        this.idPorRealizar = new ArrayList<>();
+        this.idExpressos = new ArrayList<>();
+        this.idRealizados = new ArrayList<>();
+
+    }
     public Tecnico(String id, List<String> ipr, List<String> ie, List<String> ir){
         this.id = id;
         this.idPorRealizar = new ArrayList<>(ipr);

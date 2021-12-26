@@ -1,18 +1,18 @@
 public class Equipamento {
-    private String cod_registo;
+    private String codRegisto;
     private boolean reparado;
 
     public Equipamento(String cod){
-        this.cod_registo=cod;
+        this.codRegisto =cod;
         reparado=false;
     }
 
-    public String getCod_registo() {
-        return cod_registo;
+    public String getCodRegisto() {
+        return codRegisto;
     }
 
-    public void setCod_registo(String cod_registo) {
-        this.cod_registo = cod_registo;
+    public void setCodRegisto(String codRegisto) {
+        this.codRegisto = codRegisto;
     }
 
     public boolean isReparado() {
@@ -26,7 +26,7 @@ public class Equipamento {
     @Override
     public String toString() {
         return "Equipamento(" +
-                "'" + cod_registo + '\'' +
+                "'" + codRegisto + '\'' +
                 ", " + reparado +
                 ')';
     }

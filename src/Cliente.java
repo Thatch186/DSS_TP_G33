@@ -2,21 +2,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
-    private int NIF;
+    private String NIF;
     private Contacto contacto;
     private List<String> codigosEquipamento;
 
-    public Cliente(int NIF, Contacto contacto){
+    public Cliente(String NIF, Contacto contacto){
         this.NIF=NIF;
         this.contacto=contacto;
         this.codigosEquipamento =new ArrayList<>();
     }
 
-    public int getNIF() {
+    public String getNIF() {
         return NIF;
     }
 
-    public void setNIF(int NIF) {
+    public void setNIF(String NIF) {
         this.NIF = NIF;
     }
 
@@ -43,8 +43,8 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente(" +
-                 + NIF +
+        return "Cliente("
+                + NIF +
                 ", " + contacto +
                 "," + codigosEquipamento.toString() +
                 '}';
