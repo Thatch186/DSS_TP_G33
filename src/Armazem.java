@@ -106,4 +106,42 @@ public class Armazem {
         return Objects.equals(gestor.getId(), idG);
     }
 
+    boolean addFuncionario(String idF){
+        if(funcionarios.containsKey(idF)) return false;
+        funcionarios.put(idF, new Funcionario(idF));
+        return true;
+    }
+
+    boolean addCliente(String nif, String email, String telemovel){
+        if(clientes.containsKey(nif)) return false;
+        clientes.put(nif, new Cliente(nif,email,telemovel));
+        return true;
+    }
+
+    boolean addTecnico(String idT){
+        if(tecnicos.containsKey(idT)) return false;
+        tecnicos.put(idT, new Tecnico(idT));
+        return true;
+    }
+    //
+    boolean removerFuncionario(String idF){
+        if(!funcionarios.containsKey(idF)) return false;
+        funcionarios.remove(idF);
+        return true;
+    }
+
+    boolean removerCliente(String nif){
+        if(!clientes.containsKey(nif)) return false;
+        clientes.remove(nif);
+        return true;
+    }
+
+    boolean removerTecnico(String idT){
+        if(!tecnicos.containsKey(idT)) return false;
+        tecnicos.remove(idT);
+        return true;
+    }
+
+
+
 }

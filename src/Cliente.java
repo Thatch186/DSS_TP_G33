@@ -12,6 +12,12 @@ public class Cliente {
         this.codigosEquipamento =new ArrayList<>();
     }
 
+    public Cliente(String NIF, String email, String telemovel){
+        this.NIF=NIF;
+        this.contacto= new Contacto(email,telemovel);
+        this.codigosEquipamento =new ArrayList<>();
+    }
+
     public String getNIF() {
         return NIF;
     }
