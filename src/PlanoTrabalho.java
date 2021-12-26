@@ -4,6 +4,9 @@ import java.util.List;
 public class PlanoTrabalho {
     private List<Passo> passos;
     int passosConcluidos;
+    //dinheiro ja gasto
+    //tempo ja gasto
+
     /*
     CONSTRUCTORS
      */

@@ -3,6 +3,7 @@ public class PedidoOrcamento {
     private String nifCliente;
     private String idEquipamento; //Identificado por idEquipamento
     private String idFuncionario;
+    //adicionar a data em que pedido foi feito
 
     /*
     CONSTRUCTORS
