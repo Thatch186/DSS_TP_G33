@@ -52,10 +52,6 @@ public class Equipamento {
         return reparado;
     }
 
-    public boolean isLevantado(){
-        return levantado;
-    }
-
     public void setReparado(boolean reparado) {
         this.reparado = reparado;
     }

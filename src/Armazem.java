@@ -212,25 +212,18 @@ public class Armazem {
         return true;
     }
 
-    public void registarLevantamento(String nifCliente, String idFuncionario){
-        if(this.clientes.containsKey(nifCliente)){
-            if(this.funcionarios.containsKey(idFuncionario)){
+    //Faz registo quando cliente levanta algum equipamento da loja
+    public boolean registarLevantamento(String idEquipamento, String idFuncionario){
+        if(this.equipamentos.containsKey(idEquipamento) && this.funcionarios.containsKey(funcionarios){
+            Equipamento e = this.equipamentos.get(idEquipamento);
 
-                Cliente cliente = this.clientes.get(nifCliente);
+            if(e.getLevantado()) return false; //Verifica que ainda não foi levantado
+            e.setLevantado(true);
 
-                Funcionario funcionario = this.funcionarios.get(idFuncionario);
-
-                for(String id : cliente.getCodigosEquipamento()) {
-
-                    Equipamento equipamento = equipamentos.get(id);
-
-                    if (equipamento.isReparado() && !equipamento.isLevantado()) {
-                        equipamento.setLevantado(true);
-                    }
-                    funcionario.addEntrega(id);
-                }
-            }
+            Funcionario f = this.funcionarios.get(idFuncionario);
+            return f.addEntrega(idEquipamento);
         }
+        return false;
     }
 
     public boolean pedeOrcamento(String cliente, String funcionario){
