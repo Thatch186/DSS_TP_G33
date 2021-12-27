@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Armazem {
+    private static int codEquip = 0; //A cada pedido efetuado, o código incrementa, assim já sabemos o código do equip
     private Map<String,Equipamento> equipamentos;
     private Map<String,Funcionario> funcionarios;
     private Map<String,Cliente> clientes;
@@ -152,29 +153,6 @@ public class Armazem {
         this.gestor = gestor.clone();
     }
 
-    /*
-    public boolean pedeOrcamento(String cliente, String equipamento, String funcionario, boolean expresso){
-        PedidoOrcamento po = new PedidoOrcamento(cliente,equipamento,funcionario,expresso);
-        if (!regPedidoOrcamento(po)) return false;
-        return clientes.get(cliente).addEquipamento(equipamento);
-    }
-    */
-
-    /*
-    boolean regPedidoOrcamento(PedidoOrcamento po){
-        boolean autenticado = clientes.get(po.getNifCliente()).dadosValidos();
-        if(autenticado) {
-            if(po.isExpresso())
-                expressos.put(po.getEquipamento(),po); //registoExpresso
-            else
-                porFazer.put(po.getEquipamento(),po);//registoNormal
-
-            return funcionarios.get(po.getFuncionario()).addAtendimento(po.getEquipamento());
-        }
-        return false;
-    }
-    */
-
     boolean validarFuncionario(String idF){
         return funcionarios.containsKey(idF);
     }
@@ -248,8 +226,18 @@ public class Armazem {
         }
     }
 
-    public void registarPedido(String nifCliente, Contacto contacto, String idFuncionario, String idEquipamento, boolean isExpresso){
+    public boolean pedeOrcamento(String cliente, String equipamento, String funcionario){
+        return registarPedido(cliente,funcionario,false);
+    }
 
+    boolean pedeExpresso(String cliente, String equipamento, String funcionario){
+        return registarPedido(cliente,funcionario,true);
+    }
+
+    boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
+
+        String idEquipamento = new String("idEquipamento"+String.valueOf(codEquip));
+        if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento)) return false;
         if(!isExpresso){
             Cliente cliente = this.clientes.get(nifCliente);
             cliente.addEquipamento(idEquipamento);
@@ -258,22 +246,24 @@ public class Armazem {
             this.pedidosOrcamento.put(idEquipamento,pedido);
         }
         else {
-            Tecnico tecnico = verificaDisponibilidade();
-            if(tecnico != null){
+            String idTecnico = verificaDisponibilidade();
+            if(idTecnico != null){
                 Cliente cliente = this.clientes.get(nifCliente);
                 cliente.addEquipamento(idEquipamento);
 
-                Expresso expresso = new Expresso(idEquipamento, nifCliente, idFuncionario, tecnico.getId());
+                Expresso expresso = new Expresso(idEquipamento, nifCliente, idFuncionario, idTecnico);
                 this.expressos.put(idEquipamento, expresso);
             }
         }
+        codEquip++;
+        return true;
     }
 
 
-    public Tecnico verificaDisponibilidade(){
+    public String verificaDisponibilidade(){
 
         for (Tecnico e : this.tecnicos.values()) {
-             if(!e.isOcupado()) return e;
+             if(!e.isOcupado()) return e.getId();
         }
         return null;
     }
