@@ -1,8 +1,5 @@
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Armazem {
     private Map<String,Equipamento> equipamentos;
@@ -10,7 +7,6 @@ public class Armazem {
     private Map<String,Cliente> clientes;
     private Map<String,Tecnico> tecnicos;
     private Map<String,PedidoOrcamento> pedidosOrcamento;
-    private Map<String,Expresso> expressos;
     private Map<String,Orcamento> orcamentos;
     private Estatisticas estat;
     private Gestor gestor;
@@ -72,9 +68,6 @@ public class Armazem {
         Estatisticas estatisticas = new Estatisticas();
     }
 
-    /*
-    GETTERS E SETTERS
-     */
     public Map<String, Equipamento> getEquipamentos() {
         Map<String,Equipamento> novo = new HashMap<>();
         for(String k: equipamentos.keySet())
@@ -159,37 +152,27 @@ public class Armazem {
     }
 
     /*
-    METHODS
-     */
-    public boolean pedeOrcamento(String cliente, String equipamento, String funcionario){
-        regPedidoOrcamento(cliente,equipamento,funcionario);
+    public boolean pedeOrcamento(String cliente, String equipamento, String funcionario, boolean expresso){
+        PedidoOrcamento po = new PedidoOrcamento(cliente,equipamento,funcionario,expresso);
+        if (!regPedidoOrcamento(po)) return false;
         return clientes.get(cliente).addEquipamento(equipamento);
     }
+    */
 
-    public boolean pedeExpresso(String cliente, String equipamento, String funcionario){
-        if(registaExpresso(cliente,equipamento,funcionario)){
-            clientes.get(cliente).addEquipamento(equipamento);
-            return true;
-        }
-        return false;
-    }
-
-    boolean regPedidoOrcamento(String cliente, String equipamento, String funcionario){
-        boolean autenticado = clientes.get(cliente).dadosValidos();
+    /*
+    boolean regPedidoOrcamento(PedidoOrcamento po){
+        boolean autenticado = clientes.get(po.getNifCliente()).dadosValidos();
         if(autenticado) {
-            PedidoOrcamento po = new PedidoOrcamento(cliente,equipamento,funcionario);
-            pedidosOrcamento.put(po.getEquipamento(), po);//registoNormal
+            if(po.isExpresso())
+                expressos.put(po.getEquipamento(),po); //registoExpresso
+            else
+                porFazer.put(po.getEquipamento(),po);//registoNormal
+
             return funcionarios.get(po.getFuncionario()).addAtendimento(po.getEquipamento());
         }
         return false;
     }
-
-    boolean registaExpresso(String cliente, String equipamento, String funcionario){
-        //verifica disponibilidade pra saber o tecnico
-        //Expresso e = new Expresso(equipamento,cliente,funcionario, TENCICO)
-        //expressos.put(po.getEquipamento(),po); //registoExpresso
-        return true;
-    }
+    */
 
     boolean validarFuncionario(String idF){
         return funcionarios.containsKey(idF);
@@ -242,6 +225,40 @@ public class Armazem {
         tecnicos.remove(idT);
         return true;
     }
+
+    public void registarLevantamento(String nifCliente, String idFuncionario){
+        if(this.clientes.containsKey(nifCliente)){
+            if(this.funcionarios.containsKey(idFuncionario)){
+
+                Cliente cliente = this.clientes.get(nifCliente);
+
+                List<Equipamento> listadevolver = new ArrayList<>();
+
+                for(String id : cliente.getCodigosEquipamento()){
+
+                    Equipamento equipamento = equipamentos.get(id);
+
+                    if(equipamento.isReparado() && !equipamento.isLevantado()) {
+                        listadevolver.add(equipamento);
+                        equipamento.setLevantado(true);
+                    }
+                }
+            }
+        }
+    }
+
+    public void registarServiço(String nifCliente, Contacto contacto, String idFuncionario, String idEncomenda){
+
+        Cliente cliente = this.clientes.get(nifCliente);
+        cliente.addEquipamento(idEncomenda);
+
+        PedidoOrcamento pedido = new PedidoOrcamento(nifCliente, idEncomenda, idFuncionario);
+
+
+        }
+    }
+
+
 
 //Serviço -> ServiçoExpresso & ServiçoNormal (ABstractclass)
 //Arquitetura Multi-camada
