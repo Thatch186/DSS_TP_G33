@@ -12,6 +12,9 @@ public class Armazem {
     private Estatisticas estat;
     private Gestor gestor;
 
+    /*
+    CONSTRUCTORS
+     */
     public Armazem(){
         equipamentos = new HashMap<>();
         funcionarios = new HashMap<>();
@@ -69,7 +72,9 @@ public class Armazem {
 
         Estatisticas estatisticas = new Estatisticas();
     }
-
+    /*
+    GETTERS e SETTERS
+     */
     public Map<String, Equipamento> getEquipamentos() {
         Map<String,Equipamento> novo = new HashMap<>();
         for(String k: equipamentos.keySet())
@@ -152,7 +157,9 @@ public class Armazem {
     public void setGestor(Gestor gestor) {
         this.gestor = gestor.clone();
     }
-
+    /*
+    METHODS
+     */
     boolean validarFuncionario(String idF){
         return funcionarios.containsKey(idF);
     }
@@ -166,7 +173,7 @@ public class Armazem {
     }
 
     boolean validarGestor(String idG){
-        return Objects.equals(gestor.getId(), idG);
+        return this.gestor.getId().equals(idG);
     }
 
     boolean addFuncionario(String idF){
@@ -267,12 +274,4 @@ public class Armazem {
         }
         return null;
     }
-
-
-
-
-
-
-//Serviço -> ServiçoExpresso & ServiçoNormal (ABstractclass)
-//Arquitetura Multi-camada
 }
