@@ -4,6 +4,7 @@ import java.util.List;
 public class PlanoTrabalho {
     private List<Passo> passos;
     int passosConcluidos;
+    boolean pausado;
     //dinheiro ja gasto
     //tempo ja gasto
 
@@ -13,22 +14,26 @@ public class PlanoTrabalho {
     public PlanoTrabalho(){
         this.passos = new ArrayList<>();
         this.passosConcluidos = 0;
+        this.pausado = false;
     }
     public PlanoTrabalho(List<Passo> passos){
         this.passos = new ArrayList<>();
         for(Passo p : passos)
             this.passos.add(p.clone());
         this.passosConcluidos = 0;
+        this.pausado = false;
     }
     public PlanoTrabalho(List<Passo> passos, int passosConcluidos){
         this.passos = new ArrayList<>();
         for(Passo p : passos)
             this.passos.add(p.clone());
         this.passosConcluidos = passosConcluidos;
+        this.pausado = false;
     }
     public PlanoTrabalho(PlanoTrabalho pt){
         this.passos = pt.getPassos();
         this.passosConcluidos = pt.getPassosConcluidos();
+        this.pausado = false;
     }
     /*
     GETTERS e SETTERS
@@ -85,6 +90,24 @@ public class PlanoTrabalho {
         for(Passo p : this.passos.subList(this.passosConcluidos,this.passos.size()))
             res += p.getTempo();
         return res;
+    }
+
+    public float jaGastoTempo(){
+        float tempoGasto = 0;
+
+        for(Passo p : this.passos.subList(0, this.passosConcluidos)){
+            tempoGasto += p.getTempo();
+        }
+        return tempoGasto;
+    }
+
+    public float jaGastoDinheiro(){
+        float dinheiroGasto = 0;
+
+        for(Passo p : this.passos.subList(0, this.passosConcluidos)){
+            dinheiroGasto += p.getCusto();
+        }
+        return dinheiroGasto;
     }
 
     /*

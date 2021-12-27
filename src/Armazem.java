@@ -52,10 +52,10 @@ public class Armazem {
         Contacto c3 = new Contacto("c3@gmail.com","932345789");
         Contacto c4 = new Contacto("c4@gmail.com","942345789");
 
-        Cliente cliente1 = new Cliente("1",c1);
-        Cliente cliente2 = new Cliente("2",c2);
-        Cliente cliente3 = new Cliente("3",c3);
-        Cliente cliente4 = new Cliente("4",c4);
+        Cliente cliente1 = new Cliente("1", c1);
+        Cliente cliente2 = new Cliente("2", c2);
+        Cliente cliente3 = new Cliente("3", c3);
+        Cliente cliente4 = new Cliente("4", c4);
         clientes.put(cliente1.getNIF(),cliente1);
         clientes.put(cliente2.getNIF(),cliente2);
         clientes.put(cliente3.getNIF(),cliente3);
