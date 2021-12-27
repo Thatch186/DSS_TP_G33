@@ -96,4 +96,13 @@ public class Tecnico {
     public Tecnico clone(){
         return new Tecnico(this);
     }
+
+
+    boolean addReparado(String idE){
+        if(idReparados.contains(idE)) return false;
+        idReparados.add(idE);
+        return true;
+    }
 }
+
+

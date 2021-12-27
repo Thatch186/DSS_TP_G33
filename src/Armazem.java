@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Armazem {
+   public class Armazem {
     private static int codEquip = 0; //A cada pedido efetuado, o código incrementa, assim já sabemos o código do equip
     private Map<String,Equipamento> equipamentos;
     private Map<String,Funcionario> funcionarios;
@@ -25,7 +25,7 @@ public class Armazem {
         pedidosOrcamento = new HashMap<>();
     }
 
-    void init(){
+       public void init(){
 
         Equipamento e1 = new Equipamento("equipamento1");
         Equipamento e2 = new Equipamento("equipamento2");
@@ -160,53 +160,53 @@ public class Armazem {
     /*
     METHODS
      */
-    boolean validarFuncionario(String idF){
+    public  boolean validarFuncionario(String idF){
         return funcionarios.containsKey(idF);
     }
 
-    boolean validarCliente(String idC){
+       public boolean validarCliente(String idC){
         return clientes.containsKey(idC);
     }
 
-    boolean validarTecnico(String idT){
+       public boolean validarTecnico(String idT){
         return tecnicos.containsKey(idT);
     }
 
-    boolean validarGestor(String idG){
+       public  boolean validarGestor(String idG){
         return this.gestor.getId().equals(idG);
     }
 
-    boolean addFuncionario(String idF){
+       public boolean addFuncionario(String idF){
         if(funcionarios.containsKey(idF)) return false;
         funcionarios.put(idF, new Funcionario(idF));
         return true;
     }
 
-    boolean addCliente(String nif, String email, String telemovel){
+       public boolean addCliente(String nif, String email, String telemovel){
         if(clientes.containsKey(nif)) return false;
         clientes.put(nif, new Cliente(nif,email,telemovel));
         return true;
     }
 
-    boolean addTecnico(String idT){
+       public  boolean addTecnico(String idT){
         if(tecnicos.containsKey(idT)) return false;
         tecnicos.put(idT, new Tecnico(idT));
         return true;
     }
     //
-    boolean removerFuncionario(String idF){
+    public boolean removerFuncionario(String idF){
         if(!funcionarios.containsKey(idF)) return false;
         funcionarios.remove(idF);
         return true;
     }
 
-    boolean removerCliente(String nif){
+       public boolean removerCliente(String nif){
         if(!clientes.containsKey(nif)) return false;
         clientes.remove(nif);
         return true;
     }
 
-    boolean removerTecnico(String idT){
+       public  boolean removerTecnico(String idT){
         if(!tecnicos.containsKey(idT)) return false;
         tecnicos.remove(idT);
         return true;
@@ -214,7 +214,7 @@ public class Armazem {
 
     //Faz registo quando cliente levanta algum equipamento da loja
     public boolean registarLevantamento(String idEquipamento, String idFuncionario){
-        if(this.equipamentos.containsKey(idEquipamento) && this.funcionarios.containsKey(funcionarios){
+        if(this.equipamentos.containsKey(idEquipamento) && this.funcionarios.containsKey(funcionarios)){
             Equipamento e = this.equipamentos.get(idEquipamento);
 
             if(e.getLevantado()) return false; //Verifica que ainda não foi levantado
@@ -230,11 +230,11 @@ public class Armazem {
         return registarPedido(cliente,funcionario,false);
     }
 
-    boolean pedeExpresso(String cliente, String funcionario){
+    public boolean pedeExpresso(String cliente, String funcionario){
         return registarPedido(cliente,funcionario,true);
     }
 
-    boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
+    public boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
 
         String idEquipamento = "idEquipamento"+codEquip;
         if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento)) return false;
@@ -252,7 +252,9 @@ public class Armazem {
                 cliente.addEquipamento(idEquipamento);
 
                 Expresso expresso = new Expresso(idEquipamento, nifCliente, idFuncionario, idTecnico);
-                //METER TECNICO ESTA A TRABALHAR NISTO
+                Tecnico t = this.tecnicos.get(idTecnico);
+                t.setOcupado(true);
+                t.setaReparar(idEquipamento);
                 this.expressos.put(idEquipamento, expresso);
             }
             else
@@ -270,4 +272,23 @@ public class Armazem {
         }
         return null;
     }
-}
+
+    public boolean regitarEquipamentoReparado(String idEquipamento, String idTecnico){
+        if(this.equipamentos.containsKey(idEquipamento) && this.tecnicos.containsKey(idTecnico)){
+            Equipamento e = this.equipamentos.get(idEquipamento);
+
+            if(e.isReparado()) return false; //Verifica que ainda não foi reparado
+            e.setReparado(true);
+
+            Tecnico t = this.tecnicos.get(idTecnico);
+            t.setOcupado(false);
+            return t.addReparado(idEquipamento);
+        }
+        return false;
+    }
+
+
+
+
+   }
+

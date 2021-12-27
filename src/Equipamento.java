@@ -32,11 +32,14 @@ public class Equipamento {
     /*
     GETTERS e SETTERS
      */
+
+
     public void setAbandonado(boolean abandonado) { this.abandonado = abandonado;}
 
     public boolean getAbandonado(){ return this.abandonado;}
 
     public void setLevantado(boolean levantado) { this.levantado = levantado;}
+
 
     public boolean getLevantado(){ return this.levantado;}
 
@@ -55,6 +58,8 @@ public class Equipamento {
     public void setReparado(boolean reparado) {
         this.reparado = reparado;
     }
+
+
 
     /*
     EQUALS
