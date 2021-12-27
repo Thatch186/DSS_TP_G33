@@ -8,6 +8,7 @@ public class Armazem {
     private Map<String,Tecnico> tecnicos;
     private Map<String,PedidoOrcamento> pedidosOrcamento;
     private Map<String,Orcamento> orcamentos;
+    private Map<String, Expresso> expressos;
     private Estatisticas estat;
     private Gestor gestor;
 
@@ -232,31 +233,53 @@ public class Armazem {
 
                 Cliente cliente = this.clientes.get(nifCliente);
 
-                List<Equipamento> listadevolver = new ArrayList<>();
+                Funcionario funcionario = this.funcionarios.get(idFuncionario);
 
-                for(String id : cliente.getCodigosEquipamento()){
+                for(String id : cliente.getCodigosEquipamento()) {
 
                     Equipamento equipamento = equipamentos.get(id);
 
-                    if(equipamento.isReparado() && !equipamento.isLevantado()) {
-                        listadevolver.add(equipamento);
+                    if (equipamento.isReparado() && !equipamento.isLevantado()) {
                         equipamento.setLevantado(true);
                     }
+                    funcionario.addEntrega(id);
                 }
             }
         }
     }
 
-    public void registarServiço(String nifCliente, Contacto contacto, String idFuncionario, String idEncomenda){
+    public void registarPedido(String nifCliente, Contacto contacto, String idFuncionario, String idEquipamento, boolean isExpresso){
 
-        Cliente cliente = this.clientes.get(nifCliente);
-        cliente.addEquipamento(idEncomenda);
+        if(!isExpresso){
+            Cliente cliente = this.clientes.get(nifCliente);
+            cliente.addEquipamento(idEquipamento);
 
-        PedidoOrcamento pedido = new PedidoOrcamento(nifCliente, idEncomenda, idFuncionario);
+            PedidoOrcamento pedido = new PedidoOrcamento(nifCliente, idEquipamento, idFuncionario);
+            this.pedidosOrcamento.put(idEquipamento,pedido);
+        }
+        else {
+            Tecnico tecnico = verificaDisponibilidade();
+            if(tecnico != null){
+                Cliente cliente = this.clientes.get(nifCliente);
+                cliente.addEquipamento(idEquipamento);
 
-
+                Expresso expresso = new Expresso(idEquipamento, nifCliente, idFuncionario, tecnico.getId());
+                this.expressos.put(idEquipamento, expresso);
+            }
         }
     }
+
+
+    public Tecnico verificaDisponibilidade(){
+
+        for (Tecnico e : this.tecnicos.values()) {
+             if(!e.isOcupado()) return e;
+        }
+        return null;
+    }
+
+
+
 
 
 

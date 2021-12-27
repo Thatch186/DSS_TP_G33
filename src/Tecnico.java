@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Tecnico {
     private String id;
+    private boolean ocupado;
     private String aReparar; // Id de Orçamento cujo equipamento está a ser reparado
     private List<String> idRealizados; // Id de Orçamento realizados pelo tecnico
     private List<String> idReparados; // Id de Orçamento cujo equipamento foi reparado
@@ -15,6 +16,7 @@ public class Tecnico {
         this.aReparar = null;
         this.idRealizados = new ArrayList<>();
         this.idReparados = new ArrayList<>();
+        this.ocupado = false;
 
     }
     public Tecnico(String id, String aReparar, List<String> irea, List<String> irep){
@@ -22,17 +24,27 @@ public class Tecnico {
         this.aReparar = aReparar;
         this.idRealizados = new ArrayList<>(irea);
         this.idReparados = new ArrayList<>(irep);
+        this.ocupado = true;
     }
     public Tecnico(Tecnico outro){
         this.id = outro.getId();
         this.aReparar = outro.getaReparar();
         this.idRealizados = outro.getIdRealizados();
         this.idReparados = outro.getIdReparados();
+        this.ocupado = outro.isOcupado();
     }
 
     /*
     GETTERS e SETTERS
      */
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
+
     public String getId() {
         return id;
     }

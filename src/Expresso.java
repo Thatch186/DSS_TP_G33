@@ -16,7 +16,6 @@ public class Expresso {
         this.nifCliente = nifCliente;
         this.idFuncionario = idFuncionario;
         this.idTecnico = idTecnico;
-
     }
 
     public Expresso(Expresso outro){
