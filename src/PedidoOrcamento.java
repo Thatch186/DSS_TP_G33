@@ -1,5 +1,4 @@
 public class PedidoOrcamento {
-    private boolean expresso;
     private String nifCliente;
     private String idEquipamento; //Identificado por idEquipamento
     private String idFuncionario;
@@ -8,15 +7,13 @@ public class PedidoOrcamento {
     /*
     CONSTRUCTORS
      */
-    public PedidoOrcamento(String c, String e, String f, boolean expresso){
+    public PedidoOrcamento(String c, String e, String f){
         nifCliente = c;
         idEquipamento = e;
         idFuncionario = f;
-        this.expresso = expresso;
     }
     public PedidoOrcamento(PedidoOrcamento po){
         this.nifCliente = po.nifCliente;
-        this.expresso = po.expresso;
         this.idEquipamento = po.idEquipamento;
         this.idEquipamento = po.idFuncionario;
     }
@@ -30,14 +27,6 @@ public class PedidoOrcamento {
 
     public void setCliente(String cliente) {
         this.nifCliente = cliente;
-    }
-
-    public boolean isExpresso() {
-        return expresso;
-    }
-
-    public void setExpresso(boolean expresso) {
-        this.expresso = expresso;
     }
 
     public String getEquipamento() {
@@ -68,10 +57,9 @@ public class PedidoOrcamento {
         if (getClass() != o.getClass())
             return false;
         PedidoOrcamento po = (PedidoOrcamento) o;
-        return (this.expresso == po.isExpresso() &&
-                this.nifCliente.equals(po.getNifCliente()) &&
+        return  this.nifCliente.equals(po.getNifCliente()) &&
                 this.idEquipamento.equals(po.getEquipamento()) &&
-                this.idFuncionario.equals(po.getFuncionario()));
+                this.idFuncionario.equals(po.getFuncionario());
     }
     /*
     CLONE

@@ -10,6 +10,7 @@ public class Armazem {
     private Map<String,Cliente> clientes;
     private Map<String,Tecnico> tecnicos;
     private Map<String,PedidoOrcamento> pedidosOrcamento;
+    private Map<String,Expresso> expressos;
     private Map<String,Orcamento> orcamentos;
     private Estatisticas estat;
     private Gestor gestor;
@@ -71,6 +72,9 @@ public class Armazem {
         Estatisticas estatisticas = new Estatisticas();
     }
 
+    /*
+    GETTERS E SETTERS
+     */
     public Map<String, Equipamento> getEquipamentos() {
         Map<String,Equipamento> novo = new HashMap<>();
         for(String k: equipamentos.keySet())
@@ -154,23 +158,37 @@ public class Armazem {
         this.gestor = gestor.clone();
     }
 
-    public boolean pedeOrcamento(String cliente, String equipamento, String funcionario, boolean expresso){
-        PedidoOrcamento po = new PedidoOrcamento(cliente,equipamento,funcionario,expresso);
-        if (!regPedidoOrcamento(po)) return false;
+    /*
+    METHODS
+     */
+    public boolean pedeOrcamento(String cliente, String equipamento, String funcionario){
+        regPedidoOrcamento(cliente,equipamento,funcionario);
         return clientes.get(cliente).addEquipamento(equipamento);
     }
 
-    boolean regPedidoOrcamento(PedidoOrcamento po){
-        boolean autenticado = clientes.get(po.getNifCliente()).dadosValidos();
-        if(autenticado) {
-            if(po.isExpresso())
-                expressos.put(po.getEquipamento(),po); //registoExpresso
-            else
-                porFazer.put(po.getEquipamento(),po);//registoNormal
+    public boolean pedeExpresso(String cliente, String equipamento, String funcionario){
+        if(registaExpresso(cliente,equipamento,funcionario)){
+            clientes.get(cliente).addEquipamento(equipamento);
+            return true;
+        }
+        return false;
+    }
 
+    boolean regPedidoOrcamento(String cliente, String equipamento, String funcionario){
+        boolean autenticado = clientes.get(cliente).dadosValidos();
+        if(autenticado) {
+            PedidoOrcamento po = new PedidoOrcamento(cliente,equipamento,funcionario);
+            pedidosOrcamento.put(po.getEquipamento(), po);//registoNormal
             return funcionarios.get(po.getFuncionario()).addAtendimento(po.getEquipamento());
         }
         return false;
+    }
+
+    boolean registaExpresso(String cliente, String equipamento, String funcionario){
+        //verifica disponibilidade pra saber o tecnico
+        //Expresso e = new Expresso(equipamento,cliente,funcionario, TENCICO)
+        //expressos.put(po.getEquipamento(),po); //registoExpresso
+        return true;
     }
 
     boolean validarFuncionario(String idF){
