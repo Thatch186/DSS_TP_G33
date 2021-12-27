@@ -1,18 +1,33 @@
 public class Equipamento {
-    private String cod_registo;
+    private String codRegisto;
     private boolean reparado;
 
+    /*
+    CONSTRUCTORS
+     */
     public Equipamento(String cod){
-        this.cod_registo=cod;
+        this.codRegisto =cod;
         reparado=false;
     }
-
-    public String getCod_registo() {
-        return cod_registo;
+    public Equipamento(String cod, boolean reparado){
+        this.codRegisto = cod;
+        this.reparado = reparado;
+    }
+    public Equipamento(Equipamento outro){
+        this.codRegisto = outro.getCodRegisto();
+        this.reparado = outro.isReparado();
     }
 
-    public void setCod_registo(String cod_registo) {
-        this.cod_registo = cod_registo;
+    /*
+    GETTERS e SETTERS
+     */
+
+    public String getCodRegisto() {
+        return codRegisto;
+    }
+
+    public void setCodRegisto(String codRegisto) {
+        this.codRegisto = codRegisto;
     }
 
     public boolean isReparado() {
@@ -23,10 +38,34 @@ public class Equipamento {
         this.reparado = reparado;
     }
 
+    /*
+    EQUALS
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        Equipamento e = (Equipamento) o;
+        return ((this.reparado == e.isReparado()) &&
+                this.codRegisto.equals(e.getCodRegisto()));
+    }
+    /*
+    CLONE
+     */
+    public Equipamento clone(){
+        return new Equipamento(this);
+    }
+    /*
+    TO STRING
+     */
     @Override
     public String toString() {
         return "Equipamento(" +
-                "'" + cod_registo + '\'' +
+                "'" + codRegisto + '\'' +
                 ", " + reparado +
                 ')';
     }
