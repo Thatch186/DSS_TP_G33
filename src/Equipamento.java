@@ -4,6 +4,7 @@ public class Equipamento {
     private boolean levantado;
     private boolean abandonado;
 
+
     /*
     CONSTRUCTORS
      */

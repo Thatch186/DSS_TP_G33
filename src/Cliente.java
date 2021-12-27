@@ -5,7 +5,6 @@ public class Cliente {
     private String NIF;
     private Contacto contacto;
     private List<String> codigosEquipamento;
-
     /*
     CONSTRUCTORS
      */
