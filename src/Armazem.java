@@ -9,10 +9,8 @@ public class Armazem {
     private Map<String,Funcionario> funcionarios;
     private Map<String,Cliente> clientes;
     private Map<String,Tecnico> tecnicos;
-    private Map<String,PedidoOrcamento> porFazer;
-    private Map<String,PedidoOrcamento> expressos;
-    private Map<String,Orcamento> orcamentosPorEntregar;
-    private Map<String, Orcamento> orcamentosEntregues;
+    private Map<String,PedidoOrcamento> pedidosOrcamento;
+    private Map<String,Orcamento> orcamentos;
     private Estatisticas estat;
     private Gestor gestor;
 
@@ -21,10 +19,8 @@ public class Armazem {
         funcionarios = new HashMap<>();
         clientes = new HashMap<>();
         tecnicos = new HashMap<>();
-        porFazer = new HashMap<>();
-        expressos = new HashMap<>();
-        orcamentosPorEntregar = new HashMap<>();
-        orcamentosEntregues = new HashMap<>();
+        orcamentos = new HashMap<>();
+        pedidosOrcamento = new HashMap<>();
     }
 
     void init(){
@@ -119,48 +115,27 @@ public class Armazem {
         this.tecnicos = tecnicos;
     }
 
-    public Map<String, PedidoOrcamento> getPorFazer() {
+    public Map<String, PedidoOrcamento> getPedidosOrcamento() {
         Map<String,PedidoOrcamento> novo = new HashMap<>();
-        for(String k: porFazer.keySet())
-            novo.put(k,porFazer.get(k).clone());
+        for(String k: pedidosOrcamento.keySet())
+            novo.put(k,pedidosOrcamento.get(k).clone());
         return novo;
     }
 
-    public void setPorFazer(Map<String, PedidoOrcamento> porFazer) {
-        this.porFazer = porFazer;
+    public void setPedidosOrcamento(Map<String, PedidoOrcamento> pedidosOrcamento) {
+        this.pedidosOrcamento = pedidosOrcamento;
     }
 
-    public Map<String, PedidoOrcamento> getExpressos() {
-        Map<String,PedidoOrcamento> novo = new HashMap<>();
-        for(String k: expressos.keySet())
-            novo.put(k,expressos.get(k).clone());
-        return novo;
-    }
 
-    public void setExpressos(Map<String, PedidoOrcamento> expressos) {
-        this.expressos = expressos;
-    }
-
-    public Map<String, Orcamento> getOrcamentosPorEntregar() {
+    public Map<String, Orcamento> getOrcamentos() {
         Map<String,Orcamento> novo = new HashMap<>();
-        for(String k: orcamentosPorEntregar.keySet())
-            novo.put(k,orcamentosPorEntregar.get(k).clone());
+        for(String k: orcamentos.keySet())
+            novo.put(k,orcamentos.get(k).clone());
         return novo;
     }
 
-    public void setOrcamentosPorEntregar(Map<String, Orcamento> orcamentosPorEntregar) {
-        this.orcamentosPorEntregar = orcamentosPorEntregar;
-    }
-
-    public Map<String, Orcamento> getOrcamentosEntregues() {
-        Map<String,Orcamento> novo = new HashMap<>();
-        for(String k: orcamentosEntregues.keySet())
-            novo.put(k,orcamentosEntregues.get(k).clone());
-        return novo;
-    }
-
-    public void setOrcamentosEntregues(Map<String, Orcamento> orcamentosEntregues) {
-        this.orcamentosEntregues = orcamentosEntregues;
+    public void setOrcamentos(Map<String, Orcamento> orcamentos) {
+        this.orcamentos = orcamentos;
     }
 
     public Estatisticas getEstat() {
@@ -247,29 +222,6 @@ public class Armazem {
     boolean removerTecnico(String idT){
         if(!tecnicos.containsKey(idT)) return false;
         tecnicos.remove(idT);
-        return true;
-    }
-
-    boolean registarEquipamentoEntregue(String idEquip, String nifC , LocalDate dataEntrega){
-        if(orcamentosEntregues.containsKey(idEquip)) return false;
-        if(orcamentosPorEntregar.containsKey(idEquip)) {
-            orcamentosEntregues.put(idEquip, orcamentosEntregues.get(idEquip));
-            orcamentosPorEntregar.remove(idEquip);
-            return true;
-        }
-        return false;
-    }
-
-    boolean registarOrcamento(String idO, String idPT, Date dataEntrega){ //custo adicionar ou nao
-        if(orcamentosPorEntregar.containsKey(idO)) return false;
-        //tecnico tem que fazer orçamento, para poder registar
-        //regista-se o orçamento;
-        return true;
-    }
-
-    boolean atualizaEstadoReparoEquipamento(String idE){ // este faz sentido sem ser com boolean como argumento ?
-        if(equipamentos.get(idE).isReparado()) return false;
-        equipamentos.get(idE).setReparado(true);
         return true;
     }
 
