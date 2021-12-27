@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class Armazem {
         orcamentosEntregues = new HashMap<>();
     }
 
-    void initArmazem(){
+    void init(){
 
         Equipamento e1 = new Equipamento("equipamento1");
         Equipamento e2 = new Equipamento("equipamento2");
@@ -72,6 +73,110 @@ public class Armazem {
         gestor = new Gestor("G1");
 
         Estatisticas estatisticas = new Estatisticas();
+    }
+
+    public Map<String, Equipamento> getEquipamentos() {
+        Map<String,Equipamento> novo = new HashMap<>();
+        for(String k: equipamentos.keySet())
+            novo.put(k,equipamentos.get(k).clone());
+        return novo;
+    }
+
+    public void setEquipamentos(Map<String, Equipamento> equipamentos) {
+        this.equipamentos = equipamentos;
+    }
+
+    public Map<String, Funcionario> getFuncionarios() {
+        Map<String,Funcionario> novo = new HashMap<>();
+        for(String k: funcionarios.keySet())
+            novo.put(k,funcionarios.get(k).clone());
+        return novo;
+    }
+
+    public void setFuncionarios(Map<String, Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public Map<String, Cliente> getClientes() {
+        Map<String,Cliente> novo = new HashMap<>();
+        for(String k: clientes.keySet())
+            novo.put(k,clientes.get(k).clone());
+        return novo;
+    }
+
+    public void setClientes(Map<String, Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public Map<String, Tecnico> getTecnicos() {
+        Map<String,Tecnico> novo = new HashMap<>();
+        for(String k: tecnicos.keySet())
+            novo.put(k,tecnicos.get(k).clone());
+        return novo;
+    }
+
+    public void setTecnicos(Map<String, Tecnico> tecnicos) {
+        this.tecnicos = tecnicos;
+    }
+
+    public Map<String, PedidoOrcamento> getPorFazer() {
+        Map<String,PedidoOrcamento> novo = new HashMap<>();
+        for(String k: porFazer.keySet())
+            novo.put(k,porFazer.get(k).clone());
+        return novo;
+    }
+
+    public void setPorFazer(Map<String, PedidoOrcamento> porFazer) {
+        this.porFazer = porFazer;
+    }
+
+    public Map<String, PedidoOrcamento> getExpressos() {
+        Map<String,PedidoOrcamento> novo = new HashMap<>();
+        for(String k: expressos.keySet())
+            novo.put(k,expressos.get(k).clone());
+        return novo;
+    }
+
+    public void setExpressos(Map<String, PedidoOrcamento> expressos) {
+        this.expressos = expressos;
+    }
+
+    public Map<String, Orcamento> getOrcamentosPorEntregar() {
+        Map<String,Orcamento> novo = new HashMap<>();
+        for(String k: orcamentosPorEntregar.keySet())
+            novo.put(k,orcamentosPorEntregar.get(k).clone());
+        return novo;
+    }
+
+    public void setOrcamentosPorEntregar(Map<String, Orcamento> orcamentosPorEntregar) {
+        this.orcamentosPorEntregar = orcamentosPorEntregar;
+    }
+
+    public Map<String, Orcamento> getOrcamentosEntregues() {
+        Map<String,Orcamento> novo = new HashMap<>();
+        for(String k: orcamentosEntregues.keySet())
+            novo.put(k,orcamentosEntregues.get(k).clone());
+        return novo;
+    }
+
+    public void setOrcamentosEntregues(Map<String, Orcamento> orcamentosEntregues) {
+        this.orcamentosEntregues = orcamentosEntregues;
+    }
+
+    public Estatisticas getEstat() {
+        return estat;
+    }
+
+    public void setEstat(Estatisticas estat) {
+        this.estat = estat;
+    }
+
+    public Gestor getGestor() {
+        return gestor.clone();
+    }
+
+    public void setGestor(Gestor gestor) {
+        this.gestor = gestor.clone();
     }
 
     public boolean pedeOrcamento(String cliente, String equipamento, String funcionario, boolean expresso){
@@ -155,10 +260,19 @@ public class Armazem {
         return false;
     }
 
+    boolean registarOrcamento(String idO, String idPT, Date dataEntrega){ //custo adicionar ou nao
+        if(orcamentosPorEntregar.containsKey(idO)) return false;
+        //tecnico tem que fazer orçamento, para poder registar
+        //regista-se o orçamento;
+        return true;
+    }
 
+    boolean atualizaEstadoReparoEquipamento(String idE){ // este faz sentido sem ser com boolean como argumento ?
+        if(equipamentos.get(idE).isReparado()) return false;
+        equipamentos.get(idE).setReparado(true);
+        return true;
+    }
 
-
-
-
-
+//Serviço -> ServiçoExpresso & ServiçoNormal (ABstractclass)
+//Arquitetura Multi-camada
 }
