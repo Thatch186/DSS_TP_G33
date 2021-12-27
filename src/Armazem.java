@@ -252,8 +252,11 @@ public class Armazem {
                 cliente.addEquipamento(idEquipamento);
 
                 Expresso expresso = new Expresso(idEquipamento, nifCliente, idFuncionario, idTecnico);
+                //METER TECNICO ESTA A TRABALHAR NISTO
                 this.expressos.put(idEquipamento, expresso);
             }
+            else
+                return false;
         }
         codEquip++;
         return true;
