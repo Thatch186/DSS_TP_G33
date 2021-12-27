@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.*;
 
 public class Armazem {
@@ -19,6 +18,7 @@ public class Armazem {
         clientes = new HashMap<>();
         tecnicos = new HashMap<>();
         orcamentos = new HashMap<>();
+        expressos = new HashMap<>();
         pedidosOrcamento = new HashMap<>();
     }
 
@@ -226,17 +226,17 @@ public class Armazem {
         }
     }
 
-    public boolean pedeOrcamento(String cliente, String equipamento, String funcionario){
+    public boolean pedeOrcamento(String cliente, String funcionario){
         return registarPedido(cliente,funcionario,false);
     }
 
-    boolean pedeExpresso(String cliente, String equipamento, String funcionario){
+    boolean pedeExpresso(String cliente, String funcionario){
         return registarPedido(cliente,funcionario,true);
     }
 
     boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
 
-        String idEquipamento = new String("idEquipamento"+String.valueOf(codEquip));
+        String idEquipamento = "idEquipamento"+codEquip;
         if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento)) return false;
         if(!isExpresso){
             Cliente cliente = this.clientes.get(nifCliente);
