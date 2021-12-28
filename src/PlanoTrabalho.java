@@ -4,9 +4,8 @@ import java.util.List;
 public class PlanoTrabalho {
     private List<Passo> passos;
     int passosConcluidos;
-    boolean pausado; //Temos de ter atencao mas deve fazer sentido começar em pausa
-                    // pq ainda vai esperar pela confirmacao do cliente
-                    // Por agora no metodo de adicionar passos, sempre q se adiciona um fica em pausa
+    int dinheiroGasto;
+    boolean pausado;
 
     /*
     CONSTRUCTORS
@@ -14,26 +13,30 @@ public class PlanoTrabalho {
     public PlanoTrabalho(){
         this.passos = new ArrayList<>();
         this.passosConcluidos = 0;
-        this.pausado = false;
+        this.dinheiroGasto = 0;
+        this.pausado = true;
     }
     public PlanoTrabalho(List<Passo> passos){
         this.passos = new ArrayList<>();
         for(Passo p : passos)
             this.passos.add(p.clone());
         this.passosConcluidos = 0;
-        this.pausado = false;
+        this.dinheiroGasto = 0;
+        this.pausado = true;
     }
     public PlanoTrabalho(List<Passo> passos, int passosConcluidos){
         this.passos = new ArrayList<>();
         for(Passo p : passos)
             this.passos.add(p.clone());
         this.passosConcluidos = passosConcluidos;
-        this.pausado = false;
+        this.dinheiroGasto = 0;
+        this.pausado = true;
     }
     public PlanoTrabalho(PlanoTrabalho pt){
         this.passos = pt.getPassos();
         this.passosConcluidos = pt.getPassosConcluidos();
-        this.pausado = false;
+        this.pausado = true;
+        this.dinheiroGasto = pt.getDinheiroGasto();
     }
     /*
     GETTERS e SETTERS
@@ -57,6 +60,22 @@ public class PlanoTrabalho {
 
     public void setPassosConcluidos(int passosConcluidos) {
         this.passosConcluidos = passosConcluidos;
+    }
+
+    public boolean isPausado() {
+        return pausado;
+    }
+
+    public void setPausado(boolean pausado) {
+        this.pausado = pausado;
+    }
+
+    public int getDinheiroGasto() {
+        return dinheiroGasto;
+    }
+
+    public void setDinheiroGasto(int dinheiroGasto) {
+        this.dinheiroGasto = dinheiroGasto;
     }
 
     /*
@@ -114,6 +133,15 @@ public class PlanoTrabalho {
         this.passos.add(p);
         this.pausado = true;
     }
+
+    public boolean marcarPassoComoConcluido(int dinheiroExtra){
+        if(this.passosConcluidos == this.passos.size()) return false;
+        if(this.pausado) return false;
+
+        this.dinheiroGasto += dinheiroExtra + this.passos.get(this.passosConcluidos).getCusto();
+        this.passosConcluidos++;
+        return true;
+    }
     /*
     EQUALS
      */
@@ -127,7 +155,9 @@ public class PlanoTrabalho {
             return false;
         PlanoTrabalho pt = (PlanoTrabalho) o;
         return (this.passos.equals(pt.getPassos()) &&
-                this.passosConcluidos == pt.getPassosConcluidos());
+                this.passosConcluidos == pt.getPassosConcluidos() &&
+                this.pausado == pt.isPausado() &&
+                this.dinheiroGasto == pt.getDinheiroGasto());
     }
     /*
     CLONE

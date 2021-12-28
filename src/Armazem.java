@@ -304,6 +304,38 @@ public class Armazem implements IModel {
         return false;
     }
 
+    public boolean clienteConfirmaOrcamento(String nifCliente, String idEquipamento){
+        if(this.clientes.containsKey(nifCliente) && this.equipamentos.containsKey(idEquipamento) &&
+        this.pedidosOrcamento.containsKey(idEquipamento) &&
+        this.orcamentos.containsKey(idEquipamento)){
+            Cliente c = this.clientes.get(nifCliente);
+            if(!c.temEquipamento(idEquipamento)) return false; //Certifica-se que cliente tem equipamento em seu nome
+
+            Orcamento o = this.orcamentos.get(idEquipamento);
+            o.atualizaData(); //Atualiza data para compensar tempo que cliente demorou a responder
+            o.setConfirmado(true); //Atualiza orcamento com confirmaçao do cliente
+            return true;
+        }
+        return false;
+    }
+    //SE CLIENTE REJEITAR ORÇAMENTO AINDA NAO TEMPOS OPÇOES
+
+    public boolean iniciarReparo(String tecnicoId, String equipamentoID){
+        if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) &&
+        this.pedidosOrcamento.containsKey(equipamentoID) && this.orcamentos.containsKey(equipamentoID)){
+            Orcamento o = this.orcamentos.get(equipamentoID);
+            if(!o.isConfirmado()) return false;
+
+            Tecnico t = this.tecnicos.get(tecnicoId);
+            if(t.isOcupado()) return false;
+
+            t.setOcupado(true);
+            t.setaReparar(equipamentoID);
+            o.iniciarPlanoTrabalho();
+        }
+        return false;
+    }
+
 
 }
 
