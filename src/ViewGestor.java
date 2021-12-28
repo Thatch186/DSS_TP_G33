@@ -34,10 +34,10 @@ public class ViewGestor implements InterfaceGestor {
                    // consultaEstatisticas();
                     break;
                 case (2):
-                    //removeTecnico();
+                    removeTecnico();
                     break;
                 case (3):
-                    //removeFuncionario();
+                    removeFuncionario();
                     break;
                 default:
                     sc.nextLine();
@@ -61,9 +61,9 @@ public class ViewGestor implements InterfaceGestor {
 
 
 
-        AbstractMap.SimpleEntry<Integer, Integer> result = this.controller.removeTecnico(id);
+        this.controller.removerTecnico(id);
         //REVS em KEY | USERS em VALUES
-        System.out.println("Técnico removido: " + result.getKey());
+        System.out.println("Técnico removido: ");
     }
 
     private void removeFuncionario() {
@@ -71,17 +71,11 @@ public class ViewGestor implements InterfaceGestor {
         System.out.println("Insira idFuncionário ");
         String idFuncionario = sc.nextLine();
 
-        AbstractMap.SimpleEntry<Integer, Integer> result = this.controller.removeTecnico(idFuncionario);
+      this.controller.removerFuncionario(idFuncionario);
         //REVS em KEY | USERS em VALUES
-        System.out.println("Funcionário removido com sucesso " + result.getKey());
+        System.out.println("Funcionário removido com sucesso ");
     }
 
-    /**
-     * Construtor Nulo
-     */
-    public ViewGestor(){
-        nomeGestor = "";
-    }
 
     /**
      * Construtor de cópia
@@ -99,13 +93,13 @@ public class ViewGestor implements InterfaceGestor {
      * Getter do atributo nomeGestor
      * @return o nome da equipa
      */
-    public String getnomeGestor() { return nomeGestor; }
+    public String getnomeGestor() { return id; }
 
     /**
      * Setter do atributo nomeGestor
-     * @param nomeGestor o nome novo da equipa
+     * @param idGestor o nome novo da equipa
      */
-    public void setnomeGestor(String nomeGestor) { this.nomeGestor = nomeGestor; }
+    public void setnomeGestor(String idGestor) { this.id = idGestor; }
 
     /**
      * Interface para o Prompt
@@ -159,10 +153,10 @@ public class ViewGestor implements InterfaceGestor {
         System.out.print("*".repeat(200));
         System.out.print("|\n");
         System.out.print("|");
-        int length = 200 - nomeGestor.length() - ViewGestor.length();
+        int length = 200 - id.length() - ViewGestor.length();
         String repeat = " ".repeat(Math.max(0, length / 3));
         System.out.print(repeat);
-        System.out.print(nomeGestor);
+        System.out.print(id);
         System.out.print(repeat);
         System.out.print(ViewGestor);
         System.out.print(repeat);

@@ -8,11 +8,12 @@ public class ControllerGestor  {
         this.armazem = model;
     }
 
-    public void removerTecnico(String id) throws IOException {
+    public void removerTecnico(String id) {
         this.armazem.removerTecnico(id);
     }
 
-    public void removerFuncionario(String id) throws IOException {
+    public void removerFuncionario(String id)  {
         this.armazem.removerFuncionario(id);
     }
+
 }
