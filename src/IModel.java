@@ -52,6 +52,6 @@ public interface IModel{
     REPARACOES
      */
     boolean iniciarReparo(String tecnicoId, String equipamentoID);
-    //boolean pausarReparo(String tecnicoId, String equipamentoID);
+    boolean pausarReparo(String tecnicoId, String equipamentoID);
     boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoExtra);
 }

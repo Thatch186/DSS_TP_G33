@@ -337,6 +337,20 @@ public class Armazem implements IModel {
         }
         return false;
     }
+    public boolean pausarReparo(String tecnicoId, String equipamentoID){
+        if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) &&
+        this.pedidosOrcamento.containsKey(equipamentoID) && this.orcamentos.containsKey(equipamentoID)){
+            Tecnico t = this.tecnicos.get(tecnicoId);
+            if(!t.getaReparar().equals(equipamentoID)) return false; //Este tecnico quer por em pausa algo que nao esta a reparar
+            if(!t.isOcupado()) return false; //Se nao estao ocupado nao precisa de pausar nada
+
+            Orcamento o = this.orcamentos.get(equipamentoID);
+            if(o.estaEmPausa()) return false; //Orçamento já estava em pausa
+
+            return o.pausarPlanoTrabalho();
+        }
+        return false;
+    }
 
     public boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoExtra){
         if(this.tecnicos.containsKey(tecnicoId) && this.orcamentos.containsKey(orcamentoId) &&
