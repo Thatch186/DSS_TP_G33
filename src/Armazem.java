@@ -23,6 +23,7 @@ public class Armazem {
         orcamentos = new HashMap<>();
         expressos = new HashMap<>();
         pedidosOrcamento = new HashMap<>();
+        estat = new Estatisticas();
     }
 
        public void init(){
@@ -36,10 +37,10 @@ public class Armazem {
         equipamentos.put(e3.getCodRegisto(),e3);
         equipamentos.put(e4.getCodRegisto(),e4);
 
-        Funcionario f1 = new Funcionario("F1");
-        Funcionario f2 = new Funcionario("F2");
-        Funcionario f3 = new Funcionario("F3");
-        Funcionario f4 = new Funcionario("F4");
+        Funcionario f1 = new Funcionario("F1", "f1");
+        Funcionario f2 = new Funcionario("F2", "f2");
+        Funcionario f3 = new Funcionario("F3", "f3");
+        Funcionario f4 = new Funcionario("F4", "f4");
         funcionarios.put(f1.getId(),f1);
         funcionarios.put(f2.getId(),f2);
         funcionarios.put(f3.getId(),f3);
@@ -59,10 +60,10 @@ public class Armazem {
         clientes.put(cliente3.getNIF(),cliente3);
         clientes.put(cliente4.getNIF(),cliente4);
 
-        Tecnico t1 = new Tecnico("T1");
-        Tecnico t2 = new Tecnico("T2");
-        Tecnico t3 = new Tecnico("T3");
-        Tecnico t4 = new Tecnico("T4");
+        Tecnico t1 = new Tecnico("T1", "pass1");
+        Tecnico t2 = new Tecnico("T2", "pass2");
+        Tecnico t3 = new Tecnico("T3", "pass3");
+        Tecnico t4 = new Tecnico("T4", "pass4");
         tecnicos.put(t1.getId(),t1);
         tecnicos.put(t2.getId(),t2);
         tecnicos.put(t3.getId(),t3);
@@ -160,37 +161,43 @@ public class Armazem {
     /*
     METHODS
      */
-    public  boolean validarFuncionario(String idF){
-        return funcionarios.containsKey(idF);
+    public  boolean validarFuncionario(String idF, String password){
+        if(!funcionarios.containsKey(idF)) return false;
+
+        Funcionario e = this.funcionarios.get(idF);
+        return e.getPassword().equals(password);
     }
 
-       public boolean validarCliente(String idC){
+    public boolean validarCliente(String idC){
         return clientes.containsKey(idC);
     }
 
-       public boolean validarTecnico(String idT){
-        return tecnicos.containsKey(idT);
+       public boolean validarTecnico(String idT, String password){
+           if(!tecnicos.containsKey(idT)) return false;
+
+           Tecnico e = this.tecnicos.get(idT);
+           return e.getPassword().equals(password);
+       }
+
+       public boolean validarGestor(String idG, String password){
+        return this.gestor.getPassword().equals(password) && this.gestor.getId().equals(idG);
     }
 
-       public  boolean validarGestor(String idG){
-        return this.gestor.getId().equals(idG);
-    }
-
-       public boolean addFuncionario(String idF){
+       public boolean addFuncionario(String idF, String password){
         if(funcionarios.containsKey(idF)) return false;
-        funcionarios.put(idF, new Funcionario(idF));
+        funcionarios.put(idF, new Funcionario(idF, password));
         return true;
     }
 
-       public boolean addCliente(String nif, String email, String telemovel){
+       public boolean addCliente(String nif, String password, String email, String telemovel){
         if(clientes.containsKey(nif)) return false;
         clientes.put(nif, new Cliente(nif,email,telemovel));
         return true;
     }
 
-       public  boolean addTecnico(String idT){
+       public  boolean addTecnico(String idT, String password){
         if(tecnicos.containsKey(idT)) return false;
-        tecnicos.put(idT, new Tecnico(idT));
+        tecnicos.put(idT, new Tecnico(idT, password));
         return true;
     }
     //
@@ -298,5 +305,7 @@ public class Armazem {
         }
         return false;
     }
+
+
 }
 

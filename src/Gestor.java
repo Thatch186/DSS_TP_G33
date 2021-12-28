@@ -1,18 +1,31 @@
 public class Gestor {
     private String id;
+    private String password;
 
     /*
     CONTRUCTORS
      */
-    public Gestor(String id){
+    public Gestor(String id, String password){
         this.id=id;
+        this.password = password;
     }
     public Gestor(Gestor o){
         this.id = o.getId();
+        this.password = o.getPassword();
     }
+
+
     /*
     GETTERS e SETTERS
      */
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
     public String getId(){
         return id;
     }

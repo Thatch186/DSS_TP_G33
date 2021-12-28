@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Tecnico {
     private String id;
+    private String password;
     private boolean ocupado;
     private String aReparar; // Id de Orçamento cujo equipamento está a ser reparado
     private List<String> idRealizados; // Id de Orçamento realizados pelo tecnico
@@ -11,16 +12,18 @@ public class Tecnico {
     /*
      CONSTUCTORS
      */
-    public Tecnico(String id){
+    public Tecnico(String id, String password){
         this.id=id;
+        this.password = password;
         this.aReparar = null;
         this.idRealizados = new ArrayList<>();
         this.idReparados = new ArrayList<>();
         this.ocupado = false;
 
     }
-    public Tecnico(String id, String aReparar, List<String> irea, List<String> irep){
+    public Tecnico(String id, String password, String aReparar, List<String> irea, List<String> irep){
         this.id = id;
+        this.password = password;
         this.aReparar = aReparar;
         this.idRealizados = new ArrayList<>(irea);
         this.idReparados = new ArrayList<>(irep);
@@ -32,11 +35,20 @@ public class Tecnico {
         this.idRealizados = outro.getIdRealizados();
         this.idReparados = outro.getIdReparados();
         this.ocupado = outro.isOcupado();
+        this.password = outro.getPassword();
     }
 
     /*
     GETTERS e SETTERS
      */
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public boolean isOcupado() {
         return ocupado;
     }
@@ -91,7 +103,8 @@ public class Tecnico {
         return (this.id.equals(tec.getId()) &&
                 this.idRealizados.equals(tec.getIdRealizados()) &&
                 this.idReparados.equals(tec.getIdReparados()) &&
-                this.aReparar.equals(tec.getaReparar()));
+                this.aReparar.equals(tec.getaReparar()) &&
+                this.password.equals(tec.getPassword()));
     }
     /*
     CLONE
