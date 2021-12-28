@@ -69,9 +69,13 @@ public class Tecnico {
     public List<String> getIdReparados() {
         return new ArrayList<>(this.idReparados);
     }
+
     public void setIdReparados(List<String> idReparados) {
         this.idReparados = new ArrayList<>(idReparados);
     }
+
+
+
     /*
     EQUALS
      */

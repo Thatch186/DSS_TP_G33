@@ -236,7 +236,7 @@ public class Armazem {
 
     public boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
 
-        String idEquipamento = "idEquipamento"+codEquip;
+        String idEquipamento = "idEquipamento"+ codEquip;
         if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento)) return false;
         if(!isExpresso){
             Cliente cliente = this.clientes.get(nifCliente);
