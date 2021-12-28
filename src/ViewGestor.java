@@ -1,5 +1,5 @@
 import java.io.Serializable;
-import java.util.*
+import java.util.*;
 
 public class ViewGestor implements InterfaceGestor {
     /**

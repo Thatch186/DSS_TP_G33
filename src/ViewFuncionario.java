@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ViewFuncionario implements InterfaceViwer{
+public class ViewFuncionario implements InterfaceViewer{
     private Scanner sc;
     private Controller controller;
     private String id;
@@ -55,13 +55,11 @@ public class ViewFuncionario implements InterfaceViwer{
     void registaCliente(){
         System.out.println("Insira nif do cliente:");
         String nif = sc.nextLine();
-        System.out.println("Insira password do cliente:");
-        String password = sc.nextLine();
         System.out.println("Insira email do cliente:");
         String email = sc.nextLine();
         System.out.println("Insira telemovel do cliente:");
         String telemovel = sc.nextLine();
-        //boolean r = addCliente(nif,password,email,telemovel);
+        //boolean r = addCliente(nif,email,telemovel);
         //if(r)System.out.println("Cliente registado");
         //else System.out.println("Registo Falhado");
 
