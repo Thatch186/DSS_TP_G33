@@ -47,10 +47,11 @@ public interface IModel{
      */
     boolean clienteConfirmaOrcamento(String nifCliente, String idEquipamento);
     //boolean clienteRejeitaOrcamento(String nifCliente, String idEquipamento);
+
     /*
     REPARACOES
      */
     boolean iniciarReparo(String tecnicoId, String equipamentoID);
     //boolean pausarReparo(String tecnicoId, String equipamentoID);
-
+    boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoExtra);
 }
