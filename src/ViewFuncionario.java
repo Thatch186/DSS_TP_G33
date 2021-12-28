@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class ViewFuncionario implements InterfaceViewer{
     private Scanner sc;
-    private Controller controller;
+    private ControllerFuncionario controller;
     private String id;
 
-    public ViewFuncionario(Controller controller, String id){
+    public ViewFuncionario(ControllerFuncionario controller, String id){
         sc=new Scanner(System.in);
         this.controller = controller;
         this.id = id;
