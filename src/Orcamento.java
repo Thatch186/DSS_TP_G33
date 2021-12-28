@@ -1,7 +1,5 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-
 
 public class Orcamento {
     private String idPedido; //Identificado pelo Pedido Orçamento
@@ -87,15 +85,33 @@ public class Orcamento {
     /*
     METHODS
      */
+    public boolean estaConcluido(){
+        return this.planoTrabalho.estaConcluido();
+    }
     public void atualizaData(){
-        this.dataCriacao = LocalDateTime.now().toLocalDate();
         float diasParaConcluir = (this.planoTrabalho.tempoPorConcluir() / 24) + 1;
-        this.prazoMax = this.dataCriacao.plusDays((long) diasParaConcluir);
+        this.prazoMax = LocalDateTime.now().toLocalDate().plusDays((long) diasParaConcluir);
     }
-    public void iniciarPlanoTrabalho(){
-        this.planoTrabalho.setPausado(false);
+    public boolean iniciarPlanoTrabalho(){
+        if(this.confirmado){
+            this.planoTrabalho.setPausado(false);
+            return true;
+        }
+        return false;
     }
-
+    public boolean marcarPassoComoConcluido(int dinheiroExtra){
+        boolean ret = planoTrabalho.marcarPassoComoConcluido(dinheiroExtra);
+        if(this.planoTrabalho.dinheiroGasto >= this.custoMax * 1.20)
+            refazerOrcamento();
+        return ret;
+    }
+    public void refazerOrcamento(){
+        this.confirmado = false;
+        this.planoTrabalho.setPausado(true);
+        this.custoMax = this.planoTrabalho.dinheiroGasto + this.planoTrabalho.dinheiroPorConcluir() + 50;
+        float diasPorConcluir = (this.planoTrabalho.tempoPorConcluir() / 24) + 1;
+        this.prazoMax = LocalDateTime.now().toLocalDate().plusDays((int)diasPorConcluir);
+    }
     /*
     EQUALS
      */

@@ -24,7 +24,7 @@ public interface IModel{
     ADDS
      */
     boolean addFuncionario(String idF, String password);
-    boolean addCliente(String nif, String password, String email, String telemovel);
+    boolean addCliente(String nif, String email, String telemovel);
     boolean addTecnico(String idT, String password);
 
     /*

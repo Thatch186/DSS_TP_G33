@@ -111,6 +111,13 @@ public class PlanoTrabalho {
         return res;
     }
 
+    public float dinheiroPorConcluir(){
+        float res = 0;
+        for(Passo p : this.passos.subList(this.passosConcluidos,this.passos.size()))
+            res += p.getCusto();
+        return res;
+    }
+
     public float jaGastoTempo(){
         float tempoGasto = 0;
 
@@ -121,12 +128,7 @@ public class PlanoTrabalho {
     }
 
     public float jaGastoDinheiro(){
-        float dinheiroGasto = 0;
-
-        for(Passo p : this.passos.subList(0, this.passosConcluidos)){
-            dinheiroGasto += p.getCusto();
-        }
-        return dinheiroGasto;
+        return this.dinheiroGasto;
     }
 
     public void addPasso(Passo p){
@@ -138,7 +140,7 @@ public class PlanoTrabalho {
         if(this.passosConcluidos == this.passos.size()) return false;
         if(this.pausado) return false;
 
-        this.dinheiroGasto += dinheiroExtra + this.passos.get(this.passosConcluidos).getCusto();
+        this.dinheiroGasto += (dinheiroExtra + this.passos.get(this.passosConcluidos).getCusto());
         this.passosConcluidos++;
         return true;
     }

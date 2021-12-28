@@ -331,7 +331,39 @@ public class Armazem implements IModel {
 
             t.setOcupado(true);
             t.setaReparar(equipamentoID);
-            o.iniciarPlanoTrabalho();
+            return (o.iniciarPlanoTrabalho());
+        }
+        return false;
+    }
+
+    public boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoExtra){
+        if(this.tecnicos.containsKey(tecnicoId) && this.orcamentos.containsKey(orcamentoId) &&
+        this.pedidosOrcamento.containsKey(orcamentoId) && this.equipamentos.containsKey(orcamentoId)){
+            Tecnico t = this.tecnicos.get(tecnicoId);
+            Orcamento o = this.orcamentos.get(orcamentoId);
+            Equipamento e = this.equipamentos.get(orcamentoId);
+            boolean ret;
+
+            if(t.isOcupado() && t.getaReparar().equals(orcamentoId)){
+                ret = o.marcarPassoComoConcluido(custoExtra);
+            }
+            else
+                return false;
+
+            if(ret)
+            {
+                if(o.estaConcluido()){ //Este era o último passo
+                    registarEquipamentoReparado(orcamentoId,tecnicoId);
+                    return true;
+                }
+                else if(!o.isConfirmado()) //Ultrapassamos o limite, preciso refazer orçamento
+                {
+                    //Contactar cliente?? O q fazemos nestes casos
+                    t.setOcupado(false);
+                }
+                return true;
+            }
+
         }
         return false;
     }
