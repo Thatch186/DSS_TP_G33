@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.*;
 
-public class ControllerTecnico implements InterfaceTecnico {
+public class ControllerTecnico {
     private InterfM armazem;
 
     public ControllerTecnico(InterfM model) {
@@ -22,11 +22,11 @@ public class ControllerTecnico implements InterfaceTecnico {
     }
 
     public void criarOrcamento(String bf, String rf, String uf) throws IOException {
-        this.armazem.criarOrcamento(bf, rf, uf);
+       // this.armazem.registarOrcamento(bf, rf, uf);
     }
 
-    public void repararEquipamento(String bf, String rf, String uf) throws IOException {
-        this.armazem.repararEquipamento(bf, rf, uf);
+    public void repararEquipamento(String tecnico, String equipamento) throws IOException {
+        this.armazem.iniciarReparo(tecnico, equipamento);
     }
 
 }
