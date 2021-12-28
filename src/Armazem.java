@@ -234,7 +234,7 @@ public class Armazem {
         return registarPedido(cliente,funcionario,true);
     }
 
-    public boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
+    private boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
 
         String idEquipamento = "idEquipamento"+ codEquip;
         if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento)) return false;
@@ -273,7 +273,7 @@ public class Armazem {
         return null;
     }
 
-    public boolean regitarEquipamentoReparado(String idEquipamento, String idTecnico){
+    public boolean registarEquipamentoReparado(String idEquipamento, String idTecnico){
         if(this.equipamentos.containsKey(idEquipamento) && this.tecnicos.containsKey(idTecnico)){
             Equipamento e = this.equipamentos.get(idEquipamento);
 
