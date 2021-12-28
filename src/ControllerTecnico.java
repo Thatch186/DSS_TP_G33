@@ -8,16 +8,17 @@ public class ControllerTecnico implements InterfaceTecnico {
         this.armazem = model;
     }
 
-    public void consultarPedidosOrcamento(String bf, String rf, String uf) throws IOException {
-        this.armazem.consultarPedidosOrcamento(bf, rf, uf);
+    public List<PedidoOrcamento> consultarPedidoOrcamento() {
+        return new ArrayList<>(this.armazem.getPedidosOrcamento().values());
     }
 
-    public void consultarOrcamento(String bf, String rf, String uf) throws IOException {
-        this.armazem.consultarOrcamento(bf, rf, uf);
+    public List<Orcamento> consultarOrcamentos(){
+        return new ArrayList<>(this.armazem.getOrcamentos().values());
     }
 
-    public void refazerOrcamento(String bf, String rf, String uf) throws IOException {
-        this.armazem.refazerOrcamento(bf, rf, uf);
+
+    public Orcamento refazerOrcamento(String idOrcamento){
+        return this.armazem.getOrcamentos().get(idOrcamento).clone();
     }
 
     public void criarOrcamento(String bf, String rf, String uf) throws IOException {

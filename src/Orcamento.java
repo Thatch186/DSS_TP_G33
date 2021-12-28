@@ -9,6 +9,7 @@ public class Orcamento {
     private LocalDate prazoMax;
     private float custoMax;
     private PlanoTrabalho planoTrabalho;
+    private boolean confirmado;
 
     /*
     CONSTRUCTORS
@@ -19,6 +20,7 @@ public class Orcamento {
         this.dataCriacao = LocalDateTime.now().toLocalDate();
         this.planoTrabalho = pt;
         this.custoMax = custoMax;
+        this.confirmado = false;
     }
 
     public Orcamento(Orcamento outro){
@@ -27,6 +29,7 @@ public class Orcamento {
         this.planoTrabalho = outro.getPlanoTrabalho();
         this.dataCriacao = outro.getDataCriacao();
         this.custoMax = outro.getCustoMax();
+        this.confirmado = outro.isConfirmado();
     }
     public Orcamento(PlanoTrabalho pt, String idPedidoOrcamento){
          this.planoTrabalho = pt.clone();
@@ -35,6 +38,7 @@ public class Orcamento {
          this.custoMax = (float)((pt.totalCusto() * 1.2));
          float diasParaConcluir = (pt.tempoPorConcluir() / 24) + 1;
          this.prazoMax = this.dataCriacao.plusDays((long) diasParaConcluir);
+         this.confirmado = false;
     }
 
     /*
@@ -71,6 +75,27 @@ public class Orcamento {
     public void setPlanoTrabalho(PlanoTrabalho pt){
         this.planoTrabalho = pt.clone();
     }
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
+    }
+
+    /*
+    METHODS
+     */
+    public void atualizaData(){
+        this.dataCriacao = LocalDateTime.now().toLocalDate();
+        float diasParaConcluir = (this.planoTrabalho.tempoPorConcluir() / 24) + 1;
+        this.prazoMax = this.dataCriacao.plusDays((long) diasParaConcluir);
+    }
+    public void iniciarPlanoTrabalho(){
+        this.planoTrabalho.setPausado(false);
+    }
+
     /*
     EQUALS
      */
@@ -85,7 +110,10 @@ public class Orcamento {
         Orcamento orc = (Orcamento) o;
         return (this.idPedido.equals(orc.getIdPedido()) &&
                 this.prazoMax.equals(orc.getPrazoMax()) &&
-                this.planoTrabalho.equals(orc.getPlanoTrabalho()));
+                this.planoTrabalho.equals(orc.getPlanoTrabalho()) &&
+                this.confirmado == orc.isConfirmado() &&
+                this.custoMax == orc.getCustoMax() &&
+                this.dataCriacao.equals(orc.getDataCriacao()));
     }
     /*
     CLONE
