@@ -1,12 +1,34 @@
 import java.util.Date;
+import java.util.EnumMap;
+
+enum TipoServicoExpresso{
+    trocarEcra,
+    instalarOS,
+    limparComputador,
+    limparTelemovel,
+    formatarComputador;
+}
+
+class TabelaPrecos{
+    private static EnumMap<TipoServicoExpresso,Integer> tabelaPrecos = new EnumMap<TipoServicoExpresso, Integer>(TipoServicoExpresso.class);
+    static{
+        tabelaPrecos.put(TipoServicoExpresso.trocarEcra,150);
+        tabelaPrecos.put(TipoServicoExpresso.instalarOS,50);
+        tabelaPrecos.put(TipoServicoExpresso.limparComputador,30);
+        tabelaPrecos.put(TipoServicoExpresso.limparTelemovel,15);
+        tabelaPrecos.put(TipoServicoExpresso.formatarComputador,20);
+    }
+    public static Integer getPreco(TipoServicoExpresso t){
+        return TabelaPrecos.tabelaPrecos.get(t);
+    }
+}
 
 public class Expresso {
     private String idEquipamento;
     private String nifCliente;
     private String idFuncionario;
     private String idTecnico;
-
-
+    private TipoServicoExpresso tipoServico;
 
     /*
     CONSTRUCTORS
@@ -61,9 +83,17 @@ public class Expresso {
         this.idTecnico = idTecnico;
     }
 
+    public TipoServicoExpresso getTipoServico() {
+        return this.tipoServico;
+    }
+
+    public void setTipoServico(TipoServicoExpresso tipoServico) {
+        this.tipoServico = tipoServico;
+    }
+
     /*
-        EQUALS
-         */
+    EQUALS
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -76,7 +106,8 @@ public class Expresso {
         return (this.idEquipamento.equals(orc.getIdEquipamento()) &&
                 this.nifCliente.equals(orc.getNifCliente()) &&
                 this.idFuncionario.equals(orc.getIdFuncionario()) &&
-                this.idTecnico.equals(orc.getIdTecnico()));
+                this.idTecnico.equals(orc.getIdTecnico()) &&
+                this.tipoServico == orc.getTipoServico());
     }
     /*
     CLONE
