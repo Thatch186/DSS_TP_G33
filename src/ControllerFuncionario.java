@@ -3,9 +3,9 @@ import java.util.List;
 
 public class ControllerFuncionario {
 
-    private Armazem armazem;
+    private InterfM armazem;
 
-    public ControllerFuncionario(Armazem e){
+    public ControllerFuncionario(InterfM e){
         this.armazem = e;
     }
 
