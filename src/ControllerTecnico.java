@@ -12,12 +12,12 @@ public class ControllerTecnico implements InterfaceTecnico {
         return new ArrayList<>(this.armazem.getPedidosOrcamento().values());
     }
 
-    public List<Orcamento> consultarOrcamentos(){
+    public List<Orcamento> consultarOrcamentos() {
         return new ArrayList<>(this.armazem.getOrcamentos().values());
     }
 
 
-    public Orcamento refazerOrcamento(String idOrcamento){
+    public Orcamento refazerOrcamento(String idOrcamento) {
         return this.armazem.getOrcamentos().get(idOrcamento).clone();
     }
 
@@ -29,8 +29,4 @@ public class ControllerTecnico implements InterfaceTecnico {
         this.armazem.repararEquipamento(bf, rf, uf);
     }
 
-
-    public void consultarEstadoReparacao(String bf, String rf, String uf) throws IOException {
-        this.armazem.consultarEstadoReparacao(bf, rf, uf);
-    }
 }

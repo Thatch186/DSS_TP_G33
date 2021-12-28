@@ -69,7 +69,7 @@ public class Armazem implements IModel {
         tecnicos.put(t3.getId(),t3);
         tecnicos.put(t4.getId(),t4);
 
-        gestor = new Gestor("G1");
+        gestor = new Gestor("G1", "pass1");
 
         Estatisticas estatisticas = new Estatisticas();
     }
@@ -187,7 +187,7 @@ public class Armazem implements IModel {
         return true;
     }
 
-       public boolean addCliente(String nif, String password, String email, String telemovel){
+       public boolean addCliente(String nif, String email, String telemovel){
         if(clientes.containsKey(nif)) return false;
         clientes.put(nif, new Cliente(nif,email,telemovel));
         return true;
@@ -335,7 +335,5 @@ public class Armazem implements IModel {
         }
         return false;
     }
-
-
 }
 
