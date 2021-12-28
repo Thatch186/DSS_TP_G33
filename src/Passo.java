@@ -1,5 +1,5 @@
 public class Passo {
-    private float tempo;
+    private float tempo; //Horas para concluir passo
     private float custo;
     private String descricao;
 

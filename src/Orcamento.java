@@ -1,21 +1,22 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 
 public class Orcamento {
     private String idPedido; //Identificado pelo Pedido Orçamento
-    private Date dataCriacao;
-    private Date prazoMax;
+    private LocalDate dataCriacao;
+    private LocalDate prazoMax;
     private float custoMax;
-    private PlanoTrabalho planoTrabalho; //Null se é expresso
+    private PlanoTrabalho planoTrabalho;
 
     /*
     CONSTRUCTORS
      */
-    public Orcamento(String idPedido, Date prazoMax, PlanoTrabalho pt, float custoMax){
+    public Orcamento(String idPedido, LocalDate prazoMax, PlanoTrabalho pt, float custoMax){
         this.idPedido = idPedido;
         this.prazoMax = prazoMax;
-        this.dataCriacao = new Date();
+        this.dataCriacao = LocalDateTime.now().toLocalDate();
         this.planoTrabalho = pt;
         this.custoMax = custoMax;
     }
@@ -28,11 +29,12 @@ public class Orcamento {
         this.custoMax = outro.getCustoMax();
     }
     public Orcamento(PlanoTrabalho pt, String idPedidoOrcamento){
-         this.planoTrabalho = pt;
+         this.planoTrabalho = pt.clone();
          this.idPedido = idPedidoOrcamento;
-         //this.dataCriacao = LocalDateTime.now();
+         this.dataCriacao = LocalDateTime.now().toLocalDate();
          this.custoMax = (float)((pt.totalCusto() * 1.2));
-         //this.prazoMax = pt.tempoPorConcluir() *
+         float diasParaConcluir = (pt.tempoPorConcluir() / 24) + 1;
+         this.prazoMax = this.dataCriacao.plusDays((long) diasParaConcluir);
     }
 
     /*
@@ -46,22 +48,20 @@ public class Orcamento {
         return idPedido;
     }
 
-    public Date getDataCriacao() { return dataCriacao; }
+    public LocalDate getDataCriacao() { return dataCriacao; }
 
-    public void setDataCriacao(Date data) { this.dataCriacao = data;}
-
-    public void setDataCriacao() { this.dataCriacao = new Date(); }
+    public void setDataCriacao(LocalDate data) { this.dataCriacao = data;}
 
     public void setIdPedido(String idPedido) {
         this.idPedido = idPedido;
     }
 
-    public Date getPrazoMax() {
-        return (Date) prazoMax.clone();
+    public LocalDate getPrazoMax() {
+        return (LocalDate) prazoMax;
     }
 
-    public void setPrazoMax(Date prazoMax) {
-        this.prazoMax = (Date) prazoMax.clone();
+    public void setPrazoMax(LocalDate prazoMax) {
+        this.prazoMax = prazoMax;
     }
 
     public PlanoTrabalho getPlanoTrabalho(){

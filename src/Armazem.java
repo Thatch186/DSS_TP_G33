@@ -1,6 +1,6 @@
 import java.util.*;
 
-   public class Armazem {
+public class Armazem {
     private static int codEquip = 0; //A cada pedido efetuado, o código incrementa, assim já sabemos o código do equip
     private Map<String,Equipamento> equipamentos;
     private Map<String,Funcionario> funcionarios;
@@ -293,17 +293,10 @@ import java.util.*;
            Orcamento orcamento = new Orcamento(pt, idPedidoOrcamento);
            this.orcamentos.put(idPedidoOrcamento,orcamento);
 
-           //atualizar tecnico
-            PedidoOrcamento po = this.pedidosOrcamento.get(idPedidoOrcamento);
             Tecnico t = this.tecnicos.get(idTecnico);
-            return t.addRealizado(po.getEquipamento());
-
+            return t.addRealizado(idPedidoOrcamento);
         }
         return false;
-
     }
-
-
-
-   }
+}
 
