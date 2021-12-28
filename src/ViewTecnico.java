@@ -1,14 +1,15 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ViewTecnico implements InterfaceViwer{
     private Scanner sc;
-    private Controller controller;
+    private ControllerTecnico controller;
     private String id;
 
-    public ViewTecnico(Controller controller, String id){
-        sc=new Scanner(System.in);1
+    public ViewTecnico(ControllerTecnico controller, String id){
+        sc=new Scanner(System.in);
         this.controller = controller;
         this.id = id;
     }
@@ -55,14 +56,14 @@ public class ViewTecnico implements InterfaceViwer{
     }
 
     void consultarPedidosOrcamento(){
-        ArrayList<PedidoOrcamento> pedidos = pedidosOrcamento.getValues();
+        List<PedidoOrcamento> pedidos = controller.consultarPedidoOrcamento();
         for(PedidoOrcamento po: pedidos){
             System.out.println(po.toString());
         }
     }
 
     void consultarOrcamentos(){
-        ArrayList<Orcamento> orcs = orcamentos.getValues();
+        List<Orcamento> orcs = controller.consultarOrcamentos();
         for(Orcamento o: orcs){
             System.out.println(o.toString());
         }

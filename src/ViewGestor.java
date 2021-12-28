@@ -21,9 +21,9 @@ public class ViewGestor implements InterfaceGestor {
 
     public void run()  {
         Menu menu = new Menu(new String[]{
-                " 1 - Consultar Estatísticas ",
-                " 2 - Remover Técnico",
-                " 3 - Remover Funcionario",
+                "Consultar Estatísticas ",
+                "Remover Técnico",
+                "Remover Funcionario",
         });
         int op;
         do {
