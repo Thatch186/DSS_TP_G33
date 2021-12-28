@@ -99,6 +99,15 @@ public class Orcamento {
         }
         return false;
     }
+    public boolean pausarPlanoTrabalho(){
+        if(!this.confirmado) return false;
+        if(this.planoTrabalho.isPausado()) return false;
+        this.planoTrabalho.setPausado(true);
+        return true;
+    }
+    public boolean estaEmPausa(){
+        return this.planoTrabalho.isPausado();
+    }
     public boolean marcarPassoComoConcluido(int dinheiroExtra){
         boolean ret = planoTrabalho.marcarPassoComoConcluido(dinheiroExtra);
         if(this.planoTrabalho.dinheiroGasto >= this.custoMax * 1.20)

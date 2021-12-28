@@ -312,6 +312,8 @@ public class Armazem implements IModel {
             if(!c.temEquipamento(idEquipamento)) return false; //Certifica-se que cliente tem equipamento em seu nome
 
             Orcamento o = this.orcamentos.get(idEquipamento);
+            if(o.isConfirmado()) return true; //Já estava confirmado
+
             o.atualizaData(); //Atualiza data para compensar tempo que cliente demorou a responder
             o.setConfirmado(true); //Atualiza orcamento com confirmaçao do cliente
             return true;
@@ -332,6 +334,20 @@ public class Armazem implements IModel {
             t.setOcupado(true);
             t.setaReparar(equipamentoID);
             return (o.iniciarPlanoTrabalho());
+        }
+        return false;
+    }
+    public boolean pausarReparo(String tecnicoId, String equipamentoID){
+        if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) &&
+        this.pedidosOrcamento.containsKey(equipamentoID) && this.orcamentos.containsKey(equipamentoID)){
+            Tecnico t = this.tecnicos.get(tecnicoId);
+            if(!t.getaReparar().equals(equipamentoID)) return false; //Este tecnico quer por em pausa algo que nao esta a reparar
+            if(!t.isOcupado()) return false; //Se nao estao ocupado nao precisa de pausar nada
+
+            Orcamento o = this.orcamentos.get(equipamentoID);
+            if(o.estaEmPausa()) return false; //Orçamento já estava em pausa
+
+            return o.pausarPlanoTrabalho();
         }
         return false;
     }
@@ -358,14 +374,25 @@ public class Armazem implements IModel {
                 }
                 else if(!o.isConfirmado()) //Ultrapassamos o limite, preciso refazer orçamento
                 {
-                    //Contactar cliente?? O q fazemos nestes casos
+                    String nif = getCliente(orcamentoId);
+                    if(nif != null){
+                        this.clientes.get(nif).sendMail("Orcamento para equipamento " + orcamentoId +
+                                " tera de ser refeito!",tecnicoId);
+                    }
                     t.setOcupado(false);
                 }
                 return true;
             }
-
         }
         return false;
+    }
+
+    private String getCliente(String eqId){
+        for(Cliente c : this.clientes.values()){
+            if(c.getCodigosEquipamento().contains(eqId))
+                return c.getNIF();
+        }
+        return null;
     }
 }
 

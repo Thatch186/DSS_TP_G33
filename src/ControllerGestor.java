@@ -2,9 +2,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class ControllerGestor  {
-    private InterfM armazem;
+    private IModel armazem;
 
-    public ControllerGestor(InterfM model) {
+    public ControllerGestor(IModel model) {
         this.armazem = model;
     }
 
