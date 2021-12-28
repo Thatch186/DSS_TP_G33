@@ -7,13 +7,13 @@ public class ViewGestor implements InterfaceGestor {
      */
     private Scanner sc;
     private String id;
-    private Controller controller;
+    private ControllerGestor controller;
 
     /**
      * Construtor por parâmetros da classe View
      * @param controller Controlador
      */
-    public ViewGestor(Controller controller, String id){
+    public ViewGestor(ControllerGestor controller, String id){
         sc=new Scanner(System.in);
         this.controller = controller;
         this.id = id;
