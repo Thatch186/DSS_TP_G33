@@ -67,4 +67,17 @@ public class PedidoOrcamento {
     public PedidoOrcamento clone(){
         return new PedidoOrcamento(this);
     }
+
+    @Override
+    public String toString() {
+
+        String pedido = "Pedido de Orçamento | ";
+        StringBuilder sb = new StringBuilder(pedido);
+        sb.append(nifCliente);
+        sb.append(" | ");
+        sb.append(idEquipamento);
+        sb.append(" | ");
+        sb.append(idFuncionario);
+        return pedido;
+    }
 }
