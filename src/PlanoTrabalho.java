@@ -4,9 +4,9 @@ import java.util.List;
 public class PlanoTrabalho {
     private List<Passo> passos;
     int passosConcluidos;
-    boolean pausado;
-    //dinheiro ja gasto
-    //tempo ja gasto
+    boolean pausado; //Temos de ter atencao mas deve fazer sentido começar em pausa
+                    // pq ainda vai esperar pela confirmacao do cliente
+                    // Por agora no metodo de adicionar passos, sempre q se adiciona um fica em pausa
 
     /*
     CONSTRUCTORS
@@ -110,6 +110,10 @@ public class PlanoTrabalho {
         return dinheiroGasto;
     }
 
+    public void addPasso(Passo p){
+        this.passos.add(p);
+        this.pausado = true;
+    }
     /*
     EQUALS
      */
