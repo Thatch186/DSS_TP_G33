@@ -287,6 +287,21 @@ import java.util.*;
         return false;
     }
 
+    public boolean registarOrcamento( PlanoTrabalho pt, String idPedidoOrcamento, String idTecnico){
+
+        if(this.pedidosOrcamento.containsKey(idPedidoOrcamento) && this.tecnicos.containsKey(idTecnico) ){
+           Orcamento orcamento = new Orcamento(pt, idPedidoOrcamento);
+           this.orcamentos.put(idPedidoOrcamento,orcamento);
+
+           //atualizar tecnico
+            PedidoOrcamento po = this.pedidosOrcamento.get(idPedidoOrcamento);
+            Tecnico t = this.tecnicos.get(idTecnico);
+            return t.addRealizado(po.getEquipamento());
+
+        }
+        return false;
+
+    }
 
 
 

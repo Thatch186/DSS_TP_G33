@@ -103,6 +103,11 @@ public class Tecnico {
         idReparados.add(idE);
         return true;
     }
+    boolean addRealizado(String idE){
+        if(idRealizados.contains(idE)) return false;
+        idRealizados.add(idE);
+        return true;
+    }
 }
 
 

@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -25,6 +26,13 @@ public class Orcamento {
         this.planoTrabalho = outro.getPlanoTrabalho();
         this.dataCriacao = outro.getDataCriacao();
         this.custoMax = outro.getCustoMax();
+    }
+    public Orcamento(PlanoTrabalho pt, String idPedidoOrcamento){
+         this.planoTrabalho = pt;
+         this.idPedido = idPedidoOrcamento;
+         //this.dataCriacao = LocalDateTime.now();
+         this.custoMax = (float)((pt.totalCusto() * 1.2));
+         //this.prazoMax = pt.tempoPorConcluir() *
     }
 
     /*
