@@ -1,9 +1,10 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ViewTecnico implements InterfaceViwer{
+public class ViewTecnico implements IViewerGeral{
     private Scanner sc;
     private ControllerTecnico controller;
     private String id;
@@ -14,7 +15,7 @@ public class ViewTecnico implements InterfaceViwer{
         this.id = id;
     }
 
-    public void run() { ///entao
+    public void run(){ ///entao
         Menu menu = new Menu(new String[]{
                 "Consultar Pedido de Orçamento",
                 "Consultar Orçamentos",
@@ -39,11 +40,19 @@ public class ViewTecnico implements InterfaceViwer{
                     refazerOrcamento();
                     break;
                 case (4):
-                    criarOrcamento();
-                    break;
+                    try {
+                        criarOrcamento();
+                        break;
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 case (5):
-                    repararEquipamento();
-                    break;
+                    try {
+                        repararEquipamento();
+                        break;
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 case (6):
                     consultarEstadoReparacao();
                     break;
@@ -72,7 +81,7 @@ public class ViewTecnico implements InterfaceViwer{
     void refazerOrcamento(){
     }
 
-    void criarOrcamento(){
+    void criarOrcamento() throws IOException {
         System.out.println("Insira Id do Pedido de Orçamento: ");
         String idPO = sc.nextLine();
         PlanoTrabalho pt = new PlanoTrabalho();
@@ -119,9 +128,8 @@ public class ViewTecnico implements InterfaceViwer{
         return pt;
     }
 
-    void concluirPlano(PlanoTrabalho pt, String idPO){
-        Orcamento o = new Orcamento(pt,idPO);
-        //orcamentos.add(idPO,Orcamento);
+    void concluirPlano(PlanoTrabalho pt, String idPO) throws IOException {
+        controller.criarOrcamento(pt,idPO, id);
         //Cliente confirma
         System.out.println("Orcamento Registado");
     }
@@ -130,14 +138,13 @@ public class ViewTecnico implements InterfaceViwer{
         System.out.println("Não é possível reparar o equipamento");
     }
 
-    void repararEquipamento(){
-        System.out.println("Insira ID do Orçamento:");
-        String idO= sc.nextLine();
-
-        //...
+    void repararEquipamento() throws IOException {
+        System.out.println("Insira ID do Equipamento:");
+        String idE= sc.nextLine();
+        controller.repararEquipamento(id,idE);
     }
 
     void consultarEstadoReparacao(){
-        //..
+
     }
 }

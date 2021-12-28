@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.*;
 
-public class ControllerTecnico {
+public class ControllerTecnico implements IControllerTecnico{
     private IModel armazem;
 
     public ControllerTecnico(IModel model) {
@@ -21,12 +21,12 @@ public class ControllerTecnico {
         return this.armazem.getOrcamentos().get(idOrcamento).clone();
     }
 
-    public void criarOrcamento(String bf, String rf, String uf) throws IOException {
-       // this.armazem.registarOrcamento(bf, rf, uf);
+    public void criarOrcamento(PlanoTrabalho pt, String idPedido, String idTec) throws IOException {
+        this.armazem.registarOrcamento(pt, idPedido, idTec);
+
     }
 
     public void repararEquipamento(String tecnico, String equipamento) throws IOException {
         this.armazem.iniciarReparo(tecnico, equipamento);
     }
-
 }

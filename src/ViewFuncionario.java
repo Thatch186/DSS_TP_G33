@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ViewFuncionario implements InterfaceViewer{
+public class ViewFuncionario implements IViewerGeral{
     private Scanner sc;
     private ControllerFuncionario controller;
     private String id;

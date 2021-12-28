@@ -1,6 +1,7 @@
+import java.io.IOException;
 import java.util.Scanner;
 
-public class ViewGeral implements InterfaceViwer{
+public class ViewGeral implements IViewerGeral{
     private Scanner sc;
     private ControllerTecnico ct;
     private ControllerGestor cg;
@@ -13,7 +14,7 @@ public class ViewGeral implements InterfaceViwer{
         sc=new Scanner(System.in);
     }
 
-    void run(){
+    public void run(){
         Menu menu = new Menu(new String[]{
                 "Login",
                 "Registar",
@@ -26,8 +27,12 @@ public class ViewGeral implements InterfaceViwer{
             op = menu.getOpcao();
             switch (op) {
                 case (1):
-                    login();
-                    break;
+                    try {
+                        login();
+                        break;
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 case (2):
                     registar();
                     break;
@@ -42,7 +47,7 @@ public class ViewGeral implements InterfaceViwer{
         } while (op != 0);
     }
 
-    void login(){
+    void login() throws IOException {
         Menu menu = new Menu(new String[]{
                 "Tecnico",
                 "Funcionario",
@@ -69,7 +74,7 @@ public class ViewGeral implements InterfaceViwer{
         } while (op != 0);
     }
 
-    void loginTecnico(){
+    void loginTecnico() throws IOException {
         System.out.println("Introduza Username:");
         String userName = sc.nextLine();
         System.out.println("Introduza Password");
