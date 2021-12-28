@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Armazem {
+public class Armazem implements IModel {
     private static int codEquip = 0; //A cada pedido efetuado, o código incrementa, assim já sabemos o código do equip
     private Map<String,Equipamento> equipamentos;
     private Map<String,Funcionario> funcionarios;
@@ -126,11 +126,9 @@ public class Armazem {
             novo.put(k,pedidosOrcamento.get(k).clone());
         return novo;
     }
-
     public void setPedidosOrcamento(Map<String, PedidoOrcamento> pedidosOrcamento) {
         this.pedidosOrcamento = pedidosOrcamento;
     }
-
 
     public Map<String, Orcamento> getOrcamentos() {
         Map<String,Orcamento> novo = new HashMap<>();
