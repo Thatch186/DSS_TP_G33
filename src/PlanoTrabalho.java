@@ -5,6 +5,7 @@ public class PlanoTrabalho {
     private List<Passo> passos;
     int passosConcluidos;
     int dinheiroGasto;
+    float horasGastas;
     boolean pausado;
 
     /*
@@ -14,6 +15,7 @@ public class PlanoTrabalho {
         this.passos = new ArrayList<>();
         this.passosConcluidos = 0;
         this.dinheiroGasto = 0;
+        this.horasGastas = 0;
         this.pausado = true;
     }
     public PlanoTrabalho(List<Passo> passos){
@@ -30,13 +32,15 @@ public class PlanoTrabalho {
             this.passos.add(p.clone());
         this.passosConcluidos = passosConcluidos;
         this.dinheiroGasto = 0;
+        this.horasGastas = 0;
         this.pausado = true;
     }
     public PlanoTrabalho(PlanoTrabalho pt){
         this.passos = pt.getPassos();
         this.passosConcluidos = pt.getPassosConcluidos();
-        this.pausado = true;
+        this.pausado = pt.isPausado();
         this.dinheiroGasto = pt.getDinheiroGasto();
+        this.horasGastas = pt.getHorasGastas();
     }
     /*
     GETTERS e SETTERS
@@ -78,6 +82,13 @@ public class PlanoTrabalho {
         this.dinheiroGasto = dinheiroGasto;
     }
 
+    public float getHorasGastas() {
+        return horasGastas;
+    }
+
+    public void setHorasGastas(float horasGastas) {
+        this.horasGastas = horasGastas;
+    }
     /*
     METHODS
      */
@@ -118,29 +129,17 @@ public class PlanoTrabalho {
         return res;
     }
 
-    public float jaGastoTempo(){
-        float tempoGasto = 0;
-
-        for(Passo p : this.passos.subList(0, this.passosConcluidos)){
-            tempoGasto += p.getTempo();
-        }
-        return tempoGasto;
-    }
-
-    public float jaGastoDinheiro(){
-        return this.dinheiroGasto;
-    }
-
     public void addPasso(Passo p){
         this.passos.add(p);
         this.pausado = true;
     }
 
-    public boolean marcarPassoComoConcluido(int dinheiroExtra){
+    public boolean marcarPassoComoConcluido(int dinheirGasto, float tempoGasto){
         if(this.passosConcluidos == this.passos.size()) return false;
         if(this.pausado) return false;
 
-        this.dinheiroGasto += (dinheiroExtra + this.passos.get(this.passosConcluidos).getCusto());
+        this.dinheiroGasto += dinheirGasto;
+        this.horasGastas += tempoGasto;
         this.passosConcluidos++;
         return true;
     }
@@ -159,7 +158,8 @@ public class PlanoTrabalho {
         return (this.passos.equals(pt.getPassos()) &&
                 this.passosConcluidos == pt.getPassosConcluidos() &&
                 this.pausado == pt.isPausado() &&
-                this.dinheiroGasto == pt.getDinheiroGasto());
+                this.dinheiroGasto == pt.getDinheiroGasto() &&
+                this.horasGastas == pt.getHorasGastas());
     }
     /*
     CLONE

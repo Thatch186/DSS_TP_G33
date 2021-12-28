@@ -108,8 +108,8 @@ public class Orcamento {
     public boolean estaEmPausa(){
         return this.planoTrabalho.isPausado();
     }
-    public boolean marcarPassoComoConcluido(int dinheiroExtra){
-        boolean ret = planoTrabalho.marcarPassoComoConcluido(dinheiroExtra);
+    public boolean marcarPassoComoConcluido(int dinheiroGasto, float horasGastas){
+        boolean ret = planoTrabalho.marcarPassoComoConcluido(dinheiroGasto,horasGastas);
         if(this.planoTrabalho.dinheiroGasto >= this.custoMax * 1.20)
             refazerOrcamento();
         return ret;
