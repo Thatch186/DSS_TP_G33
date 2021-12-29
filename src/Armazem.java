@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Armazem implements IModel {
@@ -8,6 +9,7 @@ public class Armazem implements IModel {
     private Map<String,Tecnico> tecnicos;
     private Map<String,PedidoOrcamento> pedidosOrcamento;
     private Map<String,Orcamento> orcamentos;
+    private Map<String,Orcamento> orcamentosArquivados;
     private Map<String, Expresso> expressos;
     private Estatisticas estat;
     private Gestor gestor;
@@ -21,6 +23,7 @@ public class Armazem implements IModel {
         clientes = new HashMap<>();
         tecnicos = new HashMap<>();
         orcamentos = new HashMap<>();
+        orcamentosArquivados = new HashMap<>();
         expressos = new HashMap<>();
         pedidosOrcamento = new HashMap<>();
         estat = new Estatisticas();
@@ -327,7 +330,7 @@ public class Armazem implements IModel {
 
             Orcamento o = this.orcamentos.get(idEquipamento);
             if(o.isConfirmado()) return true; //Já estava confirmado
-
+            this.pedidosOrcamento.remove(idEquipamento);
             o.atualizaData(); //Atualiza data para compensar tempo que cliente demorou a responder
             o.setConfirmado(true); //Atualiza orcamento com confirmaçao do cliente
             return true;
@@ -345,7 +348,8 @@ public class Armazem implements IModel {
 
             Orcamento o = this.orcamentos.get(idEquipamento);
             o.setConfirmado(false);
-
+            this.pedidosOrcamento.remove(idEquipamento);
+            arquivarOrcamento(idEquipamento);
             //FAZER PARTE EM QUE COMEÇASE A CONTAR OS 90 DIAS
             //SE CLIENTE NAO LEVANTAR EQUIPAMENTO NESTE TEMPO
             //EQUIPAMENTO VAI PARA LISTA DE EQUIPAMENTOS ABANDONADOS
@@ -354,8 +358,7 @@ public class Armazem implements IModel {
     }
 
     public boolean iniciarReparo(String tecnicoId, String equipamentoID){
-        if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) &&
-        this.pedidosOrcamento.containsKey(equipamentoID) && this.orcamentos.containsKey(equipamentoID)){
+        if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) && this.orcamentos.containsKey(equipamentoID)){
             Orcamento o = this.orcamentos.get(equipamentoID);
             if(!o.isConfirmado()) return false;
 
@@ -370,7 +373,7 @@ public class Armazem implements IModel {
     }
     public boolean pausarReparo(String tecnicoId, String equipamentoID){
         if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) &&
-        this.pedidosOrcamento.containsKey(equipamentoID) && this.orcamentos.containsKey(equipamentoID)){
+        this.orcamentos.containsKey(equipamentoID)){
             Tecnico t = this.tecnicos.get(tecnicoId);
             if(!t.getaReparar().equals(equipamentoID)) return false; //Este tecnico quer por em pausa algo que nao esta a reparar
             if(!t.isOcupado()) return false; //Se nao estao ocupado nao precisa de pausar nada
@@ -385,7 +388,7 @@ public class Armazem implements IModel {
 
     public boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoDinheiro, float horasGastas){
         if(this.tecnicos.containsKey(tecnicoId) && this.orcamentos.containsKey(orcamentoId) &&
-        this.pedidosOrcamento.containsKey(orcamentoId) && this.equipamentos.containsKey(orcamentoId)){
+        this.equipamentos.containsKey(orcamentoId)){
             Tecnico t = this.tecnicos.get(tecnicoId);
             Orcamento o = this.orcamentos.get(orcamentoId);
             Equipamento e = this.equipamentos.get(orcamentoId);
@@ -469,6 +472,31 @@ public class Armazem implements IModel {
         if(ret == 0) return 0;
         else
             return ret/n;
+    }
+
+    private boolean arquivarOrcamento(String idOrcamento){
+        if(this.orcamentosArquivados.containsKey(idOrcamento)) return false;
+        if(!this.orcamentos.containsKey(idOrcamento)) return false;
+
+        Orcamento o = this.orcamentos.get(idOrcamento);
+        this.orcamentos.remove(idOrcamento);
+        this.orcamentosArquivados.put(idOrcamento,o);
+        return true;
+    }
+
+    public void atualizarArquivo(){
+        List<String> toBeArquived = new ArrayList<>();
+
+        for(Orcamento o : this.orcamentos.values()){
+            if(!o.isConfirmado()) //Confirmar se passaram 30 dias desde que foi criado
+            {
+                if(o.getDataCriacao().plusDays(30).isBefore(LocalDateTime.now().toLocalDate()))
+                    toBeArquived.add(o.getIdPedido());
+            }
+        }
+
+        for(String s : toBeArquived)
+            arquivarOrcamento(s);
     }
 }
 
