@@ -14,4 +14,6 @@ public interface IControllerTecnico {
     public void criarOrcamento(PlanoTrabalho pt, String idPO, String idTecnico) throws IOException ;
 
     public void repararEquipamento(String tecnico, String equipamento) throws IOException;
+
+    public String printOrcamento(String idO);
 }

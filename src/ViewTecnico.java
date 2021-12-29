@@ -15,7 +15,7 @@ public class ViewTecnico implements IViewerGeral{
         this.id = id;
     }
 
-    public void run(){ ///entao
+    public void run(){
         Menu menu = new Menu(new String[]{
                 "Consultar Pedido de Orçamento",
                 "Consultar Orçamentos",
@@ -145,6 +145,10 @@ public class ViewTecnico implements IViewerGeral{
     }
 
     void consultarEstadoReparacao(){
+        System.out.println("Introoudza o ID do Orçamento:");
+        String idO = sc.nextLine();
+
+        System.out.println(controller.printOrcamento(idO));
 
     }
 }

@@ -147,4 +147,23 @@ public class Orcamento {
     public Orcamento clone(){
         return new Orcamento(this);
     }
+
+    @Override
+    public String toString() {
+        String s = "Orçamento: ";
+        StringBuilder sb = new StringBuilder(s);
+        sb.append(idPedido);
+        sb.append(" | ");
+        sb.append(prazoMax);
+        sb.append(" | ");
+        sb.append(dataCriacao.toString());
+        sb.append(" | ");
+        sb.append(custoMax);
+        sb.append(" | ");
+        //sb.append(planoTrabalho);
+        //sb.append(" | ");
+        sb.append(confirmado);
+
+        return s;
+    }
 }

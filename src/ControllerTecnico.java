@@ -29,4 +29,10 @@ public class ControllerTecnico implements IControllerTecnico{
     public void repararEquipamento(String tecnico, String equipamento) throws IOException {
         this.armazem.iniciarReparo(tecnico, equipamento);
     }
+
+    public String printOrcamento(String idO){
+        if(armazem.getOrcamentos().containsKey(idO))
+            return  armazem.getOrcamentos().get(idO).toString();
+        return "ID introduzido inválido";
+    }
 }
