@@ -130,7 +130,7 @@ public class PlanoTrabalho {
     }
 
     public void addPasso(Passo p){
-        this.passos.add(p);
+        this.passos.add(p.clone());
         this.pausado = true;
     }
 
@@ -167,5 +167,20 @@ public class PlanoTrabalho {
     @Override
     public PlanoTrabalho clone(){
         return new PlanoTrabalho(this);
+    }
+
+    @Override
+    public String toString() {
+        String r = "Plano de Trabalho: ";
+        StringBuilder sb = new StringBuilder(r);
+        sb.append(passos.toString());
+        sb.append(" | ");
+        sb.append(passosConcluidos);
+        sb.append(" | ");
+        sb.append(horasGastas);
+        sb.append(" | ");
+        sb.append(pausado);
+
+        return sb.toString();
     }
 }

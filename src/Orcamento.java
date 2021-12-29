@@ -169,10 +169,10 @@ public class Orcamento {
         sb.append(" | ");
         sb.append(custoMax);
         sb.append(" | ");
-        //sb.append(planoTrabalho);
-        //sb.append(" | ");
         sb.append(confirmado);
+        sb.append('\n');
+        sb.append(planoTrabalho.toString());
 
-        return s;
+        return sb.toString();
     }
 }

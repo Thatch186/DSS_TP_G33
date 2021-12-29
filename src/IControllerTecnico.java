@@ -11,7 +11,7 @@ public interface IControllerTecnico {
 
     public Orcamento refazerOrcamento(String idOrcamento);
 
-    public void criarOrcamento(PlanoTrabalho pt, String idPO, String idTecnico) throws IOException ;
+    public boolean criarOrcamento(PlanoTrabalho pt, String idPO, String idTecnico) throws IOException ;
 
     public void repararEquipamento(String tecnico, String equipamento) throws IOException;
 

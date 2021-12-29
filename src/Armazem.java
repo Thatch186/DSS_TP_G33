@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Armazem implements IModel {
-    private static int codEquip = 0; //A cada pedido efetuado, o código incrementa, assim já sabemos o código do equip
+    private static int codEquip = 1; //A cada pedido efetuado, o código incrementa, assim já sabemos o código do equip
     private Map<String,Equipamento> equipamentos;
     private Map<String,Funcionario> funcionarios;
     private Map<String,Cliente> clientes;
@@ -75,7 +75,14 @@ public class Armazem implements IModel {
         tecnicos.put(t3.getId(),t3);
         tecnicos.put(t4.getId(),t4);
 
-        gestor = new Gestor("G1", "pass1");
+        registarPedido("1","F1",false);
+        registarPedido("2","F2",false);
+        registarPedido("3","F3",true);
+        registarPedido("4","F4",true);
+
+
+
+           gestor = new Gestor("G1", "pass1");
 
         Estatisticas estatisticas = new Estatisticas();
     }

@@ -21,8 +21,8 @@ public class ControllerTecnico implements IControllerTecnico{
         return this.armazem.getOrcamentos().get(idOrcamento).clone();
     }
 
-    public void criarOrcamento(PlanoTrabalho pt, String idPedido, String idTec) throws IOException {
-        this.armazem.registarOrcamento(pt, idPedido, idTec);
+    public boolean criarOrcamento(PlanoTrabalho pt, String idPedido, String idTec) throws IOException {
+        return  this.armazem.registarOrcamento(pt, idPedido, idTec);
 
     }
 
