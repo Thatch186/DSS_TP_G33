@@ -2,12 +2,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-class Levantamento{
-    String idEquipamento;
-    LocalDate dataDeChegada;
-    
-}
-
 public class Armazem implements IModel {
     private static int codEquip = 1; //A cada pedido efetuado, o código incrementa, assim já sabemos o código do equip
     private Map<String,Equipamento> equipamentos;
