@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 public class ViewTecnico implements IViewerGeral{
     private Scanner sc;
-    private ControllerTecnico controller;
+    private IControllerTecnico controller;
     private String id;
 
-    public ViewTecnico(ControllerTecnico controller, String id){
+    public ViewTecnico(IControllerTecnico controller, String id){
         sc=new Scanner(System.in);
         this.controller = controller;
         this.id = id;
@@ -76,6 +76,7 @@ public class ViewTecnico implements IViewerGeral{
         for(Orcamento o: orcs){
             System.out.println(o.toString());
         }
+        System.out.println(orcs.size());
     }
 
     void refazerOrcamento(){

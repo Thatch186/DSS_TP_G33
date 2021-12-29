@@ -1,6 +1,7 @@
 import java.util.Map;
 
 public interface IModel{
+    void init();
     /*
     GETTERS
      */

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerFuncionario {
+public class ControllerFuncionario implements IControllerFuncionario{
 
     private IModel armazem;
 

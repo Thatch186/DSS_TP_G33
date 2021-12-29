@@ -3,15 +3,18 @@ import java.util.Scanner;
 
 public class ViewGeral implements IViewerGeral{
     private Scanner sc;
-    private ControllerTecnico ct;
-    private ControllerGestor cg;
-    private ControllerFuncionario cf;
+    private IControllerTecnico ct;
+    private IControllerGestor cg;
+    private IControllerFuncionario cf;
     private ViewTecnico vt;
     private ViewGestor vg;
     private ViewFuncionario vf;
 
-    public ViewGeral(ControllerTecnico ct,ControllerGestor cg,ControllerFuncionario cf){
+    public ViewGeral(IControllerTecnico ct,IControllerGestor cg,IControllerFuncionario cf){
         sc=new Scanner(System.in);
+        this.ct = ct;
+        this.cf=cf;
+        this.cg = cg;
     }
 
     public void run(){

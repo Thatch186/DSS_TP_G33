@@ -8,13 +8,13 @@ public class ViewGestor implements IViewerGeral {
      */
     private Scanner sc;
     private String id;
-    private ControllerGestor controller;
+    private IControllerGestor controller;
 
     /**
      * Construtor por parâmetros da classe View
      * @param controller Controlador
      */
-    public ViewGestor(ControllerGestor controller, String id){
+    public ViewGestor(IControllerGestor controller, String id){
         sc=new Scanner(System.in);
         this.controller = controller;
         this.id = id;
