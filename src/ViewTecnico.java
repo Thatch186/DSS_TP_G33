@@ -133,7 +133,7 @@ public class ViewTecnico implements IViewerGeral{
         //Cliente confirma
         System.out.println("Orcamento Registado");
     }
-
+    //ENVIAR EMAIL AO CLIENTE
     void rejeitar(){
         System.out.println("Não é possível reparar o equipamento");
     }

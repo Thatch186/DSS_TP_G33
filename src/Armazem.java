@@ -320,6 +320,8 @@ public class Armazem implements IModel {
         if(this.clientes.containsKey(nifCliente) && this.equipamentos.containsKey(idEquipamento) &&
         this.pedidosOrcamento.containsKey(idEquipamento) &&
         this.orcamentos.containsKey(idEquipamento)){
+            if(isExpresso(idEquipamento)) return false; //Nao ha orcamentos para servicos expresso
+
             Cliente c = this.clientes.get(nifCliente);
             if(!c.temEquipamento(idEquipamento)) return false; //Certifica-se que cliente tem equipamento em seu nome
 
@@ -332,7 +334,24 @@ public class Armazem implements IModel {
         }
         return false;
     }
-    //SE CLIENTE REJEITAR ORÇAMENTO AINDA NAO TEMPOS OPÇOES
+    public boolean clienteRejeitaOrcamento(String nifCliente, String idEquipamento){
+        if(this.clientes.containsKey(nifCliente) && this.equipamentos.containsKey(idEquipamento) &&
+                this.pedidosOrcamento.containsKey(idEquipamento) &&
+                this.orcamentos.containsKey(idEquipamento)){
+            if(isExpresso(idEquipamento)) return false; //Nao ha orcamento para servicos expresso
+
+            Cliente c = this.clientes.get(nifCliente);
+            if(!c.temEquipamento(idEquipamento)) return false; //Certifica-se que cliente tem equipamento em seu nome
+
+            Orcamento o = this.orcamentos.get(idEquipamento);
+            o.setConfirmado(false);
+
+            //FAZER PARTE EM QUE COMEÇASE A CONTAR OS 90 DIAS
+            //SE CLIENTE NAO LEVANTAR EQUIPAMENTO NESTE TEMPO
+            //EQUIPAMENTO VAI PARA LISTA DE EQUIPAMENTOS ABANDONADOS
+        }
+        return false;
+    }
 
     public boolean iniciarReparo(String tecnicoId, String equipamentoID){
         if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) &&
