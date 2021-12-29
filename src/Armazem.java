@@ -383,7 +383,7 @@ public class Armazem implements IModel {
         return false;
     }
 
-    public boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoExtra){
+    public boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoDinheiro, float horasGastas){
         if(this.tecnicos.containsKey(tecnicoId) && this.orcamentos.containsKey(orcamentoId) &&
         this.pedidosOrcamento.containsKey(orcamentoId) && this.equipamentos.containsKey(orcamentoId)){
             Tecnico t = this.tecnicos.get(tecnicoId);
@@ -392,7 +392,7 @@ public class Armazem implements IModel {
             boolean ret;
 
             if(t.isOcupado() && t.getaReparar().equals(orcamentoId)){
-                ret = o.marcarPassoComoConcluido(custoExtra);
+                ret = o.marcarPassoComoConcluido(custoDinheiro,horasGastas);
             }
             else
                 return false;
