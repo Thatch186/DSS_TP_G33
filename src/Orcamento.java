@@ -117,7 +117,7 @@ public class Orcamento {
     public void refazerOrcamento(){
         this.confirmado = false;
         this.planoTrabalho.setPausado(true);
-        this.custoMax = this.planoTrabalho.dinheiroGasto + this.planoTrabalho.dinheiroPorConcluir() + 50;
+        this.custoMax = this.planoTrabalho.getDinheiroGasto() + this.planoTrabalho.dinheiroPorConcluir() + 50;
         float diasPorConcluir = (this.planoTrabalho.tempoPorConcluir() / 24) + 1;
         this.prazoMax = LocalDateTime.now().toLocalDate().plusDays((int)diasPorConcluir);
     }
@@ -126,6 +126,9 @@ public class Orcamento {
     }
     public float tempoEstimado(){
         return this.planoTrabalho.totalTime();
+    }
+    public float dinheiroGasto(){
+        return this.planoTrabalho.getDinheiroGasto();
     }
     /*
     EQUALS

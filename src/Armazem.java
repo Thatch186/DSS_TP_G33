@@ -5,7 +5,7 @@ import java.util.*;
 class Levantamento{
     String idEquipamento;
     LocalDate dataDeChegada;
-    
+
 }
 
 public class Armazem implements IModel {
