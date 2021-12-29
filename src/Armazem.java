@@ -289,6 +289,16 @@ public class Armazem implements IModel {
 
             Tecnico t = this.tecnicos.get(idTecnico);
             t.setOcupado(false);
+
+            String nif = getCliente(idEquipamento);
+            Cliente c = this.clientes.get(nif);
+            if(isExpresso(idEquipamento))
+                c.sendMessage("Reparo do Equipamento " + idEquipamento + " está concluido.",idTecnico);
+            else if(isNormal(idEquipamento)){
+                Orcamento o = this.orcamentos.get(idEquipamento);
+                if(!o.estaConcluido()) return false;
+                c.sendMail("Reparo do Equipamento " + idEquipamento + " está concluido.",idTecnico);
+            }
             return t.addReparado(idEquipamento);
         }
         return false;
@@ -397,17 +407,6 @@ public class Armazem implements IModel {
         return null;
     }
 
-
-    public void notificaExpresso (String nifCliente, String idFuncionario, String idEquipamento){
-        if(clientes.containsKey(nifCliente) && funcionarios.containsKey(idFuncionario)) {
-            Equipamento e = this.equipamentos.get(idEquipamento);
-            if (e.isReparado() == true){
-                Cliente cliente = this.clientes.get(nifCliente);
-               cliente.sendMessage("Serviço expresso concluído",idFuncionario);
-            }
-        }
-    }
-
     public void notificaClienteReparacaoImpossivel (String nifCliente, String idFuncionario, String idEquipamento) {
         if (clientes.containsKey(nifCliente) && funcionarios.containsKey(idFuncionario)) {
             PedidoOrcamento pe = this.pedidosOrcamento.get(idEquipamento);
@@ -416,6 +415,13 @@ public class Armazem implements IModel {
                 cliente.sendMessage("Equipamento não pode ser reparado", idFuncionario);
             }
         }
+    }
+
+    private boolean isExpresso(String eqId){
+        return (this.expressos.containsKey(eqId));
+    }
+    private boolean isNormal(String eqId){
+        return (this.orcamentos.containsKey(eqId));
     }
 }
 
