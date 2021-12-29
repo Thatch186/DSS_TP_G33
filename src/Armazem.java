@@ -12,6 +12,7 @@ public class Armazem implements IModel {
     private Map<String,Orcamento> orcamentos;
     private Map<String,Orcamento> orcamentosArquivados;
     private Map<String, Expresso> expressos;
+    private Map<String,Levantamento> filaDeLevantamentos;
     private Estatisticas estat;
     private Gestor gestor;
 
@@ -27,6 +28,7 @@ public class Armazem implements IModel {
         orcamentosArquivados = new HashMap<>();
         expressos = new HashMap<>();
         pedidosOrcamento = new HashMap<>();
+        filaDeLevantamentos = new HashMap<>();
         estat = new Estatisticas();
     }
 
@@ -160,9 +162,21 @@ public class Armazem implements IModel {
     public void setGestor(Gestor gestor) {
         this.gestor = gestor.clone();
     }
+
+    public Map<String, Levantamento> getFilaDeLevantamentos() {
+        Map<String,Levantamento> ret = new HashMap<>();
+        for(Levantamento l : this.filaDeLevantamentos.values())
+            ret.put(l.getEquipmentID(),l.clone());
+        return ret;
+    }
+
+    public void setFilaDeLevantamentos(Map<String, Levantamento> filaDeLevantamentos) {
+        this.filaDeLevantamentos = filaDeLevantamentos;
+    }
+
     /*
-    METHODS
-     */
+        METHODS
+         */
     public  boolean validarFuncionario(String idF, String password){
         if(!funcionarios.containsKey(idF)) return false;
 
@@ -223,13 +237,16 @@ public class Armazem implements IModel {
 
     //Faz registo quando cliente levanta algum equipamento da loja
     public boolean registarLevantamento(String idEquipamento, String idFuncionario){
-        if(this.equipamentos.containsKey(idEquipamento) && this.funcionarios.containsKey(funcionarios)){
+        if(this.equipamentos.containsKey(idEquipamento) && this.funcionarios.containsKey(funcionarios) &&
+        this.filaDeLevantamentos.containsKey(idEquipamento)){
             Equipamento e = this.equipamentos.get(idEquipamento);
 
             if(e.getLevantado()) return false; //Verifica que ainda não foi levantado
             e.setLevantado(true);
 
             Funcionario f = this.funcionarios.get(idFuncionario);
+            this.filaDeLevantamentos.remove(idEquipamento);
+
             return f.addEntrega(idEquipamento);
         }
         return false;
@@ -265,8 +282,6 @@ public class Armazem implements IModel {
                 t.setOcupado(true);
                 t.setaReparar(idEquipamento);
                 this.expressos.put(idEquipamento, expresso);
-
-
             }
             else
                 return false;
@@ -285,7 +300,8 @@ public class Armazem implements IModel {
     }
 
     public boolean registarEquipamentoReparado(String idEquipamento, String idTecnico){
-        if(this.equipamentos.containsKey(idEquipamento) && this.tecnicos.containsKey(idTecnico)){
+        if(this.equipamentos.containsKey(idEquipamento) && this.tecnicos.containsKey(idTecnico) &&
+                (!this.filaDeLevantamentos.containsKey(idEquipamento))){
             Equipamento e = this.equipamentos.get(idEquipamento);
 
             if(e.isReparado()) return false; //Verifica que ainda não foi reparado
@@ -303,6 +319,7 @@ public class Armazem implements IModel {
                 if(!o.estaConcluido()) return false;
                 c.sendMail("Reparo do Equipamento " + idEquipamento + " está concluido.",idTecnico);
             }
+            this.filaDeLevantamentos.put(idEquipamento,new Levantamento(idEquipamento));
             return t.addReparado(idEquipamento);
         }
         return false;
@@ -351,15 +368,16 @@ public class Armazem implements IModel {
             o.setConfirmado(false);
             this.pedidosOrcamento.remove(idEquipamento);
             arquivarOrcamento(idEquipamento);
-            //FAZER PARTE EM QUE COMEÇASE A CONTAR OS 90 DIAS
-            //SE CLIENTE NAO LEVANTAR EQUIPAMENTO NESTE TEMPO
-            //EQUIPAMENTO VAI PARA LISTA DE EQUIPAMENTOS ABANDONADOS
+            this.filaDeLevantamentos.put(idEquipamento,new Levantamento(idEquipamento));
+            return true;
         }
         return false;
     }
 
     public boolean iniciarReparo(String tecnicoId, String equipamentoID){
-        if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) && this.orcamentos.containsKey(equipamentoID)){
+        if(this.tecnicos.containsKey(tecnicoId) && this.equipamentos.containsKey(equipamentoID) &&
+                this.orcamentos.containsKey(equipamentoID) &&
+                (!this.filaDeLevantamentos.containsKey(equipamentoID))){
             Orcamento o = this.orcamentos.get(equipamentoID);
             if(!o.isConfirmado()) return false;
 
@@ -389,7 +407,8 @@ public class Armazem implements IModel {
 
     public boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoDinheiro, float horasGastas){
         if(this.tecnicos.containsKey(tecnicoId) && this.orcamentos.containsKey(orcamentoId) &&
-        this.equipamentos.containsKey(orcamentoId)){
+        this.equipamentos.containsKey(orcamentoId) &&
+                (!this.filaDeLevantamentos.containsKey(orcamentoId))){
             Tecnico t = this.tecnicos.get(tecnicoId);
             Orcamento o = this.orcamentos.get(orcamentoId);
             Equipamento e = this.equipamentos.get(orcamentoId);
@@ -498,6 +517,23 @@ public class Armazem implements IModel {
 
         for(String s : toBeArquived)
             arquivarOrcamento(s);
+    }
+    public int atualizarEquipamentosAbandonados(){
+        int ret = 0;
+        for(Levantamento l : this.filaDeLevantamentos.values()){
+            if(l.getData().isBefore(LocalDate.now().minusDays(90))) //Mais de 90 dias para ser levantado
+            {
+                ret++;
+                this.equipamentos.get(l.getEquipmentID()).setAbandonado(true);
+                arquivarOrcamento(l.getEquipmentID());
+                this.pedidosOrcamento.remove(l.getEquipmentID());
+                //Contactar cliente
+                String nif = getCliente(l.getEquipmentID());
+                Cliente c = this.clientes.get(nif);
+                c.sendMail("O seu equipamento foi dado como abandonado","Reparacoes");
+            }
+        }
+        return ret;
     }
 }
 

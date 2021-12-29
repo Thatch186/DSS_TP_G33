@@ -2,11 +2,15 @@ import java.time.LocalDate;
 
 public class Levantamento{
     private String equipmentID;
-    private LocalDate data;
+    private LocalDate data; //Data em que equipamento está pronto para ser levantado
 
     /*
     CONSTRUCTORS
      */
+    public Levantamento(String equipmentID){
+        this.equipmentID = equipmentID;
+        this.data = LocalDate.now();
+    }
     public Levantamento(String equipmentID, LocalDate data){
         this.equipmentID = equipmentID;
         this.data = data;
