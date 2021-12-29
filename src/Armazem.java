@@ -261,6 +261,8 @@ public class Armazem implements IModel {
                 t.setOcupado(true);
                 t.setaReparar(idEquipamento);
                 this.expressos.put(idEquipamento, expresso);
+
+
             }
             else
                 return false;
@@ -394,5 +396,30 @@ public class Armazem implements IModel {
         }
         return null;
     }
+
+
+    public void notificaExpresso (String nifCliente, String idFuncionario, String idEquipamento){
+        if(clientes.containsKey(nifCliente) && funcionarios.containsKey(idFuncionario)) {
+            Equipamento e = this.equipamentos.get(idEquipamento);
+            if (e.isReparado() == true){
+                Cliente cliente = this.clientes.get(nifCliente);
+               cliente.sendMessage("Serviço expresso concluído",idFuncionario);
+            }
+        }
+    }
+
+    public void notificaClienteReparacaoImpossivel (String nifCliente, String idFuncionario, String idEquipamento) {
+        if (clientes.containsKey(nifCliente) && funcionarios.containsKey(idFuncionario)) {
+            PedidoOrcamento pe = this.pedidosOrcamento.get(idEquipamento);
+            if (!pe.isPossivelReparacao()) {
+                Cliente cliente = this.clientes.get(nifCliente);
+                cliente.sendMessage("Equipamento não pode ser reparado", idFuncionario);
+            }
+        }
+    }
 }
+
+
+
+
 

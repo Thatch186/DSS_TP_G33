@@ -2,6 +2,7 @@ public class PedidoOrcamento {
     private String nifCliente;
     private String idEquipamento; //Identificado por idEquipamento
     private String idFuncionario;
+    private Boolean reparacaoPossivel;
     //adicionar a data em que pedido foi feito
 
     /*
@@ -21,6 +22,19 @@ public class PedidoOrcamento {
     /*
     GETTERS e SETTERS
      */
+
+    public Boolean getReparacaoPossivel() {
+        return reparacaoPossivel;
+    }
+
+    public void setReparacaoPossivel(Boolean reparacaoPossivel) {
+        this.reparacaoPossivel = reparacaoPossivel;
+    }
+
+    public boolean isPossivelReparacao() {
+        return reparacaoPossivel;
+    }
+
     public String getNifCliente() {
         return nifCliente;
     }
