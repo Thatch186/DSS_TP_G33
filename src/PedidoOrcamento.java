@@ -16,7 +16,7 @@ public class PedidoOrcamento {
     public PedidoOrcamento(PedidoOrcamento po){
         this.nifCliente = po.nifCliente;
         this.idEquipamento = po.idEquipamento;
-        this.idEquipamento = po.idFuncionario;
+        this.idFuncionario = po.idFuncionario;
     }
 
     /*
@@ -85,13 +85,13 @@ public class PedidoOrcamento {
     @Override
     public String toString() {
 
-        String pedido = "Pedido de Orçamento | ";
+        String pedido = "Pedido de Orçamento: ";
         StringBuilder sb = new StringBuilder(pedido);
         sb.append(nifCliente);
         sb.append(" | ");
         sb.append(idEquipamento);
         sb.append(" | ");
         sb.append(idFuncionario);
-        return pedido;
+        return sb.toString();
     }
 }

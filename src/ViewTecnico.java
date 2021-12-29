@@ -120,19 +120,26 @@ public class ViewTecnico implements IViewerGeral{
         System.out.println("Tempo do passo:");
         float tempo = sc.nextFloat();
         String descricao=null;
-        System.out.println("Adicionar descrição ? Sim-1 | Não-2");
-        if(sc.nextInt()==1){
+        System.out.println("Adicionar descrição ? Sim-s | Não-n");
+        String trash = sc.nextLine();
+        String choice = sc.nextLine();
+        if(choice.equals("s")){
             System.out.println("Insira a descrição");
             descricao = sc.nextLine();
         }
+        else System.out.println("Nenhuma descrição adicionada");
+        novo.setCusto(custo);
+        novo.setTempo(tempo);
+        novo.setDescricao(descricao);
         pt.addPasso(novo);
-        return pt;
+        return pt.clone();
     }
 
     void concluirPlano(PlanoTrabalho pt, String idPO) throws IOException {
-        controller.criarOrcamento(pt,idPO, id);
-        //Cliente confirma
-        System.out.println("Orcamento Registado");
+        if(controller.criarOrcamento(pt,idPO, id))
+            System.out.println("Orcamento Registado");
+        else
+            System.out.println("Nao Registado");
     }
     //ENVIAR EMAIL AO CLIENTE
     void rejeitar(){
@@ -150,6 +157,5 @@ public class ViewTecnico implements IViewerGeral{
         String idO = sc.nextLine();
 
         System.out.println(controller.printOrcamento(idO));
-
     }
 }
