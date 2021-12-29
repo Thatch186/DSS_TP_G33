@@ -121,6 +121,12 @@ public class Orcamento {
         float diasPorConcluir = (this.planoTrabalho.tempoPorConcluir() / 24) + 1;
         this.prazoMax = LocalDateTime.now().toLocalDate().plusDays((int)diasPorConcluir);
     }
+    public float tempoGasto(){
+        return this.planoTrabalho.getHorasGastas();
+    }
+    public float tempoEstimado(){
+        return this.planoTrabalho.totalTime();
+    }
     /*
     EQUALS
      */

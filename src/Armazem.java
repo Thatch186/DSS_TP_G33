@@ -442,6 +442,34 @@ public class Armazem implements IModel {
     private boolean isNormal(String eqId){
         return (this.orcamentos.containsKey(eqId));
     }
+    public float mediaTempoGasto(String idTecnico){
+        float ret = 0;
+        float n = 0;
+        if(!this.tecnicos.containsKey(idTecnico)) return ret;
+        Tecnico t = this.tecnicos.get(idTecnico);
+        for(String o : t.getIdReparados()){
+            Orcamento orc = this.orcamentos.get(o);
+            n++;
+            ret += orc.tempoGasto();
+        }
+        if(ret == 0) return 0;
+        else
+            return ret/n;
+    }
+    public float mediaTempoEstimado(String idTecnico){
+        float ret = 0;
+        float n = 0;
+        if(!this.tecnicos.containsKey(idTecnico)) return ret;
+        Tecnico t = this.tecnicos.get(idTecnico);
+        for(String o : t.getIdReparados()){
+            Orcamento orc = this.orcamentos.get(o);
+            n++;
+            ret += orc.tempoEstimado();
+        }
+        if(ret == 0) return 0;
+        else
+            return ret/n;
+    }
 }
 
 

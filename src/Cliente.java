@@ -34,7 +34,7 @@ public class Cliente {
         this.codigosEquipamento =new ArrayList<>();
         this.mensagensEnviadas = new ArrayList<>();
     }
-    public Cliente(String NIF,Contacto contacto, List<String> codigosEquipamento, List<String> mensagensEnviadas){
+    public Cliente(String NIF,Contacto contacto, List<String> codigosEquipamento, List<Mensagem> mensagensEnviadas){
         this.NIF = NIF;
         this.contacto = contacto;
         this.codigosEquipamento = new ArrayList<>(codigosEquipamento);
