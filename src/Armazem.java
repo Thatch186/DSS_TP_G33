@@ -510,7 +510,7 @@ public class Armazem implements IModel {
         return true;
     }
 
-    public void atualizarArquivo(){
+    public int atualizarArquivo(){
         List<String> toBeArquived = new ArrayList<>();
 
         for(Orcamento o : this.orcamentos.values()){
@@ -523,6 +523,7 @@ public class Armazem implements IModel {
 
         for(String s : toBeArquived)
             arquivarOrcamento(s);
+        return toBeArquived.size();
     }
     public int atualizarEquipamentosAbandonados(){
         int ret = 0;
@@ -537,6 +538,23 @@ public class Armazem implements IModel {
                 String nif = getCliente(l.getEquipmentID());
                 Cliente c = this.clientes.get(nif);
                 c.sendMail("O seu equipamento foi dado como abandonado","Reparacoes");
+            }
+        }
+        return ret;
+    }
+
+    public List<String> intervencoes(String idTecnico){
+        List<String> ret = new ArrayList<>();
+        if(!this.tecnicos.containsKey(idTecnico)) return ret;
+        Tecnico t = this.tecnicos.get(idTecnico);
+
+        for(String conc : t.getIdReparados()){
+            if(isExpresso(conc))
+                ret.add("Servico Expresso: " + conc);
+            else
+            {
+                ret.add("Servico Normal: " + conc);
+                ret.add(this.orcamentos.get(conc).getPlanoTrabalho().getPassos().toString());
             }
         }
         return ret;

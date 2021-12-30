@@ -77,7 +77,9 @@ public class Passo {
     public Passo clone(){
         return new Passo(this);
     }
-
+    /*
+    TO STRING
+     */
     @Override
     public String toString() {
         String s = "Passo( ";
