@@ -42,4 +42,27 @@ public class ControllerTecnico implements IControllerTecnico{
     public boolean registaTecnico(String id,String pass){
         return armazem.addTecnico(id,pass);
     }
+
+    public boolean isOcupado(String id) {
+        return armazem.getTecnicos().get(id).isOcupado();
+    }
+
+    public String aReparar(String id){
+        return armazem.getTecnicos().get(id).getaReparar();
+    }
+
+    public boolean pausaReparo(String id,String idE){
+        return armazem.pausarReparo(id,idE);
+    }
+
+    public boolean marcarConcluido(String id, String idEquipamento, int custo, float tempo){
+        return armazem.marcarPassoComoConcluido(id,idEquipamento,custo,tempo);
+    }
+
+    public boolean terminarExpresso(String idTecnico, String idEquipamento){
+        if(armazem.isExpresso(idEquipamento)){
+            return armazem.registarEquipamentoReparado(idEquipamento,idTecnico);
+        }
+        else return false;
+    }
 }

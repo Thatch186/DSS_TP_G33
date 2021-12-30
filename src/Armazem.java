@@ -13,7 +13,6 @@ public class Armazem implements IModel {
     private Map<String,Orcamento> orcamentosArquivados;
     private Map<String, Expresso> expressos;
     private Map<String,Levantamento> filaDeLevantamentos;
-    private Estatisticas estat;
     private Gestor gestor;
 
     /*
@@ -29,7 +28,6 @@ public class Armazem implements IModel {
         expressos = new HashMap<>();
         pedidosOrcamento = new HashMap<>();
         filaDeLevantamentos = new HashMap<>();
-        estat = new Estatisticas();
     }
 
        public void init(){
@@ -90,8 +88,6 @@ public class Armazem implements IModel {
         clienteConfirmaOrcamento("3","equipamento3");
 
         gestor = new Gestor("G1", "pass1");
-
-        Estatisticas estatisticas = new Estatisticas();
     }
     /*
     GETTERS e SETTERS
@@ -159,14 +155,6 @@ public class Armazem implements IModel {
 
     public void setOrcamentos(Map<String, Orcamento> orcamentos) {
         this.orcamentos = orcamentos;
-    }
-
-    public Estatisticas getEstat() {
-        return estat;
-    }
-
-    public void setEstat(Estatisticas estat) {
-        this.estat = estat;
     }
 
     public Gestor getGestor() {
@@ -239,6 +227,9 @@ public class Armazem implements IModel {
 
        public boolean removerCliente(String nif){
         if(!clientes.containsKey(nif)) return false;
+        for(PedidoOrcamento po: pedidosOrcamento.values()){
+            if(po.getNifCliente().equals(nif)) return false;
+        }
         clientes.remove(nif);
         return true;
     }
@@ -277,8 +268,11 @@ public class Armazem implements IModel {
     private boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
 
         String idEquipamento = "equipamento"+ codEquip;
-        if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento)) return false;
+        if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento) ||
+                !funcionarios.containsKey(idFuncionario) || !validarCliente(nifCliente)) return false;
+
         equipamentos.put(idEquipamento,new Equipamento(idEquipamento));
+        funcionarios.get(idFuncionario).addAtendimento(idEquipamento);
         if(!isExpresso){
             Cliente cliente = this.clientes.get(nifCliente);
             cliente.addEquipamento(idEquipamento);
@@ -474,7 +468,7 @@ public class Armazem implements IModel {
         }
     }
 
-    private boolean isExpresso(String eqId){
+    public boolean isExpresso(String eqId){
         return (this.expressos.containsKey(eqId));
     }
     private boolean isNormal(String eqId){

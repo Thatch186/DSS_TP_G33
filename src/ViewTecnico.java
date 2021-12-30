@@ -159,10 +159,65 @@ public class ViewTecnico implements IViewerGeral{
             System.out.println("ERRO: Reparo não iniciado");
     }
 
-    void consultarEstadoReparacao(){
-        System.out.println("Introoudza o ID do Orçamento:");
-        String idO = sc.nextLine();
+    void consultarEstadoReparacao() {
+        if (controller.isOcupado(id)) {
+            String idEquipamento = controller.aReparar(id);
+            Menu menu = new Menu(new String[]{
+                    "Pausar reparação",
+                    "Marcar passo concluído",
+                    "Terminar reparação expresso"
+            });
+            int op;
+            do {
+                menu.executa();
+                op = menu.getOpcao();
+                switch (op) {
+                    case (0):
+                        break;
+                    case (1):
+                        pausaReparo(idEquipamento);
+                        break;
+                    case (2):
+                        marcaPassoConcluido(idEquipamento);
+                        break;
+                    case (3):
+                        terminarExpresso(idEquipamento);
+                        break;
+                    default:
+                        sc.nextLine();
+                        System.out.println("Comando não reconhecido!");
+                        break;
+                }
+            } while (op != 0);
+        }
+        else{
+            System.out.println("Técncio parado. Sem reparo ativo");
+        }
+    }
 
-        System.out.println(controller.printOrcamento(idO));
+    void pausaReparo(String idE){
+        if(controller.pausaReparo(id,idE))
+            System.out.println("Reparo pausado");
+        else
+            System.out.println("ERRO: Reparo não foi pausado");
+    }
+
+    void marcaPassoConcluido(String idE){
+        System.out.println("Quanto custou o passo:");
+        int custo = sc.nextInt();
+        System.out.println("Quanto tempo demorou:");
+        float tempo = sc.nextFloat();
+
+        if(controller.marcarConcluido(id,idE,custo,tempo))
+            System.out.println("Passo marcado como concluido");
+        else
+            System.out.println("ERRO: falha ao marcar passo como concluído");
+    }
+
+    void terminarExpresso(String idE){
+        if(controller.terminarExpresso(idE,id))
+            System.out.println("Expresso terminado");
+        else
+            System.out.println("ERRO: Não terminado");
     }
 }

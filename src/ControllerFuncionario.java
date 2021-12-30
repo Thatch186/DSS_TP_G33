@@ -7,7 +7,7 @@ public class ControllerFuncionario implements IControllerFuncionario{
     }
 
     public boolean registarPedidoOrcamento(String nifCliente, String idFuncionario){
-        return this.armazem.pedeOrcamento(nifCliente, idFuncionario);
+            return this.armazem.pedeOrcamento(nifCliente, idFuncionario);
     }
 
     public boolean registaCliente(String nif, String email, String telemovel){
@@ -22,11 +22,27 @@ public class ControllerFuncionario implements IControllerFuncionario{
         return this.armazem.registarLevantamento(nifCliente, idFuncionario);
     }
 
+    public boolean removeCliente(String nif){
+        return armazem.removerCliente(nif);
+    }
+
     public boolean validaFuncionario(String id, String pass){
         return armazem.validarFuncionario(id,pass);
     }
 
     public boolean registaFuncionario(String id, String pass){
         return armazem.addFuncionario(id, pass);
+    }
+
+    public int atualizarArquivo(){
+        return armazem.atualizarArquivo();
+    }
+
+    public int atualizarEquipamentosAbandonados(){
+        return armazem.atualizarEquipamentosAbandonados();
+    }
+
+    public boolean clienteRejeitaOrcamento(String nif,String idEquipamento){
+        return armazem.clienteRejeitaOrcamento(nif,idEquipamento);
     }
 }

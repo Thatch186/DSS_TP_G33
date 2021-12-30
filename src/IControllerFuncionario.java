@@ -10,4 +10,12 @@ public interface IControllerFuncionario {
     boolean validaFuncionario(String id, String pass);
 
     boolean registaFuncionario(String id, String pass);
+
+    boolean removeCliente(String nif);
+
+    int atualizarArquivo();
+
+    int atualizarEquipamentosAbandonados();
+
+    boolean clienteRejeitaOrcamento(String nif,String idEquipamento);
 }

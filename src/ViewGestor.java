@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.*;
 
+
 public class ViewGestor implements IViewerGeral {
     private Scanner sc;
     private final String id;
@@ -16,7 +17,7 @@ public class ViewGestor implements IViewerGeral {
         Menu menu = new Menu(new String[]{
                 "Consultar Estatísticas ",
                 "Remover Técnico",
-                "Remover Funcionario",
+                "Remover Funcionario"
         });
         int op;
         do {
@@ -26,7 +27,7 @@ public class ViewGestor implements IViewerGeral {
                 case (0):
                     break;
                 case (1):
-                    // consultaEstatisticas();
+                    consultaEstatisticas();
                     break;
                 case (2):
                     try {
@@ -52,8 +53,56 @@ public class ViewGestor implements IViewerGeral {
 
 
     private void consultaEstatisticas() {
-        Scanner sc = new Scanner(System.in);
+        Menu menu = new Menu(new String[]{
+                "Para cada Técnico: Número de Reparações e tempos",
+                "Para cada Funcionário: Número de Atendimentos e Entregas",
+                "Para cada Técnico: Todas as intervenções",
+        });
+        int op;
+        do {
+            menu.executa();
+            op = menu.getOpcao();
+            switch (op) {
+                case (0):
+                    break;
+                case (1):
+                    estatistica1();
+                    break;
+                case (2):
+                    estatistica2();
+                    break;
+                case (3):
+                    estatistica3();
+                    break;
+                default:
+                    sc.nextLine();
+                    System.out.println("Comando não reconhecido!");
+                    break;
+            }
+        } while (op != 0);
     }
+
+    private void estatistica1(){
+        Map<String,ControllerGestor.Triplo<Integer,Float,Float>> map = controller.estatistica1();
+        for(String id: map.keySet()){
+            System.out.println("Técnico  "+id+": "+map.get(id).toString());
+        }
+    }
+
+    private void estatistica2(){
+        Map<String,ControllerGestor.Par<Integer,Integer>> map = controller.estatistica2();
+        for(String id: map.keySet()){
+            System.out.println("Funcionário "+id+": "+map.get(id).toString());
+        }
+    }
+
+    private void estatistica3(){
+        Map<String,List<String>> map = controller.estatistica3();
+        for(String id: map.keySet()){
+            System.out.println("Técnico "+id+": "+map.get(id).toString());
+        }
+    }
+
 
     private void removeTecnico() throws IOException {
         Scanner sc = new Scanner(System.in);

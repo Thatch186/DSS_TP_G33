@@ -18,4 +18,14 @@ public interface IControllerTecnico {
 
      boolean registaTecnico(String id,String pass);
 
+     String aReparar(String id);
+
+     boolean isOcupado(String id);
+
+     boolean pausaReparo(String id, String idEquipamento);
+
+     boolean marcarConcluido(String id, String idEquipamento, int custo, float tempo);
+
+     boolean terminarExpresso(String idTecnico, String idEquipamento);
+
 }

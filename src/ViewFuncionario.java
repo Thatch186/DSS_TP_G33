@@ -15,8 +15,12 @@ public class ViewFuncionario implements IViewerGeral{
         Menu menu = new Menu(new String[]{
                 "Registar Pedido de Orçamento",
                 "Registar Cliente",
+                "Remover Cliente",
                 "Registar Serviço Expresso",
-                "Registar Entrega de Equipamentos aos Clientes"
+                "Registar Entrega de Equipamentos aos Clientes",
+                "Atualizar arquivo",
+                "Atualizar equipamentos abandonados",
+                "Cliente rejeita Orçamento"
         });
         int op;
         do {
@@ -31,10 +35,22 @@ public class ViewFuncionario implements IViewerGeral{
                     registaCliente();
                     break;
                 case (3):
-                    registaExpresso();
+                    removeCliente();
                     break;
                 case (4):
+                    registaExpresso();
+                    break;
+                case (5):
                     registaLevantamento();
+                    break;
+                case (6):
+                    atualizaArquivo();
+                    break;
+                case (7):
+                    atualizaEquipamentosAbandonados();
+                    break;
+                case (8):
+                    clienteRejeitaOrcamento();
                     break;
                 default:
                     sc.nextLine();
@@ -66,6 +82,16 @@ public class ViewFuncionario implements IViewerGeral{
 
     }
 
+    void removeCliente(){
+        System.out.println("Insira nif do cliente:");
+        String nif = sc.nextLine();
+        if(controller.removeCliente(nif))
+            System.out.println("Cliente removido");
+        else
+            System.out.println("ERRO: Cliente não existe ou tem pedidos de orçamentos associados");
+
+    }
+
     void registaExpresso(){
         System.out.println("Insira nif do cliente:");
         String nif = sc.nextLine();
@@ -84,5 +110,33 @@ public class ViewFuncionario implements IViewerGeral{
         boolean r= controller.registaLevantamento(nif,id);
         if(r)System.out.println("Levantamento efetuado");
         else System.out.println("ERRO: Levantamento Falhado");
+    }
+
+    void atualizaArquivo(){
+        int n = controller.atualizarArquivo();
+        if(n==1)
+            System.out.println("1 Orçamento adicionado ao arquivo");
+        else
+            System.out.println(n+" Orçamentos adicionados ao arquivo");
+    }
+
+    void atualizaEquipamentosAbandonados(){
+        int n = controller.atualizarEquipamentosAbandonados();
+        if(n==1)
+            System.out.println("1 Equipamento adicionado aos Abandonados");
+        else
+            System.out.println(n+" Orçamentos adicionados ao Abandonados");
+    }
+
+    void clienteRejeitaOrcamento(){
+        System.out.println("Insira nif do cliente:");
+        String nif = sc.nextLine();
+        System.out.println("Insira id do Equipamento:");
+        String idE = sc.nextLine();
+
+        if(controller.clienteRejeitaOrcamento(nif,idE))
+            System.out.println("Orçamento rejeitado");
+        else
+            System.out.println("ERRO: Não foi possivel rejeitar");
     }
 }
