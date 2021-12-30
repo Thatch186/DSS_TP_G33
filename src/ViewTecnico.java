@@ -1,7 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 //E EXPRESSOS ? HÀ EXPRESSOS ?
@@ -9,7 +7,7 @@ import java.util.Scanner;
 public class ViewTecnico implements IViewerGeral{
     private Scanner sc;
     private IControllerTecnico controller;
-    private String id;
+    private final String id;
 
     public ViewTecnico(IControllerTecnico controller, String id){
         sc=new Scanner(System.in);

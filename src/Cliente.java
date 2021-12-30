@@ -101,9 +101,9 @@ public class Cliente {
 
     public void sendMail(String mail, String sender){
         StringBuilder sb = new StringBuilder();
-        sb.append("Sending to: " + this.contacto.getEmail()).append("\n");
-        sb.append("From: " + sender).append("\n");
-        sb.append("Message: " + mail);
+        sb.append("Sending to: ").append(this.contacto.getEmail()).append("\n");
+        sb.append("From: ").append(sender).append("\n");
+        sb.append("Message: ").append(mail);
         System.out.println(sb);
         Mensagem m = new Mensagem(sb.toString(),sender,LocalDateTime.now(),0);
         this.mensagensEnviadas.add(m);
@@ -111,9 +111,9 @@ public class Cliente {
 
     public void sendMessage(String message, String sender){
         StringBuilder sb = new StringBuilder();
-        sb.append("Sending to: " + this.contacto.getTelemovel()).append("\n");
-        sb.append("From: " + sender).append("\n");
-        sb.append("Message: " + message);
+        sb.append("Sending to: ").append(this.contacto.getTelemovel()).append("\n");
+        sb.append("From: ").append(sender).append("\n");
+        sb.append("Message: ").append(message);
         System.out.println(sb);
         Mensagem m = new Mensagem(sb.toString(),sender,LocalDateTime.now(),1);
         this.mensagensEnviadas.add(m);

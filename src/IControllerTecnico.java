@@ -2,22 +2,20 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IControllerTecnico {
+    List<PedidoOrcamento> consultarPedidoOrcamento();
 
-    public List<PedidoOrcamento> consultarPedidoOrcamento();
+    List<Orcamento> consultarOrcamentos();
 
-    public List<Orcamento> consultarOrcamentos();
+    Orcamento refazerOrcamento(String idOrcamento);
 
+    boolean criarOrcamento(PlanoTrabalho pt, String idPO, String idTecnico) throws IOException ;
 
-    public Orcamento refazerOrcamento(String idOrcamento);
+    boolean repararEquipamento(String tecnico, String equipamento) throws IOException;
 
-    public boolean criarOrcamento(PlanoTrabalho pt, String idPO, String idTecnico) throws IOException ;
+     String printOrcamento(String idO);
 
-    public boolean repararEquipamento(String tecnico, String equipamento) throws IOException;
+     boolean validaTecnico(String id, String pass);
 
-    public String printOrcamento(String idO);
-
-    public boolean validaTecnico(String id, String pass);
-
-    public boolean registaTecnico(String id,String pass);
+     boolean registaTecnico(String id,String pass);
 
 }

@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class ViewFuncionario implements IViewerGeral{
     private Scanner sc;
     private IControllerFuncionario controller;
-    private String id;
+    private final String id;
 
     public ViewFuncionario(IControllerFuncionario controller, String id){
         sc=new Scanner(System.in);
@@ -78,8 +78,8 @@ public class ViewFuncionario implements IViewerGeral{
     void registaLevantamento(){
         System.out.println("Insira nif do cliente:");
         String nif = sc.nextLine();
-        System.out.println("Insira id do Equipamento:");
-        String idE = sc.nextLine();
+        /*System.out.println("Insira id do Equipamento:");
+        String idE = sc.nextLine();*/
 
         boolean r= controller.registaLevantamento(nif,id);
         if(r)System.out.println("Levantamento efetuado");

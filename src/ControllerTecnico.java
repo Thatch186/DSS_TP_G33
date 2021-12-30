@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.*;
 
 public class ControllerTecnico implements IControllerTecnico{
@@ -21,12 +20,12 @@ public class ControllerTecnico implements IControllerTecnico{
         return this.armazem.getOrcamentos().get(idOrcamento).clone();
     }
 
-    public boolean criarOrcamento(PlanoTrabalho pt, String idPedido, String idTec) throws IOException {
+    public boolean criarOrcamento(PlanoTrabalho pt, String idPedido, String idTec){
         return  this.armazem.registarOrcamento(pt, idPedido, idTec);
 
     }
 
-    public boolean repararEquipamento(String tecnico, String equipamento) throws IOException {
+    public boolean repararEquipamento(String tecnico, String equipamento){
         return this.armazem.iniciarReparo(tecnico, equipamento);
     }
 
