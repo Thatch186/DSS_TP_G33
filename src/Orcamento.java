@@ -169,8 +169,9 @@ public class Orcamento {
         sb.append(" | ");
         sb.append(custoMax);
         sb.append(" | ");
+        sb.append("Confirmado: ");
         sb.append(confirmado);
-        sb.append('\n');
+        sb.append("\n   ->");
         sb.append(planoTrabalho.toString());
 
         return sb.toString();
