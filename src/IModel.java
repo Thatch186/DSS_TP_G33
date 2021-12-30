@@ -70,4 +70,5 @@ public interface IModel{
     float mediaTempoEstimado(String idTecnico);
     List<String> intervencoes(String idTecnico);
     String printReparo(String idO);
+    List<String> printLinhaReparo();
 }

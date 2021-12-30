@@ -61,4 +61,11 @@ public class Levantamento{
     public Levantamento clone(){
         return new Levantamento(this);
     }
+
+    /*
+    TO STRING
+     */
+    public String toString(){
+        return "ID: " + this.equipmentID + " | Date: " + this.data;
+    }
 }

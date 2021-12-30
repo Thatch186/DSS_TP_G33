@@ -571,6 +571,13 @@ public class Armazem implements IModel {
             return (this.orcamentos.get(idO)).toString();
         return "Nao Existente!";
     }
+
+    public List<String> printLinhaReparo(){
+        List<String> info = new ArrayList<>();
+        for(Levantamento l : this.filaDeLevantamentos)
+            info.add(l.toString());
+        return info;
+    }
 }
 
 
