@@ -18,4 +18,6 @@ public interface IControllerTecnico {
 
     public boolean validaTecnico(String id, String pass);
 
+    public boolean registaTecnico(String id,String pass);
+
 }

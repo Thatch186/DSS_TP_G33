@@ -39,4 +39,8 @@ public class ControllerTecnico implements IControllerTecnico{
     public boolean validaTecnico(String id, String pass){
         return armazem.validarTecnico(id,pass);
     }
+
+    public boolean registaTecnico(String id,String pass){
+        return armazem.addTecnico(id,pass);
+    }
 }

@@ -6,9 +6,6 @@ public class ViewGeral implements IViewerGeral{
     private IControllerTecnico ct;
     private IControllerGestor cg;
     private IControllerFuncionario cf;
-    private ViewTecnico vt;
-    private ViewGestor vg;
-    private ViewFuncionario vf;
 
     public ViewGeral(IControllerTecnico ct,IControllerGestor cg,IControllerFuncionario cf){
         sc=new Scanner(System.in);
@@ -41,7 +38,7 @@ public class ViewGeral implements IViewerGeral{
                     registar();
                     break;
                 case (3):
-                    System.out.println("Introduza 0");
+                    op=0;
                     break;
                 default:
                     sc.nextLine();
@@ -79,14 +76,14 @@ public class ViewGeral implements IViewerGeral{
         } while (op != 0);
     }
 
-    void loginTecnico() throws IOException {
+    void loginTecnico() {
         System.out.println("Introduza Username:");
         String userName = sc.nextLine();
         System.out.println("Introduza Password");
         String password = sc.nextLine();
 
         if(ct.validaTecnico(userName,password)) {
-            vt = new ViewTecnico(ct, userName);
+            ViewTecnico vt = new ViewTecnico(ct, userName);
             vt.run();
         }
         else
@@ -100,7 +97,7 @@ public class ViewGeral implements IViewerGeral{
         String password = sc.nextLine();
 
         if(cf.validaFuncionario(userName,password)) {
-            vf = new ViewFuncionario(cf, userName);
+            ViewFuncionario vf = new ViewFuncionario(cf, userName);
             vf.run();
         }
         else
@@ -114,7 +111,7 @@ public class ViewGeral implements IViewerGeral{
         String password = sc.nextLine();
 
         if(cg.validaGestor(userName,password)) {
-            vg = new ViewGestor(cg, userName);
+            ViewGestor vg = new ViewGestor(cg, userName);
             vg.run();
         }
         else
@@ -157,11 +154,14 @@ public class ViewGeral implements IViewerGeral{
         String password2= sc.nextLine();
 
         if(!password.equals(password2)){
-            System.out.println("Password diferente. Registo Falhou.");
+            System.out.println("ERRO: Password diferente. Registo Falhou.");
             return;
         }
 
-        //ct.addTecnico(userName,Password);
+        if(ct.registaTecnico(userName,password))
+            System.out.println("Registo efetuado");
+        else
+            System.out.println("ERRO: Registo falhou");
     }
 
     void registaFuncionario(){
@@ -173,11 +173,14 @@ public class ViewGeral implements IViewerGeral{
         String password2= sc.nextLine();
 
         if(!password.equals(password2)){
-            System.out.println("Password diferente. Registo Falhou.");
+            System.out.println("ERRO: Password diferente. Registo Falhou.");
             return;
         }
 
-        //cf.addTecnico(userName,Password);
+        if(cf.registaFuncionario(userName,password))
+            System.out.println("Registo efetuado");
+        else
+            System.out.println("ERRO: Registo falhou");
     }
 
 }

@@ -28,4 +28,8 @@ public class ControllerFuncionario implements IControllerFuncionario{
     public boolean validaFuncionario(String id, String pass){
         return armazem.validarFuncionario(id,pass);
     }
+
+    public boolean registaFuncionario(String id, String pass){
+        return armazem.addFuncionario(id, pass);
+    }
 }
