@@ -574,7 +574,7 @@ public class Armazem implements IModel {
 
     public List<String> printLinhaReparo(){
         List<String> info = new ArrayList<>();
-        for(Levantamento l : this.filaDeLevantamentos)
+        for(Levantamento l : this.filaDeLevantamentos.values())
             info.add(l.toString());
         return info;
     }

@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface IControllerFuncionario {
     boolean registarPedidoOrcamento(String nifCliente, String idFuncionario);
 
@@ -24,4 +26,6 @@ public interface IControllerFuncionario {
     String tecReparaEquip(String idEquipamento);
 
     boolean clienteConfirmaOrcamento(String nif, String idE);
+
+    List<String> imprimeLevantamentos();
 }

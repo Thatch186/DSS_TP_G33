@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class ControllerFuncionario implements IControllerFuncionario{
 
     private IModel armazem;
@@ -64,5 +66,9 @@ public class ControllerFuncionario implements IControllerFuncionario{
 
     public boolean clienteConfirmaOrcamento(String nif, String idE){
         return armazem.clienteConfirmaOrcamento(nif,idE);
+    }
+
+    public List<String> imprimeLevantamentos(){
+        return armazem.printLinhaReparo();
     }
 }

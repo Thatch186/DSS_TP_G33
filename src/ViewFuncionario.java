@@ -11,7 +11,7 @@ public class ViewFuncionario implements IViewerGeral{
         this.id = id;
     }
 
-    public void run() { ///entao
+    public void run() {
         Menu menu = new Menu(new String[]{
                 "Registar Pedido de Orçamento",
                 "Registar Cliente",
@@ -119,6 +119,8 @@ public class ViewFuncionario implements IViewerGeral{
     void registaLevantamento(){
         System.out.println("Insira nif do cliente:");
         String nif = sc.nextLine();
+        for(String s: controller.imprimeLevantamentos())
+            System.out.println(s);
         /*System.out.println("Insira id do Equipamento:");
         String idE = sc.nextLine();*/
 
