@@ -45,4 +45,24 @@ public class ControllerFuncionario implements IControllerFuncionario{
     public boolean clienteRejeitaOrcamento(String nif,String idEquipamento){
         return armazem.clienteRejeitaOrcamento(nif,idEquipamento);
     }
+
+    public String lastEquipamento(String nif){
+        int index =  armazem.getClientes().get(nif).getCodigosEquipamento().size()-1;
+        if(index>=0){
+            return armazem.getClientes().get(nif).getCodigosEquipamento().get(index);
+        }
+        else return null;
+    }
+
+    public String tecReparaEquip(String idEquipamento){
+        for(Tecnico t: armazem.getTecnicos().values()) {
+            if (t.isOcupado() && t.getaReparar().equals(idEquipamento))
+                return t.getId();
+        }
+        return null;
+    }
+
+    public boolean clienteConfirmaOrcamento(String nif, String idE){
+        return armazem.clienteConfirmaOrcamento(nif,idE);
+    }
 }

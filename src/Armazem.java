@@ -278,10 +278,11 @@ public class Armazem implements IModel {
         if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento) ||
                 !funcionarios.containsKey(funcionario) || !validarCliente(cliente)) return false;
 
-        equipamentos.put(idEquipamento,new Equipamento(idEquipamento));
-        funcionarios.get(funcionario).addAtendimento(idEquipamento);
+
         String idTecnico = verificaDisponibilidade();
         if(idTecnico != null){
+            equipamentos.put(idEquipamento,new Equipamento(idEquipamento));
+            funcionarios.get(funcionario).addAtendimento(idEquipamento);
             Cliente c = this.clientes.get(cliente);
             c.addEquipamento(idEquipamento);
 
@@ -477,9 +478,11 @@ public class Armazem implements IModel {
         if(!this.tecnicos.containsKey(idTecnico)) return ret;
         Tecnico t = this.tecnicos.get(idTecnico);
         for(String o : t.getIdReparados()){
-            Orcamento orc = this.orcamentos.get(o);
-            n++;
-            ret += orc.tempoGasto();
+            if(isNormal(o)) {
+                Orcamento orc = this.orcamentos.get(o);
+                n++;
+                ret += orc.tempoGasto();
+            }
         }
         if(ret == 0) return 0;
         else
@@ -491,9 +494,11 @@ public class Armazem implements IModel {
         if(!this.tecnicos.containsKey(idTecnico)) return ret;
         Tecnico t = this.tecnicos.get(idTecnico);
         for(String o : t.getIdReparados()){
-            Orcamento orc = this.orcamentos.get(o);
-            n++;
-            ret += orc.tempoEstimado();
+            if(isNormal(o)){
+                Orcamento orc = this.orcamentos.get(o);
+                n++;
+                ret += orc.tempoEstimado();
+            }
         }
         if(ret == 0) return 0;
         else

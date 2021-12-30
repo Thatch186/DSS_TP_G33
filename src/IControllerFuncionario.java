@@ -18,4 +18,10 @@ public interface IControllerFuncionario {
     int atualizarEquipamentosAbandonados();
 
     boolean clienteRejeitaOrcamento(String nif,String idEquipamento);
+
+    String lastEquipamento(String nif);
+
+    String tecReparaEquip(String idEquipamento);
+
+    boolean clienteConfirmaOrcamento(String nif, String idE);
 }

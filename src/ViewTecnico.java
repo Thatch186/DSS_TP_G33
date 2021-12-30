@@ -19,11 +19,9 @@ public class ViewTecnico implements IViewerGeral{
         Menu menu = new Menu(new String[]{
                 "Consultar Pedido de Orçamento",
                 "Consultar Orçamentos",
-                "Refazer Orçamento",
                 "Criar Orçamento",
                 "Reparar Equipamento",
-                "Consultar estado de Reparação",
-
+                "Consultar estado de Reparação"
         });
         int op;
         do {
@@ -38,23 +36,20 @@ public class ViewTecnico implements IViewerGeral{
                     consultarOrcamentos();
                     break;
                 case (3):
-                    refazerOrcamento();
-                    break;
-                case (4):
                     try {
                         criarOrcamento();
                         break;
                     }catch (IOException e){
                         e.printStackTrace();
                     }
-                case (5):
+                case (4):
                     try {
                         repararEquipamento();
                         break;
                     }catch (IOException e){
                         e.printStackTrace();
                     }
-                case (6):
+                case (5):
                     consultarEstadoReparacao();
                     break;
                 default:
@@ -77,11 +72,6 @@ public class ViewTecnico implements IViewerGeral{
         for(Orcamento o: orcs){
             System.out.println(o.toString());
         }
-        System.out.println(orcs.size());
-    }
-
-    void refazerOrcamento(){
-        System.out.println("Por implementar");
     }
 
     void criarOrcamento() throws IOException {
@@ -177,12 +167,14 @@ public class ViewTecnico implements IViewerGeral{
                         break;
                     case (1):
                         pausaReparo(idEquipamento);
+                        op=0;
                         break;
                     case (2):
                         marcaPassoConcluido(idEquipamento);
                         break;
                     case (3):
                         terminarExpresso(idEquipamento);
+                        op=0;
                         break;
                     default:
                         sc.nextLine();
@@ -216,7 +208,7 @@ public class ViewTecnico implements IViewerGeral{
     }
 
     void terminarExpresso(String idE){
-        if(controller.terminarExpresso(idE,id))
+        if(controller.terminarExpresso(id,idE))
             System.out.println("Expresso terminado");
         else
             System.out.println("ERRO: Não terminado");

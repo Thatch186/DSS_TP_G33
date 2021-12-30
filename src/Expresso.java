@@ -129,7 +129,7 @@ public class Expresso {
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("ID Eqi: ").append(this.idEquipamento).append(" | Tipo: ").append(this.tipoServico.toString());
+        sb.append("ID Equipamento: ").append(this.idEquipamento).append(" | Tipo: ").append(this.tipoServico.toString());
         return sb.toString();
     }
 }

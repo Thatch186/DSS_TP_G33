@@ -20,6 +20,7 @@ public class ViewFuncionario implements IViewerGeral{
                 "Registar Entrega de Equipamentos aos Clientes",
                 "Atualizar arquivo",
                 "Atualizar equipamentos abandonados",
+                "Cliente confirma orçamento",
                 "Cliente rejeita Orçamento"
         });
         int op;
@@ -51,6 +52,9 @@ public class ViewFuncionario implements IViewerGeral{
                     break;
                 case (8):
                     clienteRejeitaOrcamento();
+                    break;
+                case (9):
+                    clienteConfirmaOrcamento();
                     break;
                 default:
                     sc.nextLine();
@@ -104,8 +108,11 @@ public class ViewFuncionario implements IViewerGeral{
         System.out.println("Escolha Tipo de Serviço: ");
         int tipo = scan_int(sc,1,TipoServicoExpresso.values().length);
 
-        boolean r= controller.registarExpresso(nif, id, tipo);
-        if(r)System.out.println("Expresso registado");
+        boolean r=controller.registarExpresso(nif, id, tipo);
+        if(r){
+            String idTecnico = controller.tecReparaEquip(controller.lastEquipamento(nif));
+            System.out.println("Expresso registado. A ser reparado pelo técnico com id "+idTecnico);
+        }
         else System.out.println("ERRO: Registo Falhado");
     }
 
@@ -144,6 +151,18 @@ public class ViewFuncionario implements IViewerGeral{
 
         if(controller.clienteRejeitaOrcamento(nif,idE))
             System.out.println("Orçamento rejeitado");
+        else
+            System.out.println("ERRO: Não foi possivel rejeitar");
+    }
+
+    void clienteConfirmaOrcamento(){
+        System.out.println("Insira nif do cliente:");
+        String nif = sc.nextLine();
+        System.out.println("Insira id do Equipamento:");
+        String idE = sc.nextLine();
+
+        if(controller.clienteConfirmaOrcamento(nif,idE))
+            System.out.println("Orçamento confirmado");
         else
             System.out.println("ERRO: Não foi possivel rejeitar");
     }
