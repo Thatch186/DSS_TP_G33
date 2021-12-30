@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 
 public interface IModel{
@@ -47,7 +48,13 @@ public interface IModel{
     AÇOES DO CLIENTE
      */
     boolean clienteConfirmaOrcamento(String nifCliente, String idEquipamento);
-    //boolean clienteRejeitaOrcamento(String nifCliente, String idEquipamento);
+    boolean clienteRejeitaOrcamento(String nifCliente, String idEquipamento);
+
+    /*
+    ACOES FUNCIONARIO
+     */
+    int atualizarArquivo();
+    int atualizarEquipamentosAbandonados();
 
     /*
     REPARACOES
@@ -61,4 +68,5 @@ public interface IModel{
      */
     float mediaTempoGasto(String idTecnico);
     float mediaTempoEstimado(String idTecnico);
+    List<String> intervencoes(String idTecnico);
 }

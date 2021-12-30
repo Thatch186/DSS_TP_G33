@@ -77,4 +77,11 @@ public class Passo {
     public Passo clone(){
         return new Passo(this);
     }
+
+    /*
+    TO STRING
+     */
+    public String toString(){
+        return ("TEMPO: " + this.tempo + " | CUSTO: " + this.custo + " | " + this.descricao);
+    }
 }
