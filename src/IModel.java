@@ -63,8 +63,6 @@ public interface IModel{
     boolean iniciarReparo(String tecnicoId, String equipamentoID);
     boolean pausarReparo(String tecnicoId, String equipamentoID);
     boolean marcarPassoComoConcluido(String tecnicoId, String orcamentoId, int custoDinheiro, float horasGastas);
-    boolean registarEquipamentoReparado(String idEquipamento, String idTecnico);
-
     /*
     ESTATISTICAS
      */
