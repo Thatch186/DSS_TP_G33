@@ -92,6 +92,12 @@ public class Expresso {
     }
 
     /*
+    METHODS
+     */
+    public int getCusto(){
+        return TabelaPrecos.getPreco(this.tipoServico);
+    }
+    /*
     EQUALS
      */
     @Override

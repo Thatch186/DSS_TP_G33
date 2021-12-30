@@ -34,7 +34,7 @@ public class Orcamento {
          this.idPedido = idPedidoOrcamento;
          this.dataCriacao = LocalDateTime.now().toLocalDate();
          this.custoMax = (float)((pt.totalCusto() * 1.2));
-         float diasParaConcluir = (pt.tempoPorConcluir() / 24) + 1;
+         float diasParaConcluir = (pt.tempoPorConcluir() / 8) + 1;
          this.prazoMax = this.dataCriacao.plusDays((long) diasParaConcluir);
          this.confirmado = false;
     }
@@ -89,7 +89,7 @@ public class Orcamento {
         return this.planoTrabalho.estaConcluido();
     }
     public void atualizaData(){
-        float diasParaConcluir = (this.planoTrabalho.tempoPorConcluir() / 24) + 1;
+        float diasParaConcluir = (this.planoTrabalho.tempoPorConcluir() / 8) + 1;
         this.prazoMax = LocalDateTime.now().toLocalDate().plusDays((long) diasParaConcluir);
     }
     public boolean iniciarPlanoTrabalho(){
@@ -118,7 +118,7 @@ public class Orcamento {
         this.confirmado = false;
         this.planoTrabalho.setPausado(true);
         this.custoMax = this.planoTrabalho.getDinheiroGasto() + this.planoTrabalho.dinheiroPorConcluir() + 50;
-        float diasPorConcluir = (this.planoTrabalho.tempoPorConcluir() / 24) + 1;
+        float diasPorConcluir = (this.planoTrabalho.tempoPorConcluir() / 8) + 1;
         this.prazoMax = LocalDateTime.now().toLocalDate().plusDays((int)diasPorConcluir);
     }
     public float tempoGasto(){
