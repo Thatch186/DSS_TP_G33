@@ -159,7 +159,7 @@ public class Orcamento {
 
     @Override
     public String toString() {
-        String s = "Orçamento: ";
+        String s = "Orçamento: "; 
         StringBuilder sb = new StringBuilder(s);
         sb.append(idPedido);
         sb.append(" | ");
