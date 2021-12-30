@@ -464,16 +464,6 @@ public class Armazem implements IModel {
         return null;
     }
 
-    public void notificaClienteReparacaoImpossivel (String nifCliente, String idFuncionario, String idEquipamento) {
-        if (clientes.containsKey(nifCliente) && funcionarios.containsKey(idFuncionario)) {
-            PedidoOrcamento pe = this.pedidosOrcamento.get(idEquipamento);
-            if (!pe.isPossivelReparacao()) {
-                Cliente cliente = this.clientes.get(nifCliente);
-                cliente.sendMessage("Equipamento não pode ser reparado", idFuncionario);
-            }
-        }
-    }
-
     private boolean isExpresso(String eqId){
         return (this.expressos.containsKey(eqId));
     }

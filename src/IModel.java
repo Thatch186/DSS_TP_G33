@@ -43,7 +43,7 @@ public interface IModel{
     boolean pedeOrcamento(String cliente, String funcionario);
     boolean pedeExpresso(String cliente, String funcionario);
     boolean registarOrcamento( PlanoTrabalho pt, String idPedidoOrcamento, String idTecnico);
-
+    boolean registarEquipamentoReparado(String idEquipamento, String idTecnico);
     /*
     AÇOES DO CLIENTE
      */
