@@ -173,12 +173,20 @@ public class PlanoTrabalho {
     public String toString() {
         String r = "Plano de Trabalho: ";
         StringBuilder sb = new StringBuilder(r);
-        sb.append(passos.toString());
-        sb.append(" | ");
+        int nrPassos = passos.size();
+        for(int i=0; i<nrPassos-1; i++) {
+            sb.append(passos.get(i).toString());
+            sb.append(" ; ");
+        }
+        if(nrPassos>=1){
+            sb.append(passos.get(nrPassos-1));
+            sb.append(" | ");
+        }
         sb.append(passosConcluidos);
         sb.append(" | ");
         sb.append(horasGastas);
         sb.append(" | ");
+        sb.append("Pausado: ");
         sb.append(pausado);
 
         return sb.toString();

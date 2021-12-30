@@ -77,11 +77,21 @@ public class Passo {
     public Passo clone(){
         return new Passo(this);
     }
-
     /*
     TO STRING
      */
-    public String toString(){
-        return ("TEMPO: " + this.tempo + " | CUSTO: " + this.custo + " | " + this.descricao);
+    @Override
+    public String toString() {
+        String s = "Passo( ";
+        StringBuilder sb = new StringBuilder(s);
+        sb.append(tempo);
+        sb.append(" , ");
+        sb.append(custo);
+        if(descricao != null){
+            sb.append(" ; ");
+            sb.append(descricao);
+        }
+        sb.append(" )");
+        return sb.toString();
     }
 }

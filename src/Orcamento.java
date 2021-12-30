@@ -162,15 +162,16 @@ public class Orcamento {
         String s = "Orçamento: ";
         StringBuilder sb = new StringBuilder(s);
         sb.append(idPedido);
-        sb.append(" | ");
+        sb.append(" | ");  
         sb.append(prazoMax);
         sb.append(" | ");
         sb.append(dataCriacao.toString());
         sb.append(" | ");
         sb.append(custoMax);
         sb.append(" | ");
+        sb.append("Confirmado: ");
         sb.append(confirmado);
-        sb.append('\n');
+        sb.append("\n   ->");
         sb.append(planoTrabalho.toString());
 
         return sb.toString();
