@@ -24,4 +24,8 @@ public class ControllerFuncionario implements IControllerFuncionario{
     public boolean registaLevantamento(String nifCliente, String idFuncionario){
         return this.armazem.registarLevantamento(nifCliente, idFuncionario);
     }
+
+    public boolean validaFuncionario(String id, String pass){
+        return armazem.validarFuncionario(id,pass);
+    }
 }

@@ -23,6 +23,7 @@ public class ViewFuncionario implements IViewerGeral{
             menu.executa();
             op = menu.getOpcao();
             switch (op) {
+                case (0):break;
                 case (1):
                     registaPedidoOrcamento();
                     break;
@@ -47,9 +48,9 @@ public class ViewFuncionario implements IViewerGeral{
         System.out.println("Insira nif do cliente:");
         String nif = sc.nextLine();
 
-        //boolean r=registarPedido(nif,id,false);
-        //if(r)System.out.println("Pedido registado");
-        //else System.out.println("Registo Falhado");
+        boolean r= controller.registarPedidoOrcamento(nif, id);
+        if(r)System.out.println("Pedido registado");
+        else System.out.println("ERRO: Registo Falhado");
     }
 
     void registaCliente(){
@@ -59,9 +60,9 @@ public class ViewFuncionario implements IViewerGeral{
         String email = sc.nextLine();
         System.out.println("Insira telemovel do cliente:");
         String telemovel = sc.nextLine();
-        //boolean r = addCliente(nif,email,telemovel);
-        //if(r)System.out.println("Cliente registado");
-        //else System.out.println("Registo Falhado");
+        boolean r = controller.registaCliente(nif, email, telemovel);
+        if(r)System.out.println("Cliente registado");
+        else System.out.println("ERRO: Registo Falhado");
 
     }
 
@@ -69,20 +70,19 @@ public class ViewFuncionario implements IViewerGeral{
         System.out.println("Insira nif do cliente:");
         String nif = sc.nextLine();
 
-        //boolean r=registarPedido(nif,id,true);
-        //if(r)System.out.println("Pedido registado");
-        //else System.out.println("Registo Falhado");
+        boolean r= controller.registarExpresso(nif, id);
+        if(r)System.out.println("Expresso registado");
+        else System.out.println("ERRO: Registo Falhado");
     }
 
     void registaLevantamento(){
+        System.out.println("Insira nif do cliente:");
+        String nif = sc.nextLine();
         System.out.println("Insira id do Equipamento:");
         String idE = sc.nextLine();
 
-        //boolean r=registaLevantamento(idE,id);
-        //if(r)System.out.println("Levantamento efetuado");
-        //else System.out.println("Levantamento Falhado");
+        boolean r= controller.registaLevantamento(nif,id);
+        if(r)System.out.println("Levantamento efetuado");
+        else System.out.println("ERRO: Levantamento Falhado");
     }
-
-
-
 }

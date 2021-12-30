@@ -16,4 +16,8 @@ public class ControllerGestor implements IControllerGestor{
         return this.armazem.removerFuncionario(id);
     }
 
+    public boolean validaGestor(String id, String pass){
+        return armazem.validarGestor(id,pass);
+    }
+
 }

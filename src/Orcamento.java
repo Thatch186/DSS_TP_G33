@@ -162,7 +162,7 @@ public class Orcamento {
         String s = "Orçamento: ";
         StringBuilder sb = new StringBuilder(s);
         sb.append(idPedido);
-        sb.append(" | ");  
+        sb.append(" | ");
         sb.append(prazoMax);
         sb.append(" | ");
         sb.append(dataCriacao.toString());

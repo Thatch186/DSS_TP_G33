@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+//E EXPRESSOS ? HÀ EXPRESSOS ?
+
 public class ViewTecnico implements IViewerGeral{
     private Scanner sc;
     private IControllerTecnico controller;
@@ -30,6 +32,7 @@ public class ViewTecnico implements IViewerGeral{
             menu.executa();
             op = menu.getOpcao();
             switch (op) {
+                case (0):break;
                 case (1):
                     consultarPedidosOrcamento();
                     break;
@@ -80,6 +83,7 @@ public class ViewTecnico implements IViewerGeral{
     }
 
     void refazerOrcamento(){
+        System.out.println("Por implementar");
     }
 
     void criarOrcamento() throws IOException {
@@ -96,11 +100,13 @@ public class ViewTecnico implements IViewerGeral{
             menuO.executa();
             op = menuO.getOpcao();
             switch (op) {
+                case (0):break;
                 case (1):
                     pt=adicionaPasso(pt);
                     break;
                 case (2):
                     concluirPlano(pt,idPO);
+                    op=0;
                     break;
                 case (3):
                     rejeitar();
@@ -149,7 +155,10 @@ public class ViewTecnico implements IViewerGeral{
     void repararEquipamento() throws IOException {
         System.out.println("Insira ID do Equipamento:");
         String idE= sc.nextLine();
-        controller.repararEquipamento(id,idE);
+        if(controller.repararEquipamento(id,idE))
+            System.out.println("Reparo Iniciado");
+        else
+            System.out.println("ERRO: Reparo não iniciado");
     }
 
     void consultarEstadoReparacao(){

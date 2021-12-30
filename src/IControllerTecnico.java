@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IControllerTecnico {
@@ -13,7 +12,10 @@ public interface IControllerTecnico {
 
     public boolean criarOrcamento(PlanoTrabalho pt, String idPO, String idTecnico) throws IOException ;
 
-    public void repararEquipamento(String tecnico, String equipamento) throws IOException;
+    public boolean repararEquipamento(String tecnico, String equipamento) throws IOException;
 
     public String printOrcamento(String idO);
+
+    public boolean validaTecnico(String id, String pass);
+
 }

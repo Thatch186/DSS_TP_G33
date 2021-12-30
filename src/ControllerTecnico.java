@@ -26,13 +26,17 @@ public class ControllerTecnico implements IControllerTecnico{
 
     }
 
-    public void repararEquipamento(String tecnico, String equipamento) throws IOException {
-        this.armazem.iniciarReparo(tecnico, equipamento);
+    public boolean repararEquipamento(String tecnico, String equipamento) throws IOException {
+        return this.armazem.iniciarReparo(tecnico, equipamento);
     }
 
     public String printOrcamento(String idO){
         if(armazem.getOrcamentos().containsKey(idO))
             return  armazem.getOrcamentos().get(idO).toString();
         return "ID introduzido inválido";
+    }
+
+    public boolean validaTecnico(String id, String pass){
+        return armazem.validarTecnico(id,pass);
     }
 }

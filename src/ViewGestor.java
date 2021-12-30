@@ -3,17 +3,10 @@ import java.io.Serializable;
 import java.util.*;
 
 public class ViewGestor implements IViewerGeral {
-    /**
-     * Nome da equipa que o utilizador escolheu
-     */
     private Scanner sc;
     private String id;
     private IControllerGestor controller;
 
-    /**
-     * Construtor por parâmetros da classe View
-     * @param controller Controlador
-     */
     public ViewGestor(IControllerGestor controller, String id){
         sc=new Scanner(System.in);
         this.controller = controller;
@@ -31,15 +24,24 @@ public class ViewGestor implements IViewerGeral {
             menu.executa();
             op = menu.getOpcao();
             switch (op) {
+                case (0):break;
                 case (1):
                    // consultaEstatisticas();
                     break;
                 case (2):
-                    //removeTecnico();
-                    break;
+                    try {
+                        removeTecnico();
+                        break;
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 case (3):
-                    //removeFuncionario();
-                    break;
+                    try {
+                        removeFuncionario();
+                        break;
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 default:
                     sc.nextLine();
                     System.out.println("Comando não reconhecido!");
@@ -57,14 +59,12 @@ public class ViewGestor implements IViewerGeral {
     private void removeTecnico() throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Insira idTecnico: ");
-        String user_id = sc.nextLine();
+        String idTecnico = sc.nextLine();
 
-
-
-        boolean result = this.controller.removerTecnico(id);
+        boolean result = this.controller.removerTecnico(idTecnico);
         //REVS em KEY | USERS em VALUES
         if(result) System.out.println("Técnico removido");
-        else System.out.println("Erro ao remover técnico");
+        else System.out.println("ERRO: técnico não removido");
     }
 
     private void removeFuncionario() throws IOException {
@@ -74,14 +74,10 @@ public class ViewGestor implements IViewerGeral {
 
         boolean result = this.controller.removerFuncionario(idFuncionario);
         //REVS em KEY | USERS em VALUES
-        if(result) System.out.println("Funcionário removido com sucesso ");
-        else System.out.println("Erro ao remover Funcionário");
+        if(result) System.out.println("Funcionário removido");
+        else System.out.println("ERRO: funcionário não removido");
     }
 
-    /**
-     * Construtor de cópia
-     * @param m Objeto da classe ViewGestor a ser copiado
-     */
     public ViewGestor(ViewGestor m){
         this.setnomeGestor(m.getnomeGestor());
     }
@@ -90,30 +86,14 @@ public class ViewGestor implements IViewerGeral {
         return new ViewGestor(m);
     }
 
-    /**
-     * Getter do atributo nomeGestor
-     * @return o nome da equipa
-     */
     public String getnomeGestor() { return id; }
 
-    /**
-     * Setter do atributo nomeGestor
-     * @param nomeGestor o nome novo da equipa
-     */
     public void setnomeGestor(String nomeGestor) { this.id = nomeGestor; }
 
-    /**
-     * Interface para o Prompt
-     * @param ask Lina de comando introduzida pelo utilizador
-     */
     public void line(String ask){
         System.out.print("|-> " + ask);
     }
 
-    /**
-     * Imprime linhas vazias, ou seja, só '\n'
-     * @param howMANY número de linhas vazias a imprimir
-     */
     public void whiteline(int howMANY){
         for(int i = 0; i < howMANY ; i++)
             System.out.print("\n");
@@ -135,20 +115,10 @@ public class ViewGestor implements IViewerGeral {
         System.out.println(s);
     }
 
-    /**
-     * Imprime um ViewGestor passado como String
-     * @param generic ViewGestor contido numa String
-     */
     public void genericViewGestor(String generic){
         System.out.println(generic);
     }
 
-
-
-    /**
-     * Imprime o cabeçalho à volta do ViewGestor
-     * @param ViewGestor ViewGestor contido numa String
-     */
     public void header(String ViewGestor) {
         System.out.print("\n\n|");
         System.out.print("*".repeat(200));
@@ -166,24 +136,6 @@ public class ViewGestor implements IViewerGeral {
         System.out.println("|" + "*".repeat(200) + "|");
     }
 
-    /**
-     * Imprime o ViewGestor principal do Programa com as opcões principais
-     */
-    public void mainViewGestor() {
-        header("ViewGestor principal");
-        optionsViewGestor(new String[]{"1 - Consultar Estatísticas ","2 - Remover Técnico","3 - Remover Funcionario"});
-        line("Pretende a opção: ");
-    }
-
-
-
-
-
-
-    /**
-     * Metodo clone da classe ViewGestor
-     * @return Cópia do ViewGestor
-     */
     public ViewGestor clone(){
         return new ViewGestor(this);
     }

@@ -81,6 +81,14 @@ public class Armazem implements IModel {
         registarPedido("3","F3",false);
         registarPedido("4","F4",true);
 
+        Passo p1 = new Passo((float)3.7, (float)4.5,"Troca de Fusível");
+        Passo p2 = new Passo((float)5, (float)2.6,"Troca de Botão");
+        PlanoTrabalho pt = new PlanoTrabalho();
+        pt.addPasso(p1);pt.addPasso(p2);
+
+        registarOrcamento(pt,"equipamento3","T3");
+        clienteConfirmaOrcamento("3","equipamento3");
+
         gestor = new Gestor("G1", "pass1");
 
         Estatisticas estatisticas = new Estatisticas();
@@ -270,6 +278,7 @@ public class Armazem implements IModel {
 
         String idEquipamento = "equipamento"+ codEquip;
         if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento)) return false;
+        equipamentos.put(idEquipamento,new Equipamento(idEquipamento));
         if(!isExpresso){
             Cliente cliente = this.clientes.get(nifCliente);
             cliente.addEquipamento(idEquipamento);

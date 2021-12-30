@@ -6,4 +6,6 @@ public interface IControllerFuncionario {
     public boolean registarExpresso(String nifCliente, String idFuncionario);
 
     public boolean registaLevantamento(String nifCliente, String idFuncionario);
+
+    public boolean validaFuncionario(String id, String pass);
 }

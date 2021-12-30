@@ -29,6 +29,7 @@ public class ViewGeral implements IViewerGeral{
             menu.executa();
             op = menu.getOpcao();
             switch (op) {
+                case (0):break;
                 case (1):
                     try {
                         login();
@@ -61,6 +62,7 @@ public class ViewGeral implements IViewerGeral{
             menu.executa();
             op = menu.getOpcao();
             switch (op) {
+                case (0):break;
                 case (1):
                     loginTecnico();
                     break;
@@ -83,10 +85,12 @@ public class ViewGeral implements IViewerGeral{
         System.out.println("Introduza Password");
         String password = sc.nextLine();
 
-        //if(!ct.existeTecnico) System.out.println("Login Inválido"); return;
-
-        vt = new ViewTecnico(ct,userName);
-        vt.run();
+        if(ct.validaTecnico(userName,password)) {
+            vt = new ViewTecnico(ct, userName);
+            vt.run();
+        }
+        else
+            System.out.println("ERRO: Dados de Login inválidos");
     }
 
     void loginFuncionario(){
@@ -95,10 +99,12 @@ public class ViewGeral implements IViewerGeral{
         System.out.println("Introduza Password");
         String password = sc.nextLine();
 
-        //if(!ct.existeTecnico) System.out.println("Login Inválido"); return;
-
-        vf = new ViewFuncionario(cf,userName);
-        vf.run();
+        if(cf.validaFuncionario(userName,password)) {
+            vf = new ViewFuncionario(cf, userName);
+            vf.run();
+        }
+        else
+            System.out.println("ERRO: Dados de Login inválidos");
     }
 
     void loginGestor(){
@@ -107,10 +113,12 @@ public class ViewGeral implements IViewerGeral{
         System.out.println("Introduza Password");
         String password = sc.nextLine();
 
-        //if(!ct.existeTecnico) System.out.println("Login Inválido"); return;
-
-        vg = new ViewGestor(cg,userName);
-        vg.run();
+        if(cg.validaGestor(userName,password)) {
+            vg = new ViewGestor(cg, userName);
+            vg.run();
+        }
+        else
+            System.out.println("ERRO: Dados de Login inválidos");
     }
 
     void registar(){
@@ -124,6 +132,7 @@ public class ViewGeral implements IViewerGeral{
             menu.executa();
             op = menu.getOpcao();
             switch (op) {
+                case (0):break;
                 case (1):
                     registaTecnico();
                     break;
@@ -136,6 +145,7 @@ public class ViewGeral implements IViewerGeral{
                     break;
             }
         } while (op != 0);
+        System.out.println("Clique ENTER para continuar");
     }
 
     void registaTecnico(){
