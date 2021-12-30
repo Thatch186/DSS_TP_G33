@@ -96,7 +96,15 @@ public class ViewFuncionario implements IViewerGeral{
         System.out.println("Insira nif do cliente:");
         String nif = sc.nextLine();
 
-        boolean r= controller.registarExpresso(nif, id);
+        int i = 1;
+        for(TipoServicoExpresso s :  TipoServicoExpresso.values()){
+            System.out.println(i + ": " + s);
+            i++;
+        }
+        System.out.println("Escolha Tipo de Serviço: ");
+        int tipo = scan_int(sc,1,TipoServicoExpresso.values().length);
+
+        boolean r= controller.registarExpresso(nif, id, tipo);
         if(r)System.out.println("Expresso registado");
         else System.out.println("ERRO: Registo Falhado");
     }
@@ -138,5 +146,24 @@ public class ViewFuncionario implements IViewerGeral{
             System.out.println("Orçamento rejeitado");
         else
             System.out.println("ERRO: Não foi possivel rejeitar");
+    }
+
+    public static int scan_int(Scanner in, int min, int max) {
+        int integer;
+        try {
+            integer = in.nextInt();
+            if (integer < min || integer > max) {
+                System.out.println("Número inválido, tente outra vez!");
+                in.nextLine();
+                integer = scan_int(in, min, max);
+            }
+            else
+                in.nextLine();
+        } catch (Exception e) {
+            System.out.println("Formato inválido: ");
+            if (in.hasNext()) in.nextLine();
+            integer = scan_int(in, min, max);
+        }
+        return integer;
     }
 }

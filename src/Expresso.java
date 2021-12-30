@@ -33,11 +33,12 @@ public class Expresso {
     /*
     CONSTRUCTORS
      */
-    public Expresso(String idEquipamento,String nifCliente,String idFuncionario,String idTecnico){
+    public Expresso(String idEquipamento,String nifCliente,String idFuncionario,String idTecnico, int tipo){
         this.idEquipamento = idEquipamento;
         this.nifCliente = nifCliente;
         this.idFuncionario = idFuncionario;
         this.idTecnico = idTecnico;
+        this.tipoServico = TipoServicoExpresso.values()[tipo-1];
     }
 
     public Expresso(Expresso outro){
@@ -121,5 +122,14 @@ public class Expresso {
     @Override
     public Expresso clone(){
         return new Expresso(this);
+    }
+
+    /*
+    TO STRING
+     */
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID Eqi: ").append(this.idEquipamento).append(" | Tipo: ").append(this.tipoServico.toString());
+        return sb.toString();
     }
 }

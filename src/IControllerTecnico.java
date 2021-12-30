@@ -14,6 +14,8 @@ public interface IControllerTecnico {
 
      String printOrcamento(String idO);
 
+    String printReparo(String idO);
+
      boolean validaTecnico(String id, String pass);
 
      boolean registaTecnico(String id,String pass);

@@ -161,6 +161,7 @@ public class ViewTecnico implements IViewerGeral{
 
     void consultarEstadoReparacao() {
         if (controller.isOcupado(id)) {
+            System.out.println(controller.printReparo(controller.aReparar(id)));
             String idEquipamento = controller.aReparar(id);
             Menu menu = new Menu(new String[]{
                     "Pausar reparação",

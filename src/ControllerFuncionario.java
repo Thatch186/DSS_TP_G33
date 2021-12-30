@@ -14,8 +14,8 @@ public class ControllerFuncionario implements IControllerFuncionario{
         return this.armazem.addCliente(nif, email, telemovel);
     }
 
-    public boolean registarExpresso(String nifCliente, String idFuncionario){
-        return this.armazem.pedeExpresso(nifCliente, idFuncionario);
+    public boolean registarExpresso(String nifCliente, String idFuncionario, int tipo){
+        return this.armazem.pedeExpresso(nifCliente, idFuncionario,tipo);
     }
 
     public boolean registaLevantamento(String nifCliente, String idFuncionario){

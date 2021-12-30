@@ -74,10 +74,10 @@ public class Armazem implements IModel {
         tecnicos.put(t3.getId(),t3);
         tecnicos.put(t4.getId(),t4);
 
-        registarPedido("1","F1",false);
-        registarPedido("2","F2",false);
-        registarPedido("3","F3",false);
-        registarPedido("4","F4",true);
+        pedeOrcamento("1","F1");
+        pedeOrcamento("2","F2");
+        pedeOrcamento("3","F3");
+        pedeOrcamento("4","F4");
 
         Passo p1 = new Passo((float)3.7, (float)4.5,"Troca de Fusível");
         Passo p2 = new Passo((float)5, (float)2.6,"Troca de Botão");
@@ -257,48 +257,45 @@ public class Armazem implements IModel {
         return false;
     }
 
-    public boolean pedeOrcamento(String cliente, String funcionario){
-        return registarPedido(cliente,funcionario,false);
-    }
-
-    public boolean pedeExpresso(String cliente, String funcionario){
-        return registarPedido(cliente,funcionario,true);
-    }
-
-    private boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
-
+    public boolean pedeOrcamento(String nifCliente, String idFuncionario){
         String idEquipamento = "equipamento"+ codEquip;
         if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento) ||
                 !funcionarios.containsKey(idFuncionario) || !validarCliente(nifCliente)) return false;
 
         equipamentos.put(idEquipamento,new Equipamento(idEquipamento));
         funcionarios.get(idFuncionario).addAtendimento(idEquipamento);
-        if(!isExpresso){
-            Cliente cliente = this.clientes.get(nifCliente);
-            cliente.addEquipamento(idEquipamento);
+        Cliente cliente = this.clientes.get(nifCliente);
+        cliente.addEquipamento(idEquipamento);
 
-            PedidoOrcamento pedido = new PedidoOrcamento(nifCliente, idEquipamento, idFuncionario);
-            this.pedidosOrcamento.put(idEquipamento,pedido);
-        }
-        else {
-            String idTecnico = verificaDisponibilidade();
-            if(idTecnico != null){
-                Cliente cliente = this.clientes.get(nifCliente);
-                cliente.addEquipamento(idEquipamento);
-
-                Expresso expresso = new Expresso(idEquipamento, nifCliente, idFuncionario, idTecnico);
-                Tecnico t = this.tecnicos.get(idTecnico);
-                t.setOcupado(true);
-                t.setaReparar(idEquipamento);
-                this.expressos.put(idEquipamento, expresso);
-            }
-            else
-                return false;
-        }
+        PedidoOrcamento pedido = new PedidoOrcamento(nifCliente, idEquipamento, idFuncionario);
+        this.pedidosOrcamento.put(idEquipamento,pedido);
         codEquip++;
         return true;
     }
 
+    public boolean pedeExpresso(String cliente, String funcionario,int tipo){
+        String idEquipamento = "equipamento"+ codEquip;
+        if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento) ||
+                !funcionarios.containsKey(funcionario) || !validarCliente(cliente)) return false;
+
+        equipamentos.put(idEquipamento,new Equipamento(idEquipamento));
+        funcionarios.get(funcionario).addAtendimento(idEquipamento);
+        String idTecnico = verificaDisponibilidade();
+        if(idTecnico != null){
+            Cliente c = this.clientes.get(cliente);
+            c.addEquipamento(idEquipamento);
+
+            Expresso expresso = new Expresso(idEquipamento, cliente, funcionario, idTecnico,tipo);
+            Tecnico t = this.tecnicos.get(idTecnico);
+            t.setOcupado(true);
+            t.setaReparar(idEquipamento);
+            this.expressos.put(idEquipamento, expresso);
+        }
+        else
+            return false;
+        codEquip++;
+        return true;
+    }
 
     public String verificaDisponibilidade(){
 
@@ -561,6 +558,13 @@ public class Armazem implements IModel {
             }
         }
         return ret;
+    }
+    public String printReparo(String idO){
+        if(isExpresso(idO))
+            return (this.expressos.get(idO)).toString();
+        if(isNormal(idO))
+            return (this.orcamentos.get(idO)).toString();
+        return "Nao Existente!";
     }
 }
 

@@ -3,7 +3,7 @@ public interface IControllerFuncionario {
 
     boolean registaCliente(String nif, String email, String telemovel);
 
-    boolean registarExpresso(String nifCliente, String idFuncionario);
+    boolean registarExpresso(String nifCliente, String idFuncionario, int tipo);
 
     boolean registaLevantamento(String nifCliente, String idFuncionario);
 

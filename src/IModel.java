@@ -42,7 +42,7 @@ public interface IModel{
      */
     boolean registarLevantamento(String idEquipamento, String idFuncionario);
     boolean pedeOrcamento(String cliente, String funcionario);
-    boolean pedeExpresso(String cliente, String funcionario);
+    boolean pedeExpresso(String cliente, String funcionario,int tipo);
     boolean registarOrcamento( PlanoTrabalho pt, String idPedidoOrcamento, String idTecnico);
     boolean registarEquipamentoReparado(String idEquipamento, String idTecnico);
     /*
@@ -69,4 +69,5 @@ public interface IModel{
     float mediaTempoGasto(String idTecnico);
     float mediaTempoEstimado(String idTecnico);
     List<String> intervencoes(String idTecnico);
+    String printReparo(String idO);
 }
