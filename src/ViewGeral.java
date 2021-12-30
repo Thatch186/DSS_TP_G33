@@ -17,8 +17,7 @@ public class ViewGeral implements IViewerGeral{
     public void run(){
         Menu menu = new Menu(new String[]{
                 "Login",
-                "Registar",
-                "Sair"
+                "Registar"
 
         });
         int op;
@@ -36,9 +35,6 @@ public class ViewGeral implements IViewerGeral{
                     }
                 case (2):
                     registar();
-                    break;
-                case (3):
-                    op=0;
                     break;
                 default:
                     sc.nextLine();
