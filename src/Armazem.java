@@ -34,6 +34,7 @@ public class Armazem implements IModel {
 
        public void init(){
 
+        /*/
         Equipamento e1 = new Equipamento("equipamento1");
         Equipamento e2 = new Equipamento("equipamento2");
         Equipamento e3 = new Equipamento("equipamento3");
@@ -41,7 +42,7 @@ public class Armazem implements IModel {
         equipamentos.put(e1.getCodRegisto(),e1);
         equipamentos.put(e2.getCodRegisto(),e2);
         equipamentos.put(e3.getCodRegisto(),e3);
-        equipamentos.put(e4.getCodRegisto(),e4);
+        equipamentos.put(e4.getCodRegisto(),e4);*/
 
         Funcionario f1 = new Funcionario("F1", "f1");
         Funcionario f2 = new Funcionario("F2", "f2");
@@ -77,12 +78,10 @@ public class Armazem implements IModel {
 
         registarPedido("1","F1",false);
         registarPedido("2","F2",false);
-        registarPedido("3","F3",true);
+        registarPedido("3","F3",false);
         registarPedido("4","F4",true);
 
-
-
-           gestor = new Gestor("G1", "pass1");
+        gestor = new Gestor("G1", "pass1");
 
         Estatisticas estatisticas = new Estatisticas();
     }
@@ -269,7 +268,7 @@ public class Armazem implements IModel {
 
     private boolean registarPedido(String nifCliente, String idFuncionario, boolean isExpresso){
 
-        String idEquipamento = "idEquipamento"+ codEquip;
+        String idEquipamento = "equipamento"+ codEquip;
         if(pedidosOrcamento.containsKey(idEquipamento) || expressos.containsKey(idEquipamento)) return false;
         if(!isExpresso){
             Cliente cliente = this.clientes.get(nifCliente);
